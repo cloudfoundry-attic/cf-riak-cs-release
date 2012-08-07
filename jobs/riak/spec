@@ -1,0 +1,7 @@
+--- 
+name: riak
+packages: 
+- riak
+- erlang
+templates: 
+  riak_ctl: bin/riak_ctl
