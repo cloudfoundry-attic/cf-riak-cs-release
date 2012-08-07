@@ -22,7 +22,7 @@ PIDFILE=$RUN_DIR/riak.pid
 
 export PATH=/var/vcap/packages/ruby/bin:$PATH
 
-COMMAND=${COMMAND:-/var/vcap/packages/riak/bin/EXECUTABLE_SERVER}
+COMMAND=${COMMAND:-/var/vcap/packages/riak/bin/riak start}
 HOME=${HOME:-/home/vcap}
 
 case $1 in
