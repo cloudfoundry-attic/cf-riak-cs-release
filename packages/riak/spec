@@ -1,0 +1,6 @@
+--- 
+name: riak
+dependencies: []
+
+files: 
+- riak/riak-1.1.4.tar.gz
