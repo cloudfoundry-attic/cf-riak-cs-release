@@ -3,11 +3,15 @@ set -u # report the usage of uninitialized variables
 
 export HOME=/var/vcap
 
-tar xfz riak/riak-1.1.4.tar.gz
+tar zxf riak/riak-1.1.4.tar.gz
+ 
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting riak"
+  exit 1
+fi
+ 
 (
   cd riak-1.1.4
-  ./configure --prefix=$BOSH_INSTALL_TARGET
   make
-  make install
+  make PREFIX=$BOSH_INSTALL_TARGET install
 )
-
