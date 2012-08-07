@@ -7,9 +7,9 @@ client = Riak::Client.new
 client = Riak::Client.new(:http_backend => :Excon)
 
 # Automatically balance between multiple nodes
-client = Riak::Client.new(:nodes => [
-  {:host => '127.0.0.1'},
-])
+client = Riak::Client.new(:host => '127.0.0.1', :http_port => 8100)
+
+puts client.ping
 
 # Retrieve a bucket
 bucket = client.bucket("doc")  # a Riak::Bucket
