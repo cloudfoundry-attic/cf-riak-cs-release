@@ -16,5 +16,6 @@ fi
 (
   cd riak-1.1.4
   make rel
-  #make PREFIX=$BOSH_INSTALL_TARGET install
+  cd rel/riak
+  cp -r * $BOSH_INSTALL_TARGET
 )
