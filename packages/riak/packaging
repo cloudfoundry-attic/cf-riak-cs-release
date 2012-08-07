@@ -3,6 +3,9 @@ set -u # report the usage of uninitialized variables
 
 export HOME=/var/vcap
 
+# Add erlang binaries to path
+export PATH=$PATH:/var/vcap/packages/erlang/bin
+
 tar zxf riak/riak-1.1.4.tar.gz
  
 if [[ $? != 0 ]] ; then
@@ -12,6 +15,6 @@ fi
  
 (
   cd riak-1.1.4
-  make
-  make PREFIX=$BOSH_INSTALL_TARGET install
+  make rel
+  #make PREFIX=$BOSH_INSTALL_TARGET install
 )
