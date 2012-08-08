@@ -36,7 +36,7 @@ case $1 in
 
     echo $$ > $PIDFILE
 
-    exec $COMMAND >>$LOG_DIR/riak.stdout.log 2>>$LOG_DIR/riak.stderr.log
+    /var/vcap/packages/riak/bin/riak start >>$LOG_DIR/riak.stdout.log 2>>$LOG_DIR/riak.stderr.log
     ;;
 
   stop)
