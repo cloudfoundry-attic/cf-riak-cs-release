@@ -32,6 +32,8 @@ case $1 in
     mkdir -p $LOG_DIR
     mkdir -p $STORE
 
+	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/etc/app.config
+
     echo $$ > $PIDFILE
 
     exec $COMMAND >>$LOG_DIR/riak.stdout.log 2>>$LOG_DIR/riak.stderr.log
