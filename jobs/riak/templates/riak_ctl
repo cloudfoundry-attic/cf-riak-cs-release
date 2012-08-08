@@ -34,7 +34,7 @@ case $1 in
 
 	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/etc/app.config
 
-    echo $$ > $PIDFILE
+    #echo $$ > $PIDFILE
 
     /var/vcap/packages/riak/bin/riak start >>$LOG_DIR/riak.stdout.log 2>>$LOG_DIR/riak.stderr.log
     ;;
