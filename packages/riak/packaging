@@ -6,7 +6,7 @@ export HOME=/var/vcap
 # Add erlang binaries to path
 export PATH=$PATH:/var/vcap/packages/erlang/bin
 
-tar zxf riak/riak-1.1.4.tar.gz
+tar zxf riak/riak-1.2.0.tar.gz
  
 if [[ $? != 0 ]] ; then
   echo "Failed extracting riak"
@@ -14,7 +14,7 @@ if [[ $? != 0 ]] ; then
 fi
  
 (
-  cd riak-1.1.4
+  cd riak-1.2.0
   make rel
   cd rel/riak
   cp -r * $BOSH_INSTALL_TARGET
