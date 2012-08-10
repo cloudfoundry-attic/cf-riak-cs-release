@@ -21,8 +21,8 @@ cd riak-${RIAK_VERSION}
 # riak-1.1.4 failed to contain leveldb
 # https://github.com/basho/riak/issues/191
 cd deps/eleveldb/c_src/
-unzip ${BOSH_COMPILE_TARGET}/leveldb/leveldb-14478f17.zip
-mv basho-leveldb-14478f1 leveldb
+unzip ${BOSH_COMPILE_TARGET}/riak/leveldb-14478f17.zip
+mv basho-leveldb-2aebdd9 leveldb
 
 cd ${BOSH_COMPILE_TARGET}/riak-${RIAK_VERSION}
 # make rel/riak
