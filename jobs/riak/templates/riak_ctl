@@ -33,11 +33,11 @@ case $1 in
     mkdir -p $STORE
 
 	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/etc/app.config
-    /var/vcap/packages/riak/bin/riak start
+    /var/vcap/packages/riak/rel/bin/riak start
     ;;
 
   stop)
-    /var/vcap/packages/riak/bin/riak stop
+    /var/vcap/packages/riak/rel/bin/riak stop
     ;;
 
   logs)
