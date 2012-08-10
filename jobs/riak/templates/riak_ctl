@@ -34,10 +34,13 @@ case $1 in
 
 	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
     /var/vcap/packages/riak/rel/bin/riak start
+	ps -A | grep beam | awk '{split($0,a,/ /); print a[2]}' > $PIDFILE
     ;;
 
   stop)
     /var/vcap/packages/riak/rel/bin/riak stop
+	while [ -e /proc/$PID ]; do sleep 0.1; done
+	    rm -f $PIDFILE
     ;;
 
   logs)
