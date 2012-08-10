@@ -1,6 +1,4 @@
-check process riak matching "/var/vcap/packages/riak/erts-5.8.5/bin/beam" 
+check process riak matching "/var/vcap/packages/riak/rel/erts-5.8.5/bin/beam" 
   start program "/var/vcap/jobs/riak/bin/riak_ctl start"
   stop program "/var/vcap/jobs/riak/bin/riak_ctl stop"
-	if failed host localhost port 8098
-		protocol HTTP request "/" then alert 
   group vcap
