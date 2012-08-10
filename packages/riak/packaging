@@ -10,6 +10,9 @@ RIAK_VERSION=1.2.0
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/erlang/bin:$PATH
 
+echo $PATH 1>&2
+ls /var/vcap/packages/erlang/bin 1>&2
+
 tar xzf riak/riak-${RIAK_VERSION}.tar.gz
 cd riak-${RIAK_VERSION}
 
