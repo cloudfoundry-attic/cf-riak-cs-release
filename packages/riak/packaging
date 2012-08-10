@@ -1,21 +1,43 @@
+#!/usr/bin/env bash
+
+# This creates 5 copies of riak/riak-admin etc
+# - /var/vcap/packages/riak/rel/bin/riak
+# - /var/vcap/packages/riak/dev1/bin/riak
+# - /var/vcap/packages/riak/dev2/bin/riak
+# - /var/vcap/packages/riak/dev3/bin/riak
+# - /var/vcap/packages/riak/dev4/bin/riak
+
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
+set +x
 
+RIAK_VERSION=1.1.4
 export HOME=/var/vcap
+PATH=/var/vcap/packages/erlang/bin:$PATH
 
-# Add erlang binaries to path
-export PATH=$PATH:/var/vcap/packages/erlang/bin
+tar xzf riak/riak-${RIAK_VERSION}.tar.gz
+cd riak-${RIAK_VERSION}
 
-tar zxf riak/riak-1.2.0.tar.gz
- 
-if [[ $? != 0 ]] ; then
-  echo "Failed extracting riak"
-  exit 1
-fi
- 
-(
-  cd riak-1.2.0
-  make rel
-  cd rel/riak
-  cp -r * $BOSH_INSTALL_TARGET
-)
+# riak-1.1.4 failed to contain leveldb
+# https://github.com/basho/riak/issues/191
+cd deps/eleveldb/c_src/
+unzip ${BOSH_COMPILE_TARGET}/leveldb/leveldb-14478f17.zip
+mv basho-leveldb-14478f1 leveldb
+
+cd ${BOSH_COMPILE_TARGET}/riak-${RIAK_VERSION}
+# make rel/riak
+make rel
+
+# output is in rel/riak
+cp -prv rel/riak ${BOSH_INSTALL_TARGET}/rel
+
+# https://wiki.basho.com/Building-a-Development-Environment.html
+# make 4 copies of riak:
+# - dev/dev1
+# - dev/dev2
+# - dev/dev3
+# - dev/dev4
+make devrel
+
+# output is in dev1/riak, dev2/riak, dev3/riak, dev4/riak
+cp -prv dev/* ${BOSH_INSTALL_TARGET}
