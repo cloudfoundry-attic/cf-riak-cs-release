@@ -39,8 +39,7 @@ case $1 in
 
   stop)
     /var/vcap/packages/riak/rel/bin/riak stop
-	while [ -e /proc/$PID ]; do sleep 0.1; done
-	    rm -f $PIDFILE
+	rm -f $PIDFILE
     ;;
 
   logs)
