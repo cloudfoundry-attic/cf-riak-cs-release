@@ -32,7 +32,7 @@ case $1 in
     mkdir -p $LOG_DIR
     mkdir -p $STORE
 
-	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/etc/app.config
+	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
     /var/vcap/packages/riak/rel/bin/riak start
     ;;
 
