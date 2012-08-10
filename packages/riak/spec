@@ -1,7 +1,7 @@
 --- 
 name: riak
-dependencies: []
-
+dependencies:
+- erlang
 files: 
 - riak/riak-1.2.0.tar.gz
 - riak/leveldb-14478f17.zip
