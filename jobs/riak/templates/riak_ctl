@@ -21,6 +21,7 @@ STORE=/var/vcap/store/riak
 PIDFILE=$RUN_DIR/riak.pid
 
 export PATH=/var/vcap/packages/ruby/bin:$PATH
+export HOME=/var/vcap
 
 COMMAND=${COMMAND:-/var/vcap/packages/riak/rel/bin/riak start}
 HOME=${HOME:-/home/vcap}
@@ -34,7 +35,7 @@ case $1 in
 
 	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
     /var/vcap/packages/riak/rel/bin/riak start
-	ps -A | grep beam | awk '{split($0,a,/ /); print a[2]}' > $PIDFILE
+	ps -A | grep beam | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
     ;;
 
   stop)
