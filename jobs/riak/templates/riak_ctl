@@ -34,6 +34,7 @@ case $1 in
     mkdir -p $STORE
 
 	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
+	cp /var/vcap/jobs/riak/config/vm.args /var/vcap/packages/riak/rel/etc/vm.args
     /var/vcap/packages/riak/rel/bin/riak start
 	ps -A | grep beam | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
     ;;
