@@ -39,8 +39,8 @@
               %% Default cert and key locations for https can be overridden
               %% with the ssl config variable, for example:
               %{ssl, [
-              %       {certfile, "./etc/cert.pem"},
-              %       {keyfile, "./etc/key.pem"}
+              %       {certfile, "/var/vcap/packages/riak/rel/etc/cert.pem"},
+              %       {keyfile, "/var/vcap/packages/riak/rel/etc/key.pem"}
               %      ]},
 
               %% riak_handoff_port is the TCP port that Riak uses for
