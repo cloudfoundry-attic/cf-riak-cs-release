@@ -34,13 +34,13 @@
 
               %% https is a list of IP addresses and TCP ports that the Riak
               %% HTTPS interface will bind.
-              %{https, [{ "0.0.0.0", 8098 }]},
+              %{https, [{ "0.0.0.0", 8069 }]},
 
               %% Default cert and key locations for https can be overridden
               %% with the ssl config variable, for example:
               %{ssl, [
-              %       {certfile, "/etc/cert.pem"},
-              %       {keyfile, "/etc/key.pem"}
+              %       {certfile, "./etc/cert.pem"},
+              %       {keyfile, "./etc/key.pem"}
               %      ]},
 
               %% riak_handoff_port is the TCP port that Riak uses for
