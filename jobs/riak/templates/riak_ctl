@@ -42,8 +42,12 @@ case $1 in
 	sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
 	/var/vcap/packages/riak/rel/bin/riak-admin reip riak@127.0.0.1 riak@$IP_ADDR
 	
+	# Start riak
     /var/vcap/packages/riak/rel/bin/riak start
 	ps -A | grep beam | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
+	
+	# Join the cluster
+	bash /var/vcap/jobs/riak/join_cluster.sh
     ;;
 
   stop)

@@ -1,4 +1,5 @@
 jobs: 
 - riak
 properties:
-    
+    riak:
+        seed_node: 192.168.10.10

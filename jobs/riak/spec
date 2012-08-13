@@ -6,4 +6,5 @@ packages:
 templates: 
   riak_ctl: bin/riak_ctl
   app.config.erb: config/app.config
-  vm.args.erb: vm.args
+  vm.args.erb: config/vm.args
+  join_cluster.sh.erb: join_cluster.sh
