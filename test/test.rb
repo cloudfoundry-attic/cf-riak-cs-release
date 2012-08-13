@@ -7,7 +7,7 @@ client = Riak::Client.new
 client = Riak::Client.new(:http_backend => :Excon)
 
 # Automatically balance between multiple nodes
-client = Riak::Client.new(:host => '127.0.0.1', :http_port => 8100)
+client = Riak::Client.new(:host => '192.168.10.10', :http_port => 8098)
 
 puts client.ping
 
