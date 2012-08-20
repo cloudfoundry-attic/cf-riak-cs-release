@@ -1,6 +1,9 @@
 --- 
 blobstore: 
-  provider: local
+  provider: s3
   options: 
-    blobstore_path: /tmp/blobstore
-min_cli_version: 0.19.5
+    bucket_name: bosh_blobstore
+    access_key_id: AKIAJU33TO2RSV5FDVTQ
+    secret_access_key: 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
+    encryption_key: 123@234@345+abc+bcd+cde
+min_cli_version: 0.19.6
