@@ -1,6 +1,7 @@
 Vagrant::Config.run do |config|
-  config.vm.box = "lucid64"
-  config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
+  config.vm.box = "bosh-solo-0.6.4"
+  downloads = "https://github.com/downloads/drnic/bosh-solo/"
+  config.vm.box_url = "#{downloads}bosh-solo-0.6.4.box"
 
   config.vm.network :hostonly, "192.168.10.10"
 
