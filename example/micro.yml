@@ -1,0 +1,13 @@
+---
+deployment: appcloud
+
+jobs: 
+- name: riak
+  template:
+  - riak
+properties:
+
+  micro: true
+
+  riak:
+    seed_node: 10.0.2.15
