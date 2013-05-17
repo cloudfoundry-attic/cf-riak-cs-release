@@ -14,3 +14,9 @@ blobs/*
 *~
 *#
 #*
+
+# nise-bosh-vagrant
+Vagrantfile
+.nise-bosh-manifest.yml
+.nise_bosh_install.sh
+.nise-bosh-install.sh
