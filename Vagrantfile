@@ -1,13 +1,13 @@
-Vagrant::Config.run do |config|
-  config.vm.box = "bosh-solo-0.6.4"
-  downloads = "https://github.com/downloads/drnic/bosh-solo/"
-  config.vm.box_url = "#{downloads}bosh-solo-0.6.4.box"
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-  config.vm.network :hostonly, "192.168.10.10"
+Vagrant.configure("2") do |config|
+  config.vm.box = "lucid64"
+  config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
 
-  config.vm.provision :shell, :path => "scripts/vagrant-setup.sh"
+  config.vm.network :private_network, ip: "192.168.10.10"
 
-  if local_bosh_src = ENV['BOSH_SRC']
-    config.vm.share_folder "bosh-src", "/bosh", local_bosh_src
-  end
+  
+  config.vm.synced_folder "/Users/brian/Documents/checkouts/riak-release", "/home/vagrant/release"
+  config.vm.synced_folder "/Users/brian/Documents/checkouts/nise-bosh-vagrant/lib/nise-bosh-vagrant/../../scripts", "/home/vagrant/scripts"
 end
