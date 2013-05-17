@@ -1,3 +1,16 @@
 #!/bin/bash
 
 /var/vcap/packages/riak/rel/bin/riak-admin cluster join riak@<%= properties.riak.seed_node || "127.0.0.1" %>
+
+ready="`/var/vcap/packages/riak/rel/bin/riak-admin ringready`"
+is_ready=false
+
+while [ !is_ready ]
+do
+    if [[ $ready == *"TRUE"* ]]
+    then
+		is_ready=true
+    else
+    	sleep 1
+    fi
+done
