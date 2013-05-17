@@ -33,26 +33,26 @@ case $1 in
     mkdir -p $LOG_DIR
     mkdir -p $STORE
 
-	# Put the config files in place
-	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
-	cp /var/vcap/jobs/riak/config/vm.args /var/vcap/packages/riak/rel/etc/vm.args
-	
-	# Update vm.args with current IP address
-	IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
-	sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
-	/var/vcap/packages/riak/rel/bin/riak-admin reip riak@127.0.0.1 riak@$IP_ADDR
-	
-	# Start riak
+  	# Put the config files in place
+  	cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
+  	cp /var/vcap/jobs/riak/config/vm.args /var/vcap/packages/riak/rel/etc/vm.args
+  	
+  	# Update vm.args with current IP address
+  	IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
+  	sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
+  	/var/vcap/packages/riak/rel/bin/riak-admin reip riak@127.0.0.1 riak@$IP_ADDR
+  	
+  	# Start riak
     /var/vcap/packages/riak/rel/bin/riak start
-	ps -A | grep beam | sed -e 's/^[ \t]*//' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
-	
-	# Join the cluster
-	bash /var/vcap/jobs/riak/join_cluster.sh
+  	ps -A | grep beam | sed -e 's/^[ \t]*//' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
+  	
+  	# Join the cluster
+  	bash /var/vcap/jobs/riak/join_cluster.sh
     ;;
 
   stop)
     /var/vcap/packages/riak/rel/bin/riak stop
-	rm -f $PIDFILE
+	  rm -f $PIDFILE
     ;;
 
   logs)
