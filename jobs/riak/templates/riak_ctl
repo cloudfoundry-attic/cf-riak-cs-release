@@ -49,8 +49,11 @@ case $1 in
     /var/vcap/packages/riak/rel/bin/riak start
   	ps -A | grep beam | sed -e 's/^[ \t]*//' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
   	
-  	# Join the cluster
-  	bash /var/vcap/jobs/riak/join_cluster.sh
+  	# Join the cluster if we arn't the seed node
+    if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
+    then
+  	 bash /var/vcap/jobs/riak/join_cluster.sh
+    fi
     ;;
 
   stop)
