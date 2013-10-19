@@ -1,9 +1,9 @@
---- 
-blobstore: 
+---
+blobstore:
   provider: s3
-  options: 
+  options:
     bucket_name: bosh_blobstore
     access_key_id: AKIAJU33TO2RSV5FDVTQ
     secret_access_key: 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
     encryption_key: 123@234@345+abc+bcd+cde
-min_cli_version: 1.0.3
+min_cli_version: 1.5.0.pre.1117

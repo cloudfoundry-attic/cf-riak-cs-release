@@ -3,6 +3,7 @@ name: riak
 packages: 
 - riak
 - erlang
+- git
 templates: 
   riak_ctl: bin/riak_ctl
   app.config.erb: config/app.config
