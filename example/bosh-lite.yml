@@ -1,5 +1,5 @@
 name: riak-warden
-director_uuid: d27e89bc-0712-4dc0-8eea-030114d2f12e
+director_uuid: 3dff1150-0c04-4288-b44a-0033e51baa23
 
 releases:
 - name: riak
@@ -21,7 +21,7 @@ update:
 resource_pools:
 - name: common
   network: riak-network
-  size: 3
+  size: 4
   stemcell:
     name: bosh-stemcell
     version: latest
@@ -60,7 +60,7 @@ networks:
 jobs: 
 - name: riak
   template: riak
-  instances: 3
+  instances: 4
   resource_pool: common
   networks:
   - name: riak-network
@@ -68,6 +68,7 @@ jobs:
     - 10.244.0.2
     - 10.244.0.6
     - 10.244.0.10
+    - 10.244.0.14
   persistent_disk: 4096
   properties:
     riak:
