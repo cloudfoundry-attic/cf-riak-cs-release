@@ -1,5 +1,5 @@
 name: riak-warden
-director_uuid: 3dff1150-0c04-4288-b44a-0033e51baa23
+director_uuid: baa7daa0-760a-425b-88d8-1f48c2d9feaf
 
 releases:
 - name: riak
@@ -16,7 +16,7 @@ update:
   canaries: 1
   canary_watch_time: 30000-240000
   update_watch_time: 30000-600000
-  max_in_flight: 4
+  max_in_flight: 3
 
 resource_pools:
 - name: common
@@ -70,6 +70,7 @@ jobs:
     - 10.244.0.10
     - 10.244.0.14
   persistent_disk: 4096
-  properties:
-    riak:
-      seed_node: 10.244.0.2
+
+properties:
+  riak:
+    seed_node: 10.244.0.2
