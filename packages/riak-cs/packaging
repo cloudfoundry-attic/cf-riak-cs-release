@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# - /var/vcap/packages/riak-cs/rel/bin/riak-cs
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+set +x
+
+RIAK_CS_VERSION=1.4.4
+export HOME=/var/vcap
+export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
+
+tar xf riak-cs/riak-cs-${RIAK_CS_VERSION}.tar.gz
+
+# Compile riak-cs
+cd riak-cs-${RIAK_CS_VERSION}
+make rel
+
+# output is in rel/riak-cs
+cp -prv rel/riak-cs ${BOSH_INSTALL_TARGET}/rel

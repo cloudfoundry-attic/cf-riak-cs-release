@@ -1,0 +1,8 @@
+---
+name: riak-cs
+packages:
+- riak-cs
+templates:
+  riak-cs_ctl: bin/riak-cs_ctl
+  app.config.erb: config/app.config
+  vm.args.erb: config/vm.args

@@ -1,0 +1,7 @@
+--- 
+name: stanchion
+dependencies:
+- erlang
+- git
+files:
+- stanchion/stanchion-1.4.3.tar.gz

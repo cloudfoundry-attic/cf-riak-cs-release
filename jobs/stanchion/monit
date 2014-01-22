@@ -1,0 +1,5 @@
+check process stanchion
+  with pidfile /var/vcap/sys/run/stanchion/stanchion.pid
+  start program "/var/vcap/jobs/stanchion/bin/stanchion_ctl start"
+  stop program "/var/vcap/jobs/stanchion/bin/stanchion_ctl stop"
+  group vcap

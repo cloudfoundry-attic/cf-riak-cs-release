@@ -1,0 +1,8 @@
+---
+name: stanchion
+packages:
+- stanchion
+templates:
+  stanchion_ctl: bin/stanchion_ctl
+  app.config.erb: config/app.config
+  vm.args.erb: config/vm.args
