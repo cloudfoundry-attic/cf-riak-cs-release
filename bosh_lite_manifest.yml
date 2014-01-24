@@ -57,6 +57,9 @@ networks:
       name: random
 <% end %>
 
+riak_seed_node: &riak_seed_node "10.244.0.2"
+stanchion_ip: &stanchion_ip "10.244.0.18"
+
 jobs:
 - name: riak-cs
   template:
@@ -67,7 +70,7 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips:
-    - 10.244.0.2
+    - *riak_seed_node
     - 10.244.0.6
     - 10.244.0.10
     - 10.244.0.14
@@ -79,10 +82,20 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips:
-    - 10.244.0.18
+      - *stanchion_ip
   persistent_disk: 4096
 
 
 properties:
   riak:
-    seed_node: 10.244.0.2
+    seed_node: *riak_seed_node
+  riak_cs:
+    # NOTE: 'anonymous_user_creation' must be set to true in order to create an admin user.
+    # After the admin user is created,
+    # populate the admin_key and admin_secret fields with the admin users's
+    # credentials and set this field back to false.
+    anonymous_user_creation: false
+    admin_key: "admin-key"
+    admin_secret: "admin-secret"
+  stanchion:
+    ip: *stanchion_ip

@@ -16,14 +16,18 @@
 ## Treat error_logger warnings as warnings
 +W w
 
-## Increase number of concurrent ports/sockets
--env ERL_MAX_PORTS 4096
+## This setting is not present in default Riak installations, so
+## it should be added when using Riak with Riak CS.
++zdbbl 96000
 
-## Tweak GC to run more often 
+## Increase number of concurrent ports/sockets
+-env ERL_MAX_PORTS 64000
+
+## Tweak GC to run more often
 -env ERL_FULLSWEEP_AFTER 0
 
 ## Set the location of crash dumps
--env ERL_CRASH_DUMP {{crash_dump}}
+-env ERL_CRASH_DUMP "./log/erl_crash.dump"
 
 ## Begin SSL distribution items, DO NOT DELETE OR EDIT THIS COMMENT
 
@@ -32,8 +36,8 @@
 ## point to correct PEM data files.  See docs TODO for details.
 
 ## -proto_dist inet_ssl
-## -ssl_dist_opt client_certfile "{{platform_etc_dir}}/erlclient.pem"
-## -ssl_dist_opt server_certfile "{{platform_etc_dir}}/erlserver.pem"
+## -ssl_dist_opt client_certfile "./etc/erlclient.pem"
+## -ssl_dist_opt server_certfile "./etc/erlserver.pem"
 
 ## End SSL distribution items, DO NOT DELETE OR EDIT THIS COMMENT
 

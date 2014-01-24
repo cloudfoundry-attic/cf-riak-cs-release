@@ -3,23 +3,23 @@
 [
  %% Stanchion config
  {stanchion, [
-                   {stanchion_ip, "{{stanchion_ip}}"},
-                   {stanchion_port, {{stanchion_port}} } ,
+                   {stanchion_ip, "127.0.0.1"},
+                   {stanchion_port, 8085} ,
 
                    %%{ssl, [
                    %%       {certfile, "./etc/cert.pem"},
                    %%       {keyfile, "./etc/key.pem"}
                    %%      ]},
 
-                   {auth_bypass, {{auth_bypass}} } ,
+                   {auth_bypass, false} ,
 
                    %% Riak connection details
-                   {riak_ip, "{{riak_ip}}"},
-                   {riak_pb_port, {{riak_pb_port}} },
+                   {riak_ip, "<%= properties.riak.seed_node %>"},
+                   {riak_pb_port, 8087 },
 
                    %% Admin user credentials
-                   {admin_key, "{{admin_key}}"},
-                   {admin_secret, "{{admin_secret}}"}
+                   {admin_key, "<%= properties.riak_cs.admin_key %>"},
+                   {admin_secret, "<%= properties.riak_cs.admin_secret %>"}
                   ]},
 
  {lager, [
@@ -35,12 +35,12 @@
           %% consists of {Logfile, Level}.
           {handlers, [
                       {lager_console_backend, info},
-                      {lager_file_backend, [{file, "{{platform_log_dir}}/error.log"},
+                      {lager_file_backend, [{file, "./log/error.log"},
                                             {level, error},
                                             {size, 10485760},
                                             {date, "$D0"},
                                             {count, 5}]},
-                      {lager_file_backend, [{file, "{{platform_log_dir}}/console.log"},
+                      {lager_file_backend, [{file, "./log/console.log"},
                                             {level, info},
                                             {size, 10485760},
                                             {date, "$D0"},
@@ -49,7 +49,7 @@
 
           %% Whether to write a crash log, and where.
           %% Commented/omitted/undefined means no crash logger.
-          {crash_log, "{{platform_log_dir}}/crash.log"},
+          {crash_log, "./log/crash.log"},
 
           %% Maximum size in bytes of events in the crash log - defaults to 65536
           {crash_log_msg_size, 65536},
