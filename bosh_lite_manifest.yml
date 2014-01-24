@@ -1,3 +1,11 @@
+<%
+  riak_cs_node_count = 4
+  total_node_count = riak_cs_node_count + 1
+  network_ip_base = "10.244.0"
+  riak_seed_node_ip = "#{network_ip_base}.2"
+  stanchion_ip = "#{network_ip_base}.#{riak_cs_node_count*4 + 2}"
+%>
+
 name: riak-cs-warden
 director_uuid: a725732d-dbc3-40c9-949c-e9c31d1717e0
 
@@ -31,49 +39,38 @@ resource_pools:
 networks:
 - name: riak-cs-network
   subnets:
-<% (0..28).each_with_index do |i| %>
-  - range: 10.244.0.<%= i*4 %>/30
+<% (0..(total_node_count-1)).each do |i| %>
+  - range: <%= "#{network_ip_base}.#{i*4}/30" %>
     reserved:
-      - 10.244.0.<%= i*4 + 1 %>
+      - <%= "#{network_ip_base}.#{i*4 + 1}" %>
     static:
-      - 10.244.0.<%= i*4 + 2 %>
+      - <%= "#{network_ip_base}.#{i*4 + 2}" %>
     cloud_properties:
       name: random
 <% end %>
-<% (29..61).each_with_index do |i| %>
-  - range: 10.244.0.<%= i*4 %>/30
+# these additional subnets are not used; they've been added as a workaround
+# for this bug: https://github.com/cloudfoundry/bosh/issues/373
+<% (total_node_count..(2*total_node_count-1)).each do |i| %>
+  - range: <%= "#{network_ip_base}.#{i*4}/30" %>
     reserved:
-      - 10.244.0.<%= i*4 + 1 %>
+      - <%= "#{network_ip_base}.#{i*4 + 1}" %>
     cloud_properties:
       name: random
 <% end %>
-<% (62..63).each_with_index do |i| %>
-  - range: 10.244.0.<%= i*4 %>/30
-    reserved:
-      - 10.244.0.<%= i*4 + 1 %>
-    static:
-      - 10.244.0.<%= i*4 + 2 %>
-    cloud_properties:
-      name: random
-<% end %>
-
-riak_seed_node: &riak_seed_node "10.244.0.2"
-stanchion_ip: &stanchion_ip "10.244.0.18"
 
 jobs:
 - name: riak-cs
   template:
   - riak
   - riak-cs
-  instances: 4
+  instances: <%= riak_cs_node_count %>
   resource_pool: common
   networks:
   - name: riak-cs-network
     static_ips:
-    - *riak_seed_node
-    - 10.244.0.6
-    - 10.244.0.10
-    - 10.244.0.14
+<% (0..(riak_cs_node_count-1)).each do |i| %>
+    - <%= "#{network_ip_base}.#{i*4 + 2}" %>
+<% end %>
   persistent_disk: 4096
 - name: stanchion
   template: stanchion
@@ -82,18 +79,18 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips:
-      - *stanchion_ip
+    - <%= stanchion_ip %>
   persistent_disk: 4096
 
 
 properties:
   riak:
-    seed_node: *riak_seed_node
+    seed_node: <%= riak_seed_node_ip %>
   riak_cs:
     # NOTE: 'anonymous_user_creation' must be set to true in order to create an admin user.
     # To create an admin user:
     # curl -H 'Content-Type: application/json' \
-    #      -X POST http://<riak_seed_node>:8080/riak-cs/user \
+    #      -X POST http://<riak_seed_node_ip>:8080/riak-cs/user \
     #      --data '{"email":"admin@admin.com", "name":"Admin User"}'
     # After the admin user is created, populate the admin_key and admin_secret fields
     # with the admin users's credentials and set 'anonymous_user_creation' field back to false.
@@ -101,4 +98,4 @@ properties:
     admin_key: "admin-key"
     admin_secret: "admin-secret"
   stanchion:
-    ip: *stanchion_ip
+    ip: <%= stanchion_ip %>
