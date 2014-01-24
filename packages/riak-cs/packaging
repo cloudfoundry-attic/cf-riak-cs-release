@@ -18,3 +18,6 @@ make rel
 
 # output is in rel/riak-cs
 cp -prv rel/riak-cs ${BOSH_INSTALL_TARGET}/rel
+
+# create a symlinked dir that has no version number for libraries directly accessed by the job 
+ln -s ${BOSH_INSTALL_TARGET}/rel/lib/riak_cs-${RIAK_CS_VERSION} ${BOSH_INSTALL_TARGET}/rel/lib/riak_cs
