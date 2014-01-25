@@ -1,0 +1,88 @@
+name: riak-cs-warden
+director_uuid: a725732d-dbc3-40c9-949c-e9c31d1717e0
+
+releases:
+- name: riak-cs-dev
+  version: latest
+
+compilation:
+  workers: 2
+  network: riak-cs-network
+  reuse_compilation_vms: true
+  cloud_properties:
+    name: random
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+resource_pools:
+- name: common
+  network: riak-cs-network
+  size: 5
+  stemcell:
+    name: bosh-stemcell
+    version: latest
+  cloud_properties:
+    name: random
+
+networks:
+- name: riak-cs-network
+  subnets:
+<% (0..28).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
+    reserved:
+      - 10.244.0.<%= i*4 + 1 %>
+    static:
+      - 10.244.0.<%= i*4 + 2 %>
+    cloud_properties:
+      name: random
+<% end %>
+<% (29..61).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
+    reserved:
+      - 10.244.0.<%= i*4 + 1 %>
+    cloud_properties:
+      name: random
+<% end %>
+<% (62..63).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
+    reserved:
+      - 10.244.0.<%= i*4 + 1 %>
+    static:
+      - 10.244.0.<%= i*4 + 2 %>
+    cloud_properties:
+      name: random
+<% end %>
+
+jobs:
+- name: riak-cs
+  template:
+  - riak
+  - riak-cs
+  instances: 4
+  resource_pool: common
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - 10.244.0.2
+    - 10.244.0.6
+    - 10.244.0.10
+    - 10.244.0.14
+  persistent_disk: 4096
+- name: stanchion
+  template: stanchion
+  instances: 1
+  resource_pool: common
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - 10.244.0.18
+  persistent_disk: 4096
+
+
+properties:
+  riak:
+    seed_node: 10.244.0.2
