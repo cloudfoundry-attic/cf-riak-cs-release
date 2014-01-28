@@ -42,7 +42,7 @@ case $1 in
 
     # Start riak-cs
     /var/vcap/packages/riak-cs/rel/bin/riak-cs start
-    ps -A | grep beam | sed -e 's/^[ \t]*//' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
+    pgrep -f 'beam.*riak-cs' > $PIDFILE
     ;;
 
   stop)
