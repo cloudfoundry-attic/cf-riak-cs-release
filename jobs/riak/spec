@@ -1,10 +1,10 @@
---- 
+---
 name: riak
-packages: 
+packages:
 - riak
 - erlang
 - git
-templates: 
+templates:
   riak_ctl: bin/riak_ctl
   app.config.erb: config/app.config
   vm.args.erb: config/vm.args
