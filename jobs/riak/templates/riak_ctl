@@ -36,7 +36,7 @@ case $1 in
     # Put the config files in place
     cp /var/vcap/jobs/riak/config/app.config /var/vcap/packages/riak/rel/etc/app.config
     cp /var/vcap/jobs/riak/config/vm.args /var/vcap/packages/riak/rel/etc/vm.args
-  	
+
     # Set the max open file limit
     ulimit -n 65536
 
@@ -44,16 +44,16 @@ case $1 in
     IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/app.config
-  	
+
     # Start riak
     /var/vcap/packages/riak/rel/bin/riak start
     # find the PID of the riak process not the riak-cs process
-    pgrep -f 'beam.*riak' | xargs ps | grep -v 'riak-cs' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
+    pgrep -f 'beam.*riak' | xargs ps h | grep -v 'riak-cs' | awk '{print $1}' > $PIDFILE
 
     # Join the cluster if we arn't the seed node
     if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
     then
-  	 bash /var/vcap/jobs/riak/join_cluster.sh
+      bash /var/vcap/jobs/riak/join_cluster.sh
     fi
     ;;
 
