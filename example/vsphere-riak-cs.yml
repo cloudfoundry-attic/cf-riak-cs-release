@@ -1,0 +1,99 @@
+<%
+  riak_cs_node_count = 3
+  total_node_count = riak_cs_node_count + 1 # +1 for stanchion
+  riak_ips = %w(10.0.0.131 10.0.0.132 10.0.0.133)
+  riak_seed_node_ip = riak_ips.first
+  stanchion_ip = "10.0.0.134"
+%>
+
+name: riak-cs
+director_uuid: PLACEHOLDER
+
+releases:
+- name: riak-cs
+  version: latest
+
+compilation:
+  workers: 2
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties: &vm_cloud_properties
+    name: random
+    ram: 4096
+    disk: 4096
+    cpu: 2
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+resource_pools:
+- name: common
+  network: default
+  size: <%= total_node_count %>
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu
+    version: '1266'
+  cloud_properties: *vm_cloud_properties
+
+networks:
+- name: default
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns:
+    - 10.0.0.3
+    - 8.8.8.8
+    static:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+    - <%= stanchion_ip %>
+    reserved:
+    - 10.0.0.2-10.0.0.130
+    - 10.0.0.150-10.0.0.254
+    cloud_properties:
+      name: one
+
+jobs:
+- name: riak-cs
+  template:
+  - riak
+  - riak-cs
+  instances: <%= riak_cs_node_count %>
+  resource_pool: common
+  networks:
+  - name: default
+    static_ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+  persistent_disk: 4096
+- name: stanchion
+  template: stanchion
+  instances: 1
+  resource_pool: common
+  networks:
+  - name: default
+    static_ips:
+    - <%= stanchion_ip %>
+  persistent_disk: 4096
+
+properties:
+  riak:
+    seed_node: <%= riak_seed_node_ip %>
+  riak_cs:
+    # NOTE: 'anonymous_user_creation' must be set to true in order to create an admin user.
+    # To create an admin user:
+    # curl -H 'Content-Type: application/json' \
+    #      -X POST http://<riak_seed_node_ip>:8080/riak-cs/user \
+    #      --data '{"email":"admin@admin.com", "name":"Admin User"}'
+    # After the admin user is created, populate the admin_key and admin_secret fields
+    # with the admin users's credentials and set 'anonymous_user_creation' field back to false.
+    anonymous_user_creation: true
+    admin_key: "admin-key"
+    admin_secret: "admin-secret"
+  stanchion:
+    ip: <%= stanchion_ip %>
