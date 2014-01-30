@@ -1,6 +1,6 @@
-# riak-release - BOSH Release
+# riak-release
 
-This project is a BOSH release for `riak-release`.
+A BOSH release for Riak and Riak CS.
 
 Example manifests are in `example/`.
 
