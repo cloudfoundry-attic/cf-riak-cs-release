@@ -1,9 +1,10 @@
 <%
   riak_cs_node_count = 3
   total_node_count = riak_cs_node_count + 1 # +1 for stanchion
-  riak_ips = %w(10.0.0.131 10.0.0.132 10.0.0.133)
+  network_ip_base = "10.0.0"
+  riak_ips = 1.upto(riak_cs_node_count).map { |n| "#{network_ip_base}.#{130 + n}" }
   riak_seed_node_ip = riak_ips.first
-  stanchion_ip = "10.0.0.134"
+  stanchion_ip = "#{network_ip_base}.#{130 + riak_cs_node_count + 1}"
 %>
 
 name: riak-cs
@@ -41,10 +42,10 @@ resource_pools:
 networks:
 - name: default
   subnets:
-  - range: 10.0.0.0/24
-    gateway: 10.0.0.1
+  - range: <%= network_ip_base %>.0/24
+    gateway: <%= network_ip_base %>.1
     dns:
-    - 10.0.0.3
+    - <%= network_ip_base %>.3
     - 8.8.8.8
     static:
     <% riak_ips.each do |ip| %>
@@ -52,8 +53,8 @@ networks:
     <% end %>
     - <%= stanchion_ip %>
     reserved:
-    - 10.0.0.2-10.0.0.130
-    - 10.0.0.150-10.0.0.254
+    - <%= network_ip_base %>.2-<%= network_ip_base %>.130
+    - <%= network_ip_base %>.150-<%= network_ip_base %>.254
     cloud_properties:
       name: one
 

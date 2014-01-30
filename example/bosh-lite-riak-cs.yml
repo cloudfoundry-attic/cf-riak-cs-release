@@ -1,16 +1,17 @@
 <%
   riak_cs_node_count = 4
-  total_node_count = riak_cs_node_count + 1
+  total_node_count = riak_cs_node_count + 1 # +1 for stanchion
   network_ip_base = "10.244.0"
-  riak_seed_node_ip = "#{network_ip_base}.2"
+  riak_ips = riak_cs_node_count.times.map { |n| "#{network_ip_base}.#{n*4 + 2}" }
+  riak_seed_node_ip = riak_ips.first
   stanchion_ip = "#{network_ip_base}.#{riak_cs_node_count*4 + 2}"
 %>
 
 name: riak-cs-warden
-director_uuid: a725732d-dbc3-40c9-949c-e9c31d1717e0
+director_uuid: PLACEHOLDER
 
 releases:
-- name: riak-cs-dev
+- name: riak-cs
   version: latest
 
 compilation:
