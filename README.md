@@ -8,36 +8,30 @@ NOTE: We have not tested changing the structure of a live cluster, e.g. changing
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
-## Deploying
-
-### Configuring admin user
-
-To create an admin user:
-
-1. set `anonymous_user_creation` to `true` in the manifest and deploy the release
-2. create an admin user (see instructions in the example manifest) 
-3. set `anonymous_user_creation` back to `false` and add the admin user's `admin_key` and `admin_secret` to the manifest
-4. re-deploy the release
-
 ## Blobs
 
 Instructions for creating the blobs for this release.
+For each blob you want to update:
 
-### riak-cs
-
-The `riak-cs-*.tar.gz` and `stanchion-*.tar.gz` files (dependencies of packages) that are stored in the blobstore were obtained as follows:
-
-    git clone https://github.com/basho/riak_cs.git
-    make package.src
-
-Grab the resulting `tar.gz` file from package directory
+1. Remove its entry from `config/blobs.yml`
+2. Remove the cached blob from `.blobs/` (you can find it by checking the symlink in `blobs/<package>/`)
+3. Copy the new blob into `blobs/<package>/`
+4. Upload the new blob: `bosh upload blobs`
 
 ### riak
 
-    git clone https://github.com/basho/riak.git
-    make dist
+Clone the [riak repository](https://github.com/basho/riak), check out the desired tag, and `make dist`.
+The resulting `tar.gz` file can be found in the working directory.
 
-This creates a `.tar.gz` file in `distdir/`.
+### riak-cs
+
+Clone the [riak_cs repository](https://github.com/basho/riak_cs), check out the desired tag, and `make package.src`.
+The resulting `tar.gz` file can be found in the `package/` directory.
+
+### stanchion
+
+Clone the [stanchion repository](https://github.com/basho/stanchion), check out the desired tag, and `make package.src`.
+The resulting `tar.gz` file can be found in the `package/` directory.
 
 ### other
 
