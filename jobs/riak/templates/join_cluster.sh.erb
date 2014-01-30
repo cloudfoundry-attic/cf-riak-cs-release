@@ -13,6 +13,9 @@ function log_position() {
   echo "$message" >> $LOG_FILE
 }
 
+mkdir -p `dirname $LOG_FILE`
+mkdir -p `dirname $ERR_FILE`
+
 log_position
 /var/vcap/packages/riak/rel/bin/riak-admin cluster join riak@$SEED_NODE >> $LOG_FILE 2>>$ERR_FILE
 join_cluster_status=$?
