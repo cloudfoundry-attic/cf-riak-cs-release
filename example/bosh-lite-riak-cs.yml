@@ -83,19 +83,10 @@ jobs:
     - <%= stanchion_ip %>
   persistent_disk: 4096
 
-
 properties:
   riak:
     seed_node: <%= riak_seed_node_ip %>
   riak_cs:
-    # NOTE: 'anonymous_user_creation' must be set to true in order to create an admin user.
-    # To create an admin user:
-    # curl -H 'Content-Type: application/json' \
-    #      -X POST http://<riak_seed_node_ip>:8080/riak-cs/user \
-    #      --data '{"email":"admin@admin.com", "name":"Admin User"}'
-    # After the admin user is created, populate the admin_key and admin_secret fields
-    # with the admin users's credentials and set 'anonymous_user_creation' field back to false.
-    anonymous_user_creation: false
     admin_key: "admin-key"
     admin_secret: "admin-secret"
   stanchion:

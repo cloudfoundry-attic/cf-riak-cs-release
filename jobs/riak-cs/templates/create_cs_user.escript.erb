@@ -1,0 +1,33 @@
+#!/usr/bin/env escript
+%% -*- coding: utf-8 -*-
+%%! -pa /var/vcap/packages/riak-cs/rel/lib/riakc-1.4.1/ebin /var/vcap/packages/riak-cs/rel/lib/riak_pb-1.4.1.1/ebin /var/vcap/packages/riak-cs/rel/lib/protobuffs-0.8.1/ebin /usr/lib/riak-cs/lib/riakc-1.4.1/ebin /usr/lib/riak-cs/lib/riak_pb-1.4.1.1/ebin /usr/lib/riak-cs/lib/protobuffs-0.8.1/ebin /usr/lib/riak-cs/ebin
+
+-define(USERS_BUCKET, <<"moss.users">>).
+-define(RIAK_IP, "<%= properties.riak.seed_node %>").
+-define(RIAK_PORT, 8087).
+-define(ADMIN_KEY, "<%= properties.riak_cs.admin_key %>").
+-define(ADMIN_SECRET, "<%= properties.riak_cs.admin_secret %>").
+-define(ADMIN_NAME, "admin").
+-define(ADMIN_ID, "1391105120").
+
+-record(rcs_user_v2, {
+          name :: string(),
+          display_name :: string(),
+          email :: string(),
+          key_id :: string(),
+          key_secret :: string(),
+          canonical_id :: string(),
+          buckets=[] :: [cs_bucket()],
+          status=enabled :: enabled | disabled}).
+
+main(_) ->
+    {ok, Pid} = riakc_pb_socket:start(?RIAK_IP, ?RIAK_PORT),
+    UserRecord = #rcs_user_v2{name=?ADMIN_NAME,
+                              display_name=?ADMIN_NAME,
+                              key_id=?ADMIN_KEY,
+                              key_secret=?ADMIN_SECRET,
+                              canonical_id=?ADMIN_ID},
+    UserObj = riakc_obj:new(?USERS_BUCKET, list_to_binary(?ADMIN_KEY), term_to_binary(UserRecord)),
+    _ = riakc_pb_socket:put(Pid, UserObj),
+    riakc_pb_socket:stop(Pid),
+    io:format("User record for ~p updated~n", [?ADMIN_NAME]).

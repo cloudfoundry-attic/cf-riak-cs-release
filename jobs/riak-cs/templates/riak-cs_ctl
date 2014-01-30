@@ -40,6 +40,12 @@ case $1 in
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/vm.args
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/app.config
 
+    # Create admin user for service broker
+    if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
+    then
+      /var/vcap/packages/erlang/bin/escript /var/vcap/jobs/riak-cs/bin/create_cs_user.escript
+    fi
+
     # Start riak-cs
     /var/vcap/packages/riak-cs/rel/bin/riak-cs start
     pgrep -f 'beam.*riak-cs' > $PIDFILE

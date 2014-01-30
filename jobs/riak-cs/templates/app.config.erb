@@ -25,9 +25,7 @@
               %% enable this temporarily unless your use-case
               %% specifically dictates letting anonymous users to
               %% create accounts.
-              %%
-              %% TODO: this must be set to false after creating an admin user
-              {anonymous_user_creation, <%= properties.riak_cs.anonymous_user_creation%>},
+              {anonymous_user_creation, false},
 
               %% Admin user credentials. Admin access like
               %% /riak-cs/stats requires this entry to be set

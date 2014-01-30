@@ -6,3 +6,4 @@ templates:
   riak-cs_ctl: bin/riak-cs_ctl
   app.config.erb: config/app.config
   vm.args.erb: config/vm.args
+  create_cs_user.escript.erb: bin/create_cs_user.escript
