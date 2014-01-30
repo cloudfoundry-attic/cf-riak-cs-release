@@ -1,16 +1,43 @@
 #!/bin/bash
 
-/var/vcap/packages/riak/rel/bin/riak-admin cluster join riak@<%= properties.riak.seed_node || "127.0.0.1" %>
+LOG_FILE=/var/vcap/sys/log/riak/join_cluster.log
+ERR_FILE=/var/vcap/sys/log/riak/join_cluster.err.log
+SEED_NODE=<%= properties.riak.seed_node || "127.0.0.1" %>
 
-ready="`/var/vcap/packages/riak/rel/bin/riak-admin ringready`"
-is_ready=false
+function log_position() {
+  message="$(date +%Y-%m-%dT%H:%M:%S%z): line $LINENO"
+  if [ -n "$1" ]
+  then
+    message="$message: $1"
+  fi
+  echo "$message" >> $LOG_FILE
+}
 
-while [ !is_ready ]
-do
-    if [[ $ready == *"TRUE"* ]]
+log_position
+/var/vcap/packages/riak/rel/bin/riak-admin cluster join riak@$SEED_NODE >> $LOG_FILE 2>>$ERR_FILE
+join_cluster_status=$?
+if [ $join_cluster_status -eq 0 ]
+then
+  log_position
+  /var/vcap/packages/riak/rel/bin/riak-admin cluster plan >> $LOG_FILE 2>>$ERR_FILE
+  log_position
+  /var/vcap/packages/riak/rel/bin/riak-admin cluster commit >> $LOG_FILE 2>>$ERR_FILE
+
+  is_ready=false
+
+  while [ "$is_ready" == "false" ]
+  do
+    log_position
+    ring_ready=`/var/vcap/packages/riak/rel/bin/riak-admin ring_status | grep 'Ring Ready'`
+    if [[ $ring_ready == *"true"* ]]
     then
-		is_ready=true
+      log_position "Ring Ready"
+      is_ready=true
     else
-    	sleep 1
+      log_position
+      sleep 1
     fi
-done
+  done
+else
+  echo "riak-admin cluster join riak@$SEED_NODE failed with error code $join_cluster_status" >> $LOG_FILE 2>>$ERR_FILE
+fi
