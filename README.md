@@ -2,6 +2,12 @@
 
 This project is a BOSH release for `riak-release`.
 
+Example manifests are in `example/`.
+
+NOTE: We have not tested changing the structure of a live cluster, e.g. changing the seed node.
+
+This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
+
 ## Deploying
 
 ### Configuring admin user
@@ -15,17 +21,27 @@ To create an admin user:
 
 ## Blobs
 
-(note for maintainers of this Bosh Release)
+Instructions for creating the blobs for this release.
+
+### riak-cs
 
 The `riak-cs-*.tar.gz` and `stanchion-*.tar.gz` files (dependencies of packages) that are stored in the blobstore were obtained as follows:
 
-- download source code (git clone)
-- `make package.src`
-- grab the resulting `tar.gz` file from package directory
+    git clone https://github.com/basho/riak_cs.git
+    make package.src
 
-This should work for `stanchion` and `riak_cs`. 
+Grab the resulting `tar.gz` file from package directory
 
-TODO - verify where the `riak`, `git`, and `erlang` tarfiles came from.
+### riak
+
+    git clone https://github.com/basho/riak.git
+    make dist
+
+This creates a `.tar.gz` file in `distdir/`.
+
+### other
+
+TODO - verify where the `git`, and `erlang` tarfiles came from.
 
 ## TODO
 
