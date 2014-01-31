@@ -1,0 +1,5 @@
+check process cf-riak-cs-service-broker
+  with pidfile /var/vcap/sys/run/cf-riak-cs-service-broker/cf-riak-cs-service-broker.pid
+  start program "/var/vcap/jobs/cf-riak-cs-service-broker/bin/monit_debugger cf-riak-cs-service-broker_ctl '/var/vcap/jobs/cf-riak-cs-service-broker/bin/cf-riak-cs-service-broker_ctl start'"
+  stop program "/var/vcap/jobs/cf-riak-cs-service-broker/bin/monit_debugger cf-riak-cs-service-broker_ctl '/var/vcap/jobs/cf-riak-cs-service-broker/bin/cf-riak-cs-service-broker_ctl stop'"
+  group vcap

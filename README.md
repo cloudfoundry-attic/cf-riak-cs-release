@@ -4,9 +4,13 @@ A BOSH release for Riak and Riak CS.
 
 Example manifests are in `example/`.
 
-NOTE: We have not tested changing the structure of a live cluster, e.g. changing the seed node.
+Make sure to run `git submodule update --init` before creating the release.
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
+
+## Caveats
+
+We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Blobs
 
@@ -40,5 +44,3 @@ TODO - verify where the `git`, and `erlang` tarfiles came from.
 ## TODO
 
 - The settings for the Riak job in this release are configured with options suggested by Basho for deploying Riak in a Riak CS cluster.  We could add an option to configure Riak for standalone operation (when a manifest includes only Riak but not Riak CS) 
-
-- Add automatic creation of admin user upon initial deploy

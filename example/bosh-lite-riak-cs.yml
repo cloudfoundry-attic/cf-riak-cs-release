@@ -30,7 +30,7 @@ update:
 resource_pools:
 - name: common
   network: riak-cs-network
-  size: 5
+  size: <%= total_node_count %>
   stemcell:
     name: bosh-stemcell
     version: latest

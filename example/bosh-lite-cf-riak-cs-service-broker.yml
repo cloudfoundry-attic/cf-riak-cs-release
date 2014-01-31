@@ -1,0 +1,135 @@
+<%
+  ip_group_class = Struct.new(:group_number) do
+    def range
+      "#{network_ip_base}.#{group_base}/30"
+    end
+
+    def reserved_ip
+      "#{network_ip_base}.#{group_base + 1}"
+    end
+
+    def static_ip
+      "#{network_ip_base}.#{group_base + 2}"
+    end
+
+    private
+
+    def group_base
+      group_number * 4
+    end
+
+    def network_ip_base
+      @network_ip_base ||= "10.244.0"
+    end
+  end
+
+  riak_cs_node_count = 4
+  service_node_count = riak_cs_node_count + 1 # +1 for stanchion
+  broker_node_count = 1
+  total_node_count = service_node_count + broker_node_count
+
+  riak_ips = (0...riak_cs_node_count).map { |n| ip_group_class.new(n).static_ip }
+  riak_seed_node_ip = riak_ips.first
+  stanchion_ip = ip_group_class.new(riak_cs_node_count).static_ip
+  broker_ips = (service_node_count...total_node_count).map { |n| ip_group_class.new(n).static_ip }
+%>
+
+name: cf-riak-cs-service-broker
+director_uuid: PLACEHOLDER
+
+releases:
+- name: riak-cs
+  version: latest
+
+compilation:
+  workers: 2
+  network: riak-cs-network
+  reuse_compilation_vms: true
+  cloud_properties:
+    name: random
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+resource_pools:
+- name: common
+  network: riak-cs-network
+  size: <%= total_node_count %>
+  stemcell:
+    name: bosh-stemcell
+    version: latest
+  cloud_properties:
+    name: random
+
+networks:
+- name: riak-cs-network
+  subnets:
+<% (0...total_node_count).each do |i| %>
+  <% ip_group = ip_group_class.new(i) %>
+  - range: <%= ip_group.range %>
+    reserved:
+      - <%= ip_group.reserved_ip %>
+    static:
+      - <%= ip_group.static_ip %>
+    cloud_properties:
+      name: random
+<% end %>
+# these additional subnets are not used; they've been added as a workaround
+# for this bug: https://github.com/cloudfoundry/bosh/issues/373
+<% (total_node_count...(2*total_node_count)).each do |i| %>
+  <% ip_group = ip_group_class.new(i) %>
+  - range: <%= ip_group.range %>
+    reserved:
+      - <%= ip_group.reserved_ip %>
+    cloud_properties:
+      name: random
+<% end %>
+
+jobs:
+- name: riak-cs
+  template:
+  - riak
+  - riak-cs
+  instances: <%= riak_cs_node_count %>
+  resource_pool: common
+  networks:
+  - name: riak-cs-network
+    static_ips:
+<% riak_ips.each do |ip| %>
+    - <%= ip %>
+<% end %>
+  persistent_disk: 4096
+- name: stanchion
+  template: stanchion
+  instances: 1
+  resource_pool: common
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - <%= stanchion_ip %>
+  persistent_disk: 4096
+- name: cf-riak-cs-service-broker
+  template: cf-riak-cs-service-broker
+  instances: <%= broker_node_count %>
+  resource_pool: common
+  networks:
+  - name: riak-cs-network
+    static_ips:
+<% broker_ips.each do |ip| %>
+    - <%= ip %>
+<% end %>
+
+properties:
+  riak:
+    seed_node: <%= riak_seed_node_ip %>
+  riak_cs:
+    admin_key: "admin-key"
+    admin_secret: "admin-secret"
+  stanchion:
+    ip: <%= stanchion_ip %>
+  broker:
+    username: admin
+    password: admin

@@ -1,0 +1,6 @@
+[submodule "src/cf-riak-cs-service-broker"]
+	path = src/cf-riak-cs-service-broker
+	url = https://github.com/cf-blobstore-eng/cf-riak-cs-service-broker.git
+[submodule "shared"]
+	path = shared
+	url = https://github.com/cloudfoundry/shared-release-packages.git

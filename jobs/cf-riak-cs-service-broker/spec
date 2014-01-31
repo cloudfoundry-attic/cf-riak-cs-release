@@ -1,0 +1,12 @@
+---
+name: cf-riak-cs-service-broker
+packages:
+- git
+- ruby
+- cf-riak-cs-service-broker
+templates:
+  bin/cf-riak-cs-service-broker_ctl: bin/cf-riak-cs-service-broker_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
