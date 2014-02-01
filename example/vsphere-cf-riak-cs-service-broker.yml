@@ -1,0 +1,135 @@
+<%
+  network_ip_base = "10.0.0"
+  final_octet_min = 130
+  final_octet_max = 149
+  node_count_max = final_octet_max - final_octet_min
+
+  static_ip = ->(index) do
+    "#{network_ip_base}.#{final_octet_min + index}"
+  end
+
+  riak_cs_node_count = 4
+  service_node_count = riak_cs_node_count + 1 # +1 for stanchion
+  broker_node_count = 1
+  total_node_count = service_node_count + broker_node_count
+  unless total_node_count <= node_count_max
+    raise "Cannot use more than #{node_count_max} nodes; attempting to use #{total_node_count}"
+  end
+
+  riak_ips = (0...riak_cs_node_count).map { |n| static_ip.call(n) }
+  riak_seed_node_ip = riak_ips.first
+  stanchion_ip = static_ip.call(riak_cs_node_count)
+  broker_ips = (service_node_count...total_node_count).map { |n| static_ip.call(n) }
+%>
+
+name: riak-cs
+director_uuid: PLACEHOLDER
+
+releases:
+- name: riak-cs
+  version: latest
+
+compilation:
+  workers: 2
+  network: riak-cs-network
+  reuse_compilation_vms: true
+  cloud_properties: &vm_cloud_properties
+    name: random
+    ram: 4096
+    disk: 4096
+    cpu: 2
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+resource_pools:
+- name: riak-pool
+  network: riak-cs-network
+  size: <%= service_node_count %>
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu
+    version: '1266'
+  cloud_properties: *vm_cloud_properties
+- name: broker-pool
+  network: riak-cs-network
+  size: <%= broker_node_count %>
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu
+    version: '1266'
+  cloud_properties:
+    name: random
+    ram: 512
+    disk: 4096
+    cpu: 2
+
+networks:
+- name: riak-cs-network
+  subnets:
+  - range: <%= network_ip_base %>.0/24
+    gateway: <%= network_ip_base %>.1
+    dns:
+    - <%= network_ip_base %>.3
+    - 8.8.8.8
+    static:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+    - <%= stanchion_ip %>
+    <% broker_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+    reserved:
+    - <%= network_ip_base %>.2-<%= network_ip_base %>.<%= final_octet_min - 1 %>
+    - <%= network_ip_base %>.<%= final_octet_max + 1 %>-<%= network_ip_base %>.254
+    cloud_properties:
+      name: one
+
+jobs:
+- name: riak-cs
+  template:
+  - riak
+  - riak-cs
+  instances: <%= riak_cs_node_count %>
+  resource_pool: riak-pool
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+  persistent_disk: 4096
+- name: stanchion
+  template: stanchion
+  instances: 1
+  resource_pool: riak-pool
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - <%= stanchion_ip %>
+  persistent_disk: 4096
+- name: cf-riak-cs-service-broker
+  template: cf-riak-cs-service-broker
+  instances: <%= broker_node_count %>
+  resource_pool: broker-pool
+  networks:
+  - name: riak-cs-network
+    static_ips:
+<% broker_ips.each do |ip| %>
+    - <%= ip %>
+<% end %>
+
+properties:
+  riak:
+    cluster_ip_range: <%= network_ip_base %>.0/24
+    seed_node: <%= riak_seed_node_ip %>
+  riak_cs:
+    admin_key: "admin-key"
+    admin_secret: "admin-secret"
+  stanchion:
+    ip: <%= stanchion_ip %>
+  broker:
+    username: admin
+    password: admin
