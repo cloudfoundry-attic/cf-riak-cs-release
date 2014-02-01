@@ -1,0 +1,8 @@
+#!/bin/bash
+
+<% Array(p('riak.cluster_ip_range')).each do |ip_range| %>
+iptables -A INPUT -p tcp --dport 8087 -s <%= ip_range %> -j ACCEPT
+iptables -A INPUT -p tcp --dport 8098 -s <%= ip_range %> -j ACCEPT
+<% end %>
+iptables -A INPUT -p tcp --dport 8087 -j DROP
+iptables -A INPUT -p tcp --dport 8098 -j DROP

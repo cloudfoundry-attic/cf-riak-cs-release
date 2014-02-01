@@ -9,3 +9,4 @@ templates:
   app.config.erb: config/app.config
   vm.args.erb: config/vm.args
   join_cluster.sh.erb: join_cluster.sh
+  restrict_riak_requests_to_cluster_ip_range.sh.erb: restrict_riak_requests_to_cluster_ip_range.sh

@@ -12,14 +12,14 @@
       "#{network_ip_base}.#{group_base + 2}"
     end
 
+    def network_ip_base
+      @network_ip_base ||= "10.244.0"
+    end
+
     private
 
     def group_base
       group_number * 4
-    end
-
-    def network_ip_base
-      @network_ip_base ||= "10.244.0"
     end
   end
 
@@ -59,7 +59,7 @@ resource_pools:
   network: riak-cs-network
   size: <%= total_node_count %>
   stemcell:
-    name: bosh-stemcell
+    name: bosh-warden-boshlite-ubuntu
     version: latest
   cloud_properties:
     name: random
@@ -124,6 +124,9 @@ jobs:
 
 properties:
   riak:
+    cluster_ip_range:
+    - <%= ip_group_class.new(0).network_ip_base %>.0/24
+    - 10.0.2.15/32
     seed_node: <%= riak_seed_node_ip %>
   riak_cs:
     admin_key: "admin-key"
