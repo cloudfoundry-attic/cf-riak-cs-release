@@ -34,7 +34,7 @@
   broker_ips = (service_node_count...total_node_count).map { |n| ip_group_class.new(n).static_ip }
 %>
 
-name: cf-riak-cs-service-broker
+name: riak-cs-service
 director_uuid: PLACEHOLDER
 
 releases:

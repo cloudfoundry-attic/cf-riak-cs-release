@@ -13,7 +13,7 @@
   broker_node_count = 1
   total_node_count = service_node_count + broker_node_count
   unless total_node_count <= node_count_max
-    raise "Cannot use more than #{node_count_max} nodes; attempting to use #{total_node_count}"
+    raise "Attempting to use #{total_node_count} nodes, but the maximum allowed number of nodes is #{node_count_max}."
   end
 
   riak_ips = (0...riak_cs_node_count).map { |n| static_ip.call(n) }
@@ -22,7 +22,7 @@
   broker_ips = (service_node_count...total_node_count).map { |n| static_ip.call(n) }
 %>
 
-name: riak-cs
+name: riak-cs-service
 director_uuid: PLACEHOLDER
 
 releases:
@@ -34,7 +34,6 @@ compilation:
   network: riak-cs-network
   reuse_compilation_vms: true
   cloud_properties: &vm_cloud_properties
-    name: random
     ram: 4096
     disk: 4096
     cpu: 2
@@ -60,7 +59,6 @@ resource_pools:
     name: bosh-vsphere-esxi-ubuntu
     version: '1266'
   cloud_properties:
-    name: random
     ram: 512
     disk: 4096
     cpu: 2
@@ -85,7 +83,7 @@ networks:
     - <%= network_ip_base %>.2-<%= network_ip_base %>.<%= final_octet_min - 1 %>
     - <%= network_ip_base %>.<%= final_octet_max + 1 %>-<%= network_ip_base %>.254
     cloud_properties:
-      name: one
+      name: one # name of the Vsphere VLAN that you're deploying to
 
 jobs:
 - name: riak-cs
