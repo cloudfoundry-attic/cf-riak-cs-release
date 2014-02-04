@@ -45,7 +45,9 @@ case $1 in
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/app.config
 
+<% if properties.riak.firewall_enabled %>
     bash /var/vcap/jobs/riak/restrict_riak_requests_to_cluster_ip_range.sh
+<% end %>
 
     # Start riak
     /var/vcap/packages/riak/rel/bin/riak start

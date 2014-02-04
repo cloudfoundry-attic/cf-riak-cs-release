@@ -121,6 +121,7 @@ jobs:
 
 properties:
   riak:
+    firewall_enabled: true
     cluster_ip_range: <%= network_ip_base %>.0/24
     seed_node: <%= riak_seed_node_ip %>
   riak_cs:
