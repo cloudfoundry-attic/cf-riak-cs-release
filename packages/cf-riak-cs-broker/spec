@@ -1,0 +1,7 @@
+---
+name: cf-riak-cs-broker
+dependencies:
+- git
+- ruby
+files:
+- cf-riak-cs-broker/**/*

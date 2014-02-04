@@ -34,7 +34,7 @@
   broker_ips = (service_node_count...total_node_count).map { |n| ip_group_class.new(n).static_ip }
 %>
 
-name: riak-cs-service
+name: cf-riak-cs-broker
 director_uuid: PLACEHOLDER
 
 releases:
@@ -111,8 +111,8 @@ jobs:
     static_ips:
     - <%= stanchion_ip %>
   persistent_disk: 4096
-- name: cf-riak-cs-service-broker
-  template: cf-riak-cs-service-broker
+- name: cf-riak-cs-broker
+  template: cf-riak-cs-broker
   instances: <%= broker_node_count %>
   resource_pool: common
   networks:
@@ -135,5 +135,6 @@ properties:
   stanchion:
     ip: <%= stanchion_ip %>
   broker:
+    port: 8080
     username: admin
     password: admin

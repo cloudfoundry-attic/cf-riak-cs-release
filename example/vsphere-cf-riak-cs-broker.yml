@@ -108,8 +108,8 @@ jobs:
     static_ips:
     - <%= stanchion_ip %>
   persistent_disk: 4096
-- name: cf-riak-cs-service-broker
-  template: cf-riak-cs-service-broker
+- name: cf-riak-cs-broker
+  template: cf-riak-cs-broker
   instances: <%= broker_node_count %>
   resource_pool: broker-pool
   networks:
@@ -130,5 +130,6 @@ properties:
   stanchion:
     ip: <%= stanchion_ip %>
   broker:
+    port: 8080
     username: admin
     password: admin

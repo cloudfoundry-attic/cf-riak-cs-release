@@ -9,7 +9,7 @@ export HOME=/var/vcap
 
 PATH=/var/vcap/packages/git/bin:/var/vcap/packages/ruby/bin:$PATH
 
-rsync -a cf-riak-cs-service-broker/* ${BOSH_INSTALL_TARGET}
+rsync -a cf-riak-cs-broker/* ${BOSH_INSTALL_TARGET}
 
 (
   cd ${BOSH_INSTALL_TARGET}
