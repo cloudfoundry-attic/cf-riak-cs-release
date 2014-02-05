@@ -3,6 +3,6 @@ set -u # report the usage of uninitialized variables
 
 (
   cd ${BUILD_DIR}/cf-riak-cs-broker
-  bundle package
+  bundle package --all
   rm -rf .rspec .ruby-gemset .ruby-version spec
 )
