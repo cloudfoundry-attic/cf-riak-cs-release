@@ -126,13 +126,20 @@ jobs:
 properties:
   riak:
     firewall_enabled: false
-    cluster_ip_range: # List of IPs from which to allow traffic to Riak nodes. Should be set to IPs of cluster nodes.
-    - <%= ip_group_class.new(0).network_ip_base %>.0/24
-    - 10.0.2.15/32 # In VirtualBox NAT networking mode, outbound traffic from all cluster nodes appears to come from 10.0.2.15. May be different for other networking configurations or VM types.
     seed_node: <%= riak_seed_node_ip %>
+    ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+    - 10.0.2.15 # In VirtualBox NAT networking mode, outbound traffic from all cluster nodes appears to come from 10.0.2.15. May be different for other networking configurations or VM types.
   riak_cs:
     admin_key: "admin-key"
     admin_secret: "admin-secret"
+    ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
+    - 10.0.2.15 # In VirtualBox NAT networking mode, outbound traffic from all cluster nodes appears to come from 10.0.2.15. May be different for other networking configurations or VM types.
   stanchion:
     ip: <%= stanchion_ip %>
   broker:

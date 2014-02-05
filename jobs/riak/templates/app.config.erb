@@ -294,5 +294,10 @@
                 %% components, each of which is enabled or disabled
                 %% by one of these settings.
                 {admin, true}
-                ]}
+                ]},
+
+ {kernel, [
+           {inet_dist_listen_min, 6001},
+           {inet_dist_listen_max, 6100}
+          ]}
 ].

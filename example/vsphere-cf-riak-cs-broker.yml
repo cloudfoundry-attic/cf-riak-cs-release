@@ -122,11 +122,18 @@ jobs:
 properties:
   riak:
     firewall_enabled: true
-    cluster_ip_range: <%= network_ip_base %>.0/24
     seed_node: <%= riak_seed_node_ip %>
+    ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
   riak_cs:
     admin_key: "admin-key"
     admin_secret: "admin-secret"
+    ips:
+    <% riak_ips.each do |ip| %>
+    - <%= ip %>
+    <% end %>
   stanchion:
     ip: <%= stanchion_ip %>
   broker:
