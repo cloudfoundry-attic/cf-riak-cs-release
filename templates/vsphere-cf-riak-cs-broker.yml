@@ -63,9 +63,7 @@ networks:
 
 jobs:
 - name: riak-cs
-  template:
-  - riak
-  - riak-cs
+  template: riak-cs
   instances: 4
   resource_pool: riak-pool
   networks:
