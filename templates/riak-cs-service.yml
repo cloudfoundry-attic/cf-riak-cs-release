@@ -1,0 +1,37 @@
+name: riak-cs-service
+director_uuid: (( merge ))
+
+resource_pools: (( merge ))
+networks: (( merge ))
+jobs: (( merge ))
+
+releases:
+- name: riak-cs
+  version: latest
+
+compilation:
+  workers: 2
+  network: riak-cs-network
+  reuse_compilation_vms: true
+  cloud_properties: (( resource_pools.[0].cloud_properties ))
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  update_watch_time: 30000-600000
+  max_in_flight: 3
+
+properties:
+  riak:
+    firewall_enabled: true
+    seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
+    ips: (( jobs.[0].networks.[0].static_ips ))
+  riak_cs:
+    admin_key: "admin-key"
+    admin_secret: "admin-secret"
+    ips: (( properties.riak.ips ))
+  stanchion: (( jobs.[1].networks.[0].static_ips.[0] ))
+  broker:
+    port: 8080
+    username: admin
+    password: admin

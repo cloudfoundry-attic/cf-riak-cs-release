@@ -1,0 +1,46 @@
+networks:
+- name: riak-cs-network
+  subnets:
+  - range: 10.244.0.0/30
+    reserved:
+    - 10.244.0.1
+    static:
+    - 10.244.0.2
+    cloud_properties:
+      name: random
+  - range: 10.244.0.4/30
+    reserved:
+    - 10.244.0.5
+    static:
+    - 10.244.0.6
+    cloud_properties:
+      name: random
+  - range: 10.244.0.8/30
+    reserved:
+    - 10.244.0.9
+    static:
+    - 10.244.0.10
+    cloud_properties:
+      name: random
+  - range: 10.244.0.12/30
+    reserved:
+    - 10.244.0.13
+    static:
+    - 10.244.0.14
+    cloud_properties:
+      name: random
+  - range: 10.244.0.16/30
+    reserved:
+    - 10.244.0.17
+    static:
+    - 10.244.0.18
+    cloud_properties:
+      name: random
+  - range: 10.244.0.20/30
+    reserved:
+    - 10.244.0.21
+    static:
+    - 10.244.0.22
+    cloud_properties:
+      name: random
+

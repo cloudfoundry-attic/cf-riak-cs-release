@@ -1,0 +1,19 @@
+jobs: (( merge ))
+resource_pools:
+- name: riak-pool
+  network: riak-cs-network
+  size: (( auto ))
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu
+    version: latest
+  cloud_properties:
+    name: random
+- name: broker-pool
+  network: riak-cs-network
+  size: (( auto )) 
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu
+    version: latest
+  cloud_properties:
+    name: random
+

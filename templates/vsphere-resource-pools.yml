@@ -1,0 +1,23 @@
+jobs: (( merge ))
+resource_pools:
+- name: riak-pool
+  network: riak-cs-network
+  size: (( auto ))
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu
+    version: latest
+  cloud_properties:
+    ram: 4096
+    disk: 4096
+    cpu: 2
+- name: broker-pool
+  network: riak-cs-network
+  size: (( auto )) 
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu
+    version: latest
+  cloud_properties:
+    ram: 512
+    disk: 4096
+    cpu: 2
+

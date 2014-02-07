@@ -2,11 +2,17 @@
 
 A BOSH release for Riak and Riak CS.
 
-Example manifests are in `example/`.
-
 Make sure to run `git submodule update --init` before creating the release.
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
+
+## Deploying to [BOSH lite]
+
+After you create and upload the release:
+
+1. Put your director UUID into `templates/riak-cs-service.yml`
+2. Generate the manifest: `./generate_deployment_manifest warden > riak-cs-service.yml`
+3. `bosh deployment riak-cs-service.yml && bosh deploy`
 
 ## Caveats
 
@@ -44,3 +50,5 @@ TODO - verify where the `git`, and `erlang` tarfiles came from.
 ## TODO
 
 - The settings for the Riak job in this release are configured with options suggested by Basho for deploying Riak in a Riak CS cluster.  We could add an option to configure Riak for standalone operation (when a manifest includes only Riak but not Riak CS) 
+
+[BOSH lite]: https://github.com/cloudfoundry/bosh-lite

@@ -1,0 +1,26 @@
+networks: (( merge ))
+jobs:
+- name: riak-cs
+  template: riak-cs
+  instances: 4
+  resource_pool: riak-pool
+  networks:
+  - name: riak-cs-network
+    static_ips: (( static_ips(0, 1, 2, 3) ))
+  persistent_disk: 4096
+- name: stanchion
+  template: stanchion
+  instances: 1
+  resource_pool: riak-pool
+  networks:
+  - name: riak-cs-network
+    static_ips: (( static_ips(4) ))
+  persistent_disk: 4096
+- name: cf-riak-cs-broker
+  template: cf-riak-cs-broker
+  instances: 1
+  resource_pool: broker-pool
+  networks:
+  - name: riak-cs-network
+    static_ips: (( static_ips(5) ))
+
