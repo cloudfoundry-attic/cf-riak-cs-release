@@ -1,0 +1,11 @@
+#!/bin/sh
+
+TEMPLATES=$(dirname $0)/example
+
+infrastructure=$1
+
+shift
+
+spiff merge \
+  $TEMPLATES/vsphere-cf-riak-cs-broker.yml \
+  $*
