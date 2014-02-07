@@ -1,5 +1,5 @@
-## Name of the riak node
--name riak@127.0.0.1
+## Name of the riak-cs node
+-name riak-cs@127.0.0.1
 
 ## Cookie for distributed erlang.  All nodes in the same cluster
 ## should use the same cookie or they will not be able to communicate.
@@ -16,12 +16,8 @@
 ## Treat error_logger warnings as warnings
 +W w
 
-## This setting is not present in default Riak installations, so
-## it should be added when using Riak with Riak CS.
-+zdbbl 96000
-
 ## Increase number of concurrent ports/sockets
--env ERL_MAX_PORTS 64000
+-env ERL_MAX_PORTS 4096
 
 ## Tweak GC to run more often
 -env ERL_FULLSWEEP_AFTER 0

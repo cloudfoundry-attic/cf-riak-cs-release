@@ -1,9 +1,17 @@
 ---
 name: riak-cs
 packages:
+- riak
+- erlang
+- git
 - riak-cs
 templates:
+  riak.app.config.erb: config/riak.app.config
+  riak.vm.args.erb: config/riak.vm.args
+  join_cluster.sh.erb: join_cluster.sh
+  restrict_riak_requests_to_cluster_ip_range.sh.erb: restrict_riak_requests_to_cluster_ip_range.sh
+
   riak-cs_ctl: bin/riak-cs_ctl
-  app.config.erb: config/app.config
-  vm.args.erb: config/vm.args
+  riak_cs.app.config.erb: config/riak_cs.app.config
+  riak_cs.vm.args.erb: config/riak_cs.vm.args
   create_cs_user.escript.erb: bin/create_cs_user.escript

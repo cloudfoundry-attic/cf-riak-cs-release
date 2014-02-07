@@ -92,7 +92,6 @@ networks:
 jobs:
 - name: riak-cs
   template:
-  - riak
   - riak-cs
   instances: <%= riak_cs_node_count %>
   resource_pool: common

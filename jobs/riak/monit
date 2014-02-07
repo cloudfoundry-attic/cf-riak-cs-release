@@ -1,5 +1,0 @@
-check process riak
-  with pidfile /var/vcap/sys/run/riak/riak.pid
-  start program "/var/vcap/jobs/riak/bin/riak_ctl start"
-  stop program "/var/vcap/jobs/riak/bin/riak_ctl stop"
-  group vcap
