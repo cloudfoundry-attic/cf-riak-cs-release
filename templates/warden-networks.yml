@@ -43,4 +43,39 @@ networks:
     - 10.244.0.22
     cloud_properties:
       name: random
-
+  - range: 10.244.0.24/30
+    reserved:
+    - 10.244.0.25
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.0.28/30
+    reserved:
+    - 10.244.0.29
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.0.32/30
+    reserved:
+    - 10.244.0.33
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.0.36/30
+    reserved:
+    - 10.244.0.37
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.0.40/30
+    reserved:
+    - 10.244.0.41
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.0.44/30
+    reserved:
+    - 10.244.0.45
+    static: []
+    cloud_properties:
+      name: random

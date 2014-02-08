@@ -30,7 +30,8 @@ properties:
     admin_key: "admin-key"
     admin_secret: "admin-secret"
     ips: (( properties.riak.ips ))
-  stanchion: (( jobs.[1].networks.[0].static_ips.[0] ))
+  stanchion:
+    ip: (( jobs.[1].networks.[0].static_ips.[0] ))
   broker:
     port: 8080
     username: admin
