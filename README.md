@@ -6,26 +6,39 @@ Make sure to run `git submodule update --init` before creating the release.
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
-## Deploying to [BOSH lite]
 
-After you create and upload the release:
+## Deployment
+
+After you create and upload the release, the `generate_deployment_manifest` script can generate the deployment manifest based on a deployment template. The available templates are: `warden`(bosh-lite) and `vsphere`.
 
 1. Put your director UUID into `templates/riak-cs-service.yml`
-2. Generate the manifest: `./generate_deployment_manifest warden > riak-cs-service.yml`
-3. `bosh deployment riak-cs-service.yml && bosh deploy`
+2. Generate the manifest: `./generate_deployment_manifest <template> > riak-cs-service.yml`
+To tweak the deployment settings, you can modify the resulting file `riak-cs-service.yml`.
+3. To deploy: `bosh deployment riak-cs-service.yml && bosh deploy`
+
 
 ## Caveats
 
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
+## Tests
+Instructions for running the cf-service-acceptance tests under the tests/ directory:
+
+1. Install go by following the directions found [here](http://golang.org/doc/install)
+2. Set environment variables `CF_COLOR=false` and `CF_VERBOSE_OUTPUT=true`
+3. `cd` into this directory: `riak-release/test/cf-service-acceptance-tests/apps/`
+4. Alter `integration_config.json` to use the domain of the Cloud Foundry you wish to test against 
+5. Run `CONFIG=/Users/pivotal/workspace/riak-release/test/cf-service-acceptance-tests/integration_config.json go test`
+
 ## Blobs
 
-Instructions for creating the blobs for this release.
-For each blob you want to update:
+See [Bosh Blobstore](http://docs.cloudfoundry.com/docs/running/bosh/components/blobstore.html) for blobstore configuration. 
+
+To update a blob: 
 
 1. Remove its entry from `config/blobs.yml`
 2. Remove the cached blob from `.blobs/` (you can find it by checking the symlink in `blobs/<package>/`)
-3. Copy the new blob into `blobs/<package>/`
+3. Copy the new blob file into `blobs/<package>/`
 4. Upload the new blob: `bosh upload blobs`
 
 ### riak
@@ -42,6 +55,7 @@ The resulting `tar.gz` file can be found in the `package/` directory.
 
 Clone the [stanchion repository](https://github.com/basho/stanchion), check out the desired tag, and `make package.src`.
 The resulting `tar.gz` file can be found in the `package/` directory.
+
 
 ### other
 
