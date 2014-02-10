@@ -32,8 +32,9 @@ case $1 in
     mkdir -p $STORE
 
     # Put the config files in place
-    cp /var/vcap/jobs/riak/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
-    cp /var/vcap/jobs/riak/config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
+
+    cp /var/vcap/jobs/riak-cs/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
+    cp /var/vcap/jobs/riak-cs /config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
 
     cp /var/vcap/jobs/riak-cs/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
     cp /var/vcap/jobs/riak-cs/config/riak_cs.vm.args /var/vcap/packages/riak-cs/rel/etc/vm.args
