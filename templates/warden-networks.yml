@@ -1,81 +1,81 @@
 networks:
 - name: riak-cs-network
   subnets:
-  - range: 10.244.0.0/30
+  - range: 10.244.3.0/30
     reserved:
-    - 10.244.0.1
+    - 10.244.3.1
     static:
-    - 10.244.0.2
+    - 10.244.3.2
     cloud_properties:
       name: random
-  - range: 10.244.0.4/30
+  - range: 10.244.3.4/30
     reserved:
-    - 10.244.0.5
+    - 10.244.3.5
     static:
-    - 10.244.0.6
+    - 10.244.3.6
     cloud_properties:
       name: random
-  - range: 10.244.0.8/30
+  - range: 10.244.3.8/30
     reserved:
-    - 10.244.0.9
+    - 10.244.3.9
     static:
-    - 10.244.0.10
+    - 10.244.3.10
     cloud_properties:
       name: random
-  - range: 10.244.0.12/30
+  - range: 10.244.3.12/30
     reserved:
-    - 10.244.0.13
+    - 10.244.3.13
     static:
-    - 10.244.0.14
+    - 10.244.3.14
     cloud_properties:
       name: random
-  - range: 10.244.0.16/30
+  - range: 10.244.3.16/30
     reserved:
-    - 10.244.0.17
+    - 10.244.3.17
     static:
-    - 10.244.0.18
+    - 10.244.3.18
     cloud_properties:
       name: random
-  - range: 10.244.0.20/30
+  - range: 10.244.3.20/30
     reserved:
-    - 10.244.0.21
+    - 10.244.3.21
     static:
-    - 10.244.0.22
+    - 10.244.3.22
     cloud_properties:
       name: random
-  - range: 10.244.0.24/30
+  - range: 10.244.3.24/30
     reserved:
-    - 10.244.0.25
+    - 10.244.3.25
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.0.28/30
+  - range: 10.244.3.28/30
     reserved:
-    - 10.244.0.29
+    - 10.244.3.29
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.0.32/30
+  - range: 10.244.3.32/30
     reserved:
-    - 10.244.0.33
+    - 10.244.3.33
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.0.36/30
+  - range: 10.244.3.36/30
     reserved:
-    - 10.244.0.37
+    - 10.244.3.37
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.0.40/30
+  - range: 10.244.3.40/30
     reserved:
-    - 10.244.0.41
+    - 10.244.3.41
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.0.44/30
+  - range: 10.244.3.44/30
     reserved:
-    - 10.244.0.45
+    - 10.244.3.45
     static: []
     cloud_properties:
       name: random
