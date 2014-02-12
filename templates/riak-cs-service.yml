@@ -23,7 +23,7 @@ update:
 
 properties:
   riak:
-    firewall_enabled: true
+    firewall_enabled: (( merge ))
     seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
     ips: (( jobs.[0].networks.[0].static_ips ))
   riak_cs:

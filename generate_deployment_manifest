@@ -17,4 +17,5 @@ spiff merge \
   $TEMPLATES/$infrastructure-resource-pools.yml \
   $TEMPLATES/riak-cs-jobs.yml \
   $TEMPLATES/$infrastructure-networks.yml \
+  $TEMPLATES/$infrastructure-properties.yml \
   $*
