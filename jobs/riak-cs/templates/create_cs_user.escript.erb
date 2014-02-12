@@ -28,6 +28,7 @@ main(_) ->
                               key_secret=?ADMIN_SECRET,
                               canonical_id=?ADMIN_ID},
     UserObj = riakc_obj:new(?USERS_BUCKET, list_to_binary(?ADMIN_KEY), term_to_binary(UserRecord)),
-    _ = riakc_pb_socket:put(Pid, UserObj),
+    Result = riakc_pb_socket:put(Pid, UserObj),
     riakc_pb_socket:stop(Pid),
-    io:format("User record for ~p updated~n", [?ADMIN_NAME]).
+    io:format("Updating user record for ~p~n", [?ADMIN_NAME]),
+    io:format("Result: ~p~n", [Result]).

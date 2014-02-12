@@ -6,12 +6,13 @@ packages:
 - git
 - riak-cs
 templates:
+  riak_ctl.erb: bin/riak_ctl
   riak.app.config.erb: config/riak.app.config
   riak.vm.args.erb: config/riak.vm.args
   join_cluster.sh.erb: join_cluster.sh
   restrict_riak_requests_to_cluster_ip_range.sh.erb: restrict_riak_requests_to_cluster_ip_range.sh
+  create_cs_user.escript.erb: bin/create_cs_user.escript
 
   riak-cs_ctl.erb: bin/riak-cs_ctl
   riak_cs.app.config.erb: config/riak_cs.app.config
   riak_cs.vm.args.erb: config/riak_cs.vm.args
-  create_cs_user.escript.erb: bin/create_cs_user.escript

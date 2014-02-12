@@ -32,10 +32,6 @@ case $1 in
     mkdir -p $STORE
 
     # Put the config files in place
-
-    cp /var/vcap/jobs/riak-cs/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
-    cp /var/vcap/jobs/riak-cs /config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
-
     cp /var/vcap/jobs/riak-cs/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
     cp /var/vcap/jobs/riak-cs/config/riak_cs.vm.args /var/vcap/packages/riak-cs/rel/etc/vm.args
 
@@ -44,30 +40,9 @@ case $1 in
 
     # Update vm.args with current IP address
     IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
-    sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/vm.args
-    sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/app.config
 
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/vm.args
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/app.config
-
-<% if properties.riak.firewall_enabled %>
-    bash /var/vcap/jobs/riak-cs/restrict_riak_requests_to_cluster_ip_range.sh
-<% end %>
-
-    # Start riak
-    /var/vcap/packages/riak/rel/bin/riak start
-
-    # Join the cluster if we arn't the seed node
-    if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
-    then
-      bash /var/vcap/jobs/riak-cs/join_cluster.sh
-    fi
-
-    # Create admin user for service broker
-    if [ "$IP_ADDR" == "<%= properties.riak.seed_node %>" ]
-    then
-      /var/vcap/packages/erlang/bin/escript /var/vcap/jobs/riak-cs/bin/create_cs_user.escript
-    fi
 
     # Start riak-cs
     /var/vcap/packages/riak-cs/rel/bin/riak-cs start
@@ -76,7 +51,6 @@ case $1 in
 
   stop)
     /var/vcap/packages/riak-cs/rel/bin/riak-cs stop
-    /var/vcap/packages/riak/rel/bin/riak stop
     rm -f $PIDFILE
     ;;
 
