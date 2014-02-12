@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Control script to start/stop ruby/rack riak-cs job on a BOSH controlled VM
 #
-# In local development, this script can be run manually. Examples below assume you are in the root of this release project.
+# This script can be run manually. Examples below assume you are in the root of this release project.
 #
 # Start process example:
-# APP_DIR=/path/to/riak-cs RACK_ENV=development COMMAND=shotgun PORT=9393 jobs/riak-cs/templates/riak-cs_ctl start
+# APP_DIR=/path/to/riak-cs RACK_ENV=development COMMAND=shotgun PORT=9393 jobs/riak-cs/bin/riak-cs_ctl start
 #
 # View STDOUT/STDERR logs:
-# jobs/riak-cs/templates/riak-cs_ctl logs
+# jobs/riak-cs/bin/riak-cs_ctl logs
 #
 # Clear logs:
-# jobs/riak-cs/templates/riak-cs_ctl clearlogs
+# jobs/riak-cs/bin/riak-cs_ctl clearlogs
 
 RUN_DIR=/var/vcap/sys/run/riak-cs
 LOG_DIR=/var/vcap/sys/log/riak-cs
@@ -60,11 +60,11 @@ case $1 in
     # Join the cluster if we arn't the seed node
     if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
     then
-     bash /var/vcap/jobs/riak-cs/join_cluster.sh
+      bash /var/vcap/jobs/riak-cs/join_cluster.sh
     fi
 
     # Create admin user for service broker
-    if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
+    if [ "$IP_ADDR" == "<%= properties.riak.seed_node %>" ]
     then
       /var/vcap/packages/erlang/bin/escript /var/vcap/jobs/riak-cs/bin/create_cs_user.escript
     fi

@@ -6,22 +6,11 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 set +x
 
-RIAK_VERSION=1.3.1
-LEVELDB_VERSION=1.3.0
+RIAK_VERSION=1.4.7
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
 
 tar xzf riak/riak-${RIAK_VERSION}.tar.gz
-
-# Install leveldb
-mv riak/leveldb-${LEVELDB_VERSION}.zip riak-${RIAK_VERSION}/deps/eleveldb/c_src/leveldb.zip
-cd riak-${RIAK_VERSION}/deps/eleveldb/c_src/
-unzip leveldb.zip
-mv basho-leveldb-* leveldb
-cd ../../
-cp -R lager riaknostic/deps
-cp -R getopt riaknostic/deps
-cp -R meck riaknostic/deps
 
 # Compile riak
 cd ${BOSH_COMPILE_TARGET}/riak-${RIAK_VERSION}
@@ -31,5 +20,5 @@ make rel
 cp -prv rel/riak ${BOSH_INSTALL_TARGET}/rel
 
 # create a symlinked dir that has no version number for libraries directly accessed by the job
-ln -s ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb-${LEVELDB_VERSION} ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb
+ln -s ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb-* ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb
 ln -s ${BOSH_INSTALL_TARGET}/rel/lib/bitcask-* ${BOSH_INSTALL_TARGET}/rel/lib/bitcask

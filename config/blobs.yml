@@ -9,16 +9,6 @@ git/git-1.8.4.tar.gz:
   sha: !binary |-
     YTIzOGYyYjUyNzM2NWI4OTZiOGVjNDQ3YjNlNWFiNWQ3YjRhMmM1YQ==
   size: 4657745
-riak/leveldb-1.3.0.zip:
-  object_id: 27ff3106-8b1f-42c1-8b71-3ecea98cb50a
-  sha: !binary |-
-    NDg4M2ZhZmRiNDNhMDdmZGU2NzNiMzJiODc5YWM5OTg2ZjZkZWUxNg==
-  size: 328314
-riak/riak-1.3.1.tar.gz:
-  object_id: f206d864-5c32-4833-b438-d2ddd0625885
-  sha: !binary |-
-    ZmMzNWMzY2Y3ZmU3ZjFlNGYxZDJkYWY5NmFiZGEzYjMwMDM3YmE2Mg==
-  size: 12665196
 riak-cs/riak-cs-1.4.4.tar.gz:
   object_id: 47fbbd39-daac-46aa-be25-e6829c19ca15
   sha: !binary |-
@@ -49,3 +39,8 @@ libyaml/yaml-0.1.4.tgz:
   sha: !binary |-
     ZTBlNWUwOTE5MmFiMTBhNjA3ZTNkYTI5NzBkYjQ5MjExOGY1NjBmMg==
   size: 471759
+riak/riak-1.4.7.tar.gz:
+  object_id: bbe77bfb-8976-4fd2-868e-8720dec1cc6c
+  sha: !binary |-
+    M2M3OWI5MzIxZjhlMjNkZTYxMzRiNzhiZWY1MzA4NTM2YjZlMGVlYg==
+  size: 13754630
