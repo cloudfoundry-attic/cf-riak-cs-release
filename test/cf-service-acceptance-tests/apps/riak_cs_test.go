@@ -25,18 +25,23 @@ var _ = Describe("Riak CS Service", func() {
 		PlanName := "bucket"
 		ServiceInstanceName := RandomName()
 
-		Expect(Cf("create-service", ServiceName, PlanName, ServiceInstanceName)). To(Say("OK"))
+		Expect(Cf("create-service", ServiceName, PlanName, ServiceInstanceName)).To(Say("OK"))
 		Expect(Cf("bind-service", AppName, ServiceInstanceName)).To(Say("OK"))
 		Expect(Cf("start", AppName)).To(Say("App started"))
 
 		uri := AppUri(AppName) + "/service/blobstore/" + ServiceInstanceName + "/mykey"
 		delete_uri := AppUri(AppName) + "/service/blobstore/" + ServiceInstanceName
 
+		fmt.Println("Posting to url: %s", uri)
 		Eventually(Curling("-d", "myvalue", uri), 10.0, 1.0).Should(Say("myvalue"))
+
+		fmt.Println("Curling url: %s", uri)
 		Eventually(Curling(uri), 10.0, 1.0).Should(Say("myvalue"))
+
+		fmt.Println("Sending delete to: %s", delete_uri)
 		Eventually(Curling("-X", "DELETE", delete_uri), 10.0, 1.0).Should(Say(""))
 
 		Expect(Cf("unbind-service", AppName, ServiceInstanceName)).To(Say("OK"))
-		Expect(Cf("delete-service", "-f", ServiceInstanceName)). To(Say("OK"))
+		Expect(Cf("delete-service", "-f", ServiceInstanceName)).To(Say("OK"))
 	})
 })
