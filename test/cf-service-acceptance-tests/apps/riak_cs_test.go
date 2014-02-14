@@ -7,6 +7,7 @@ import (
 
 	. "github.com/pivotal-cf-experimental/cf-test-helpers/cf"
 	. "github.com/pivotal-cf-experimental/cf-test-helpers/generator"
+	"fmt"
 )
 
 var _ = Describe("Riak CS Service", func() {
