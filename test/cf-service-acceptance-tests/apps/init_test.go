@@ -4,7 +4,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/vito/cmdtest"
-	. "../helpers"
+	. "github.com/pivotal-cf-experimental/cf-test-helpers"
 
 	"testing"
 	"../config"
