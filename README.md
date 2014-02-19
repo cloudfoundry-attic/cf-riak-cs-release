@@ -2,7 +2,7 @@
 
 A BOSH release for Riak and Riak CS.
 
-Make sure to run `git submodule update --init` before creating the release.
+Make sure to run `./update` (to update git submodules) before creating the release.
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
