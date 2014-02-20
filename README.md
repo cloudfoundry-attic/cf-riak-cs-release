@@ -75,8 +75,10 @@ Instructions for running the cf-service-acceptance tests under the test/ directo
 1. Install go by following the directions found [here](http://golang.org/doc/install)
 1. Set environment variables `CF_COLOR=false` and `CF_VERBOSE_OUTPUT=true`
 1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against 
+1. `cd` into `cf-riak-cs-release/test/cf-service-accetpance-tests/`
+1. Run `./bin/test`
 1. `cd` into `cf-riak-cs-release/test/cf-service-acceptance-tests/apps/`
-1. Run `CONFIG=/Users/pivotal/workspace/riak-release/test/cf-service-acceptance-tests/integration_config.json go test`
+1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json go test`
 
 
 ## Blobs
