@@ -6,6 +6,9 @@ Make sure to run `./update` (to update git submodules) before creating the relea
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
+## Create the release
+
+When you create the bosh release, you will be asked for a name; use `riak-cs`.
 
 ## Deployment
 
