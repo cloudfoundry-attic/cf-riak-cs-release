@@ -25,7 +25,7 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-ser
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Tests
-Instructions for running the cf-service-acceptance tests under the tests/ directory:
+Instructions for running the cf-service-acceptance tests under the test/ directory:
 
 1. Install go by following the directions found [here](http://golang.org/doc/install)
 2. Set environment variables `CF_COLOR=false` and `CF_VERBOSE_OUTPUT=true`
