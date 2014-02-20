@@ -3,6 +3,7 @@ config/private.yml
 releases/*.tgz
 dev_releases
 blobs/*
+riak-cs-*.yml
 .blobs
 .dev_builds
 .vagrant
