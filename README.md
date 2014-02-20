@@ -62,7 +62,7 @@ First register the broker using the `cf` CLI.  You have to be logged in as an ad
 ```
 cf create-service-broker riakcs admin admin http://10.244.3.22:8080
 ```
-Then make the [service plan public](http://docs.cloudfoundry.com/docs/running/architecture/services/access-control.html#make-plans-public).
+Then make the [service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
 
 
 ## Caveats
