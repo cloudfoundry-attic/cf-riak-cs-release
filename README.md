@@ -1,4 +1,4 @@
-# riak-release
+# cf-riak-cs-release
 
 A BOSH release for Riak and Riak CS.
 
@@ -6,13 +6,9 @@ Make sure to run `./update` (to update git submodules) before creating the relea
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
-## Create the release
-
-When you create the bosh release, you will be asked for a name; use `riak-cs`.
-
 ## Deployment
 
-1.  First create the release, naming it _riak-cs_.
+1.  First create the release, naming it `cf-riak-cs`.
 1.  Then upload the release.
 1.  Finally make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
 
@@ -52,9 +48,9 @@ It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like 
 		    - 10.0.0.104
 		    - 10.0.0.105
 
-2. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
+1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
-3. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
+1. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
 
 ## Registering the broker
 
@@ -72,13 +68,11 @@ We have not tested changing the structure of a live cluster, e.g. changing the s
 ## Tests
 Instructions for running the cf-service-acceptance tests under the test/ directory:
 
-1. Install go by following the directions found [here](http://golang.org/doc/install)
+1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`
-1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against 
-1. `cd` into `cf-riak-cs-release/test/cf-service-accetpance-tests/`
-1. Run `./bin/test`
-1. `cd` into `cf-riak-cs-release/test/cf-service-acceptance-tests/apps/`
-1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json go test`
+1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against. NOTE: this should not include `http://` or `https://`
+1. `cd` into `cf-riak-cs-release/test/cf-service-acceptance-tests/`
+1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json bin/test`
 
 
 ## Blobs
