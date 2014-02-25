@@ -29,7 +29,7 @@ var _ = Describe("Riak CS Service", func() {
 
 		Expect(Cf("create-service", ServiceName, PlanName, ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))
 		Expect(Cf("bind-service", AppName, ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))
-		Expect(Cf("start", AppName)).To(ExitWithTimeout(0, 120*time.Second))
+		Expect(Cf("start", AppName)).To(ExitWithTimeout(0, 5*60*time.Second))
 
 		uri := AppUri(AppName) + "/service/blobstore/" + ServiceInstanceName + "/mykey"
 		delete_uri := AppUri(AppName) + "/service/blobstore/" + ServiceInstanceName
