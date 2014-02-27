@@ -70,7 +70,7 @@ Instructions for running the cf-service-acceptance tests under the test/ directo
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`
-1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against. NOTE: this should not include `http://` or `https://`
+1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against. NOTE: this should not include `http://` or `https://`. E.g. for bosh-lite this might be `10.244.0.34.xip.io`.
 1. `cd` into `cf-riak-cs-release/test/cf-service-acceptance-tests/`
 1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json bin/test`
 
