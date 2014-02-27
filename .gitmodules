@@ -3,4 +3,4 @@
 	url = https://github.com/cloudfoundry/shared-release-packages.git
 [submodule "cf-riak-cs-broker"]
 	path = src/cf-riak-cs-broker
-	url = https://github.com/cloudfoundry/cf-riak-cs-broker.git
+	url = https://github.com/cloudfoundry-incubator/cf-riak-cs-broker.git
