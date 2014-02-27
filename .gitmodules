@@ -4,3 +4,7 @@
 [submodule "cf-riak-cs-broker"]
 	path = src/cf-riak-cs-broker
 	url = https://github.com/cloudfoundry-incubator/cf-riak-cs-broker.git
+[submodule "packages/ruby"]
+	path = packages/ruby
+	url = git@github.com:cloudfoundry/ruby.git
+	branch = 1.9.3

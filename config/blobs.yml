@@ -44,3 +44,8 @@ riak/riak-1.4.7.tar.gz:
   sha: !binary |-
     M2M3OWI5MzIxZjhlMjNkZTYxMzRiNzhiZWY1MzA4NTM2YjZlMGVlYg==
   size: 13754630
+ruby/yaml-0.1.5.tar.gz:
+  object_id: c47ce236-6e27-45ed-90fd-79605fca276b
+  sha: !binary |-
+    OGI3OGNiOWY3NTljN2Q4MGRiOGE3MzI4YzBlYmVjZmUzNGZkZTczNw==
+  size: 504897
