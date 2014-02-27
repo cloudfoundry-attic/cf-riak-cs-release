@@ -66,12 +66,13 @@ Then make the [service plan public](http://docs.cloudfoundry.org/services/servic
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Tests
-Instructions for running the cf-service-acceptance tests under the test/ directory:
+Instructions for running the cf-service-acceptance tests:
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`
 1. Update `cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against. NOTE: this should not include `http://` or `https://`. E.g. for bosh-lite this might be `10.244.0.34.xip.io`.
 1. `cd` into `cf-riak-cs-release/test/cf-service-acceptance-tests/`
+1. Target and log into your CF instance, e.g. `cf login -a http://api.10.244.0.34.xip.io -u admin -p admin`
 1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/cf-service-acceptance-tests/integration_config.json bin/test`
 
 
