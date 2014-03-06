@@ -36,3 +36,7 @@ properties:
     port: 8080
     username: admin
     password: admin
+  networks:
+    riak_cs_network: riak-cs-network
+  nats: (( merge || ~ ))
+  external_host: (( 'riakcs.' properties.domain ))

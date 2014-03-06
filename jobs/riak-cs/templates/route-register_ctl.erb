@@ -1,0 +1,37 @@
+#!/bin/bash -x
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+JOB_DIR=/var/vcap/jobs/route-register
+RUN_DIR=/var/vcap/sys/run/route-register
+LOG_DIR=/var/vcap/sys/log/route-register
+PIDFILE=$RUN_DIR/route-register.pid
+
+export PATH=/var/vcap/packages/ruby/bin:$PATH
+export BUNDLE_GEMFILE=/var/vcap/packages/cf-mysql-broker/Gemfile
+export SETTINGS_PATH=$job_dir/config/settings.yml
+
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    echo $$ > $PIDFILE
+
+    cd /var/vcap/packages/route-register
+    exec bundle exec /var/vcap/packages/route-register/register.rb \
+      >>$log_dir/route-register.stdout.log 2>>$log_dir/route-register.stderr.log
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+    ;;
+
+  *)
+  echo "Usage: register-route_ctl {start|stop}" ;;
+
+esac
+exit 0

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+set +x
+
+rsync -a route-register/ ${BOSH_INSTALL_TARGET}
+
+# install gems from cache
+(
+  cd ${BOSH_INSTALL_TARGET}
+
+  export PATH=/var/vcap/packages/ruby/bin:$PATH;
+
+  bundle install --local --deployment --without development test
+)

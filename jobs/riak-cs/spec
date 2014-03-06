@@ -5,6 +5,9 @@ packages:
 - erlang
 - git
 - riak-cs
+- ruby
+- common
+- route-register
 templates:
   riak_ctl.erb: bin/riak_ctl
   riak.app.config.erb: config/riak.app.config
@@ -16,3 +19,6 @@ templates:
   riak-cs_ctl.erb: bin/riak-cs_ctl
   riak_cs.app.config.erb: config/riak_cs.app.config
   riak_cs.vm.args.erb: config/riak_cs.vm.args
+
+  register_settings.yml.erb: config/register_settings.yml
+  route-register_ctl.erb: bin/route-register_ctl
