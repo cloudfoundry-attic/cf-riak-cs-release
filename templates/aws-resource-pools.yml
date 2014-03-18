@@ -1,0 +1,21 @@
+jobs: (( merge ))
+resource_pools:
+- name: riak-pool
+  network: riak-cs-network
+  size: (( auto ))
+  stemcell:
+    name: bosh-aws-xen-ubuntu
+    version: latest
+  cloud_properties:
+    instance_type: m1.medium
+    availability_zone: (( merge ))
+- name: broker-pool
+  network: riak-cs-network
+  size: (( auto )) 
+  stemcell:
+    name: bosh-aws-xen-ubuntu
+    version: latest
+  cloud_properties:
+    instance_type: m1.small
+    availability_zone: (( merge ))
+

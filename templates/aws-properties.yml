@@ -1,0 +1,3 @@
+properties:
+  riak:
+    firewall_enabled: true

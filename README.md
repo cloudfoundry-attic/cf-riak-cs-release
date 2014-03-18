@@ -16,7 +16,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 1. Create a stub file called `riak-cs-lite-stub.yml` that contains your director UUID (which you can get from running `bosh status`):
 
-		director_uuid: your-director-guid-here
+		director_uuid: YOUR-DIRECTOR-GUID-HERE
 		properties:
 		  domain: your-cf-system-domain-here   # such as 10.244.0.34.xip.io
 
@@ -29,7 +29,7 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-lit
 1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains your director UUID (which you can get from running `bosh status`).
 It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like this:
 
-		director_uuid: your-director-guid-here
+		director_uuid: YOUR-DIRECTOR-GUID-HERE
 		networks:
 		- name: riak-cs-network
 		  subnets:
@@ -61,6 +61,31 @@ It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like 
 1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
 1. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
+
+### To an AWS environment
+
+1. Create a stub file called `riak-cs-aws-stub.yml` that contains your director UUID (which you can get from running `bosh status`).
+It also needs your network settings, like this:
+
+        director_uuid: YOUR-DIRECTOR-GUID-HERE
+        networks:
+          - name: riak-cs-network
+            subnets:
+            - name: riak-cs-subnet
+              cloud_properties:
+                subnet: YOUR-AWS-SERVICES-SUBNET-ID-HERE
+
+        resource_pools:
+        - name: riak-pool
+          cloud_properties:
+            availability_zone: YOUR-PRIMARY-AZ-NAME-HERE
+        - name: broker-pool
+          cloud_properties:
+            availability_zone: YOUR-PRIMARY-AZ-NAME-AGAIN
+
+1. Generate the manifest: `./generate_deployment_manifest aws riak-cs-aws-stub.yml > riak-cs-aws.yml`
+To tweak the deployment settings, you can modify the resulting file `riak-cs-aws.yml`.
+1. To deploy: `bosh deployment riak-cs-aws.yml && bosh deploy`
 
 ## Registering the broker
 
