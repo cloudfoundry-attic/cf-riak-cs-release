@@ -11,6 +11,7 @@ riak-cs-*.yml
 .DS_Store
 .final_builds/jobs/**/*.tgz
 .final_builds/packages/**/*.tgz
+src/route_register/pkg
 *.swp
 *~
 *#

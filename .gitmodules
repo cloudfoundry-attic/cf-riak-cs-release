@@ -8,3 +8,9 @@
 	path = packages/ruby
 	url = git@github.com:cloudfoundry/ruby.git
 	branch = 1.9.3
+[submodule "src/route_register/src/github.com/cloudfoundry/yagnats"]
+	path = src/route_register/src/github.com/cloudfoundry/yagnats
+	url = https://github.com/cloudfoundry/yagnats
+[submodule "src/route_register/src/github.com/cloudfoundry/gibson"]
+	path = src/route_register/src/github.com/cloudfoundry/gibson
+	url = https://github.com/cloudfoundry/gibson
