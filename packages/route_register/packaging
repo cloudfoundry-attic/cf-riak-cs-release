@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+set +x
+
+#compile
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export PATH=/var/vcap/packages/git/bin:$PATH
+export PATH=$GOROOT/bin:$PATH
+
+export GOPATH=$PWD/route_register
+
+go install route_register_app
+
+#copy the executable file to bosh install target folder
+cp -a $GOPATH/bin/route_register_app ${BOSH_INSTALL_TARGET}

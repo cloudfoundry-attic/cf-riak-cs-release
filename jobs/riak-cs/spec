@@ -5,9 +5,14 @@ packages:
 - erlang
 - git
 - riak-cs
+<<<<<<< HEAD
 - ruby
 - common
 - route-register
+=======
+- common
+- route_register
+>>>>>>> Bosh release for riak-cs registers routes.
 templates:
   riak_ctl.erb: bin/riak_ctl
   riak.app.config.erb: config/riak.app.config
@@ -21,4 +26,8 @@ templates:
   riak_cs.vm.args.erb: config/riak_cs.vm.args
 
   register_settings.yml.erb: config/register_settings.yml
+<<<<<<< HEAD
   route-register_ctl.erb: bin/route-register_ctl
+=======
+  route_register_ctl.erb: bin/route_register_ctl
+>>>>>>> Bosh release for riak-cs registers routes.

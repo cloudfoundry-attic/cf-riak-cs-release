@@ -1,8 +1,9 @@
----
-message_bus_servers:
+message_bus_server:
 <% p('nats.machines').each do |ip| %>
-  - nats://<%= p('nats.user') %>:<%= p('nats.password') %>@<%= ip %>:<%= p('nats.port') %>
+    host: <%= ip %>:<%= p('nats.port') %>
+    user: <%= p('nats.user') %>
+    password: <%= p('nats.password') %>
 <% end %>
 external_host: <%= p('external_host') %>
-external_ip: <%= spec.networks.send(p('networks.riak_cs_network')).ip %>
+external_ip: 127.0.0.1
 port: <%= p('riak_cs.port', '8080') %>

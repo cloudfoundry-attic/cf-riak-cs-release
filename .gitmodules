@@ -14,3 +14,12 @@
 [submodule "src/route_register/src/github.com/cloudfoundry/gibson"]
 	path = src/route_register/src/github.com/cloudfoundry/gibson
 	url = https://github.com/cloudfoundry/gibson
+[submodule "src/route_register/src/launchpad.net/goyaml"]
+	path = src/route_register/src/launchpad.net/goyaml
+	url = https://github.com/go-yaml/go-yaml-v1
+[submodule "src/route_register/src/github.com/nu7hatch/gouuid"]
+	path = src/route_register/src/github.com/nu7hatch/gouuid
+	url = https://github.com/nu7hatch/gouuid
+[submodule "src/route_register/src/github.com/go-yaml/go-yaml-v1"]
+	path = src/route_register/src/github.com/go-yaml/go-yaml-v1
+	url = https://github.com/go-yaml/go-yaml-v1

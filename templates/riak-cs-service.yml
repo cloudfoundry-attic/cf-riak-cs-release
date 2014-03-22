@@ -38,5 +38,6 @@ properties:
     password: admin
   networks:
     riak_cs_network: riak-cs-network
-  nats: (( merge || ~ ))
-  external_host: (( 'riakcs.' properties.domain ))
+  nats: (( merge ))
+  domain : (( merge ))
+  external_host: (( "riakcs." properties.domain ))
