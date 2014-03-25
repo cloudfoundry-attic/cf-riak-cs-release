@@ -14,9 +14,6 @@
 [submodule "src/route_registrar/src/github.com/cloudfoundry/gibson"]
 	path = src/route_registrar/src/github.com/cloudfoundry/gibson
 	url = https://github.com/cloudfoundry/gibson
-[submodule "src/route_registrar/src/launchpad.net/goyaml"]
-	path = src/route_registrar/src/launchpad.net/goyaml
-	url = https://github.com/go-yaml/go-yaml-v1
 [submodule "src/route_registrar/src/github.com/nu7hatch/gouuid"]
 	path = src/route_registrar/src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
