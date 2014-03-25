@@ -66,7 +66,7 @@ Then make the [service plan public](http://docs.cloudfoundry.org/services/servic
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Tests
-Instructions for running the cf-service-acceptance tests:
+Instructions for running the acceptance tests:
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`
