@@ -3,7 +3,7 @@ package registrar_test
 import (
 	"os"
 	"syscall"
-    . "route_registrar"
+    . "registrar"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	. "config"
