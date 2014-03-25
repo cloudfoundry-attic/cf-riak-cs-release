@@ -11,7 +11,4 @@ export PATH=$GOROOT/bin:$PATH
 
 export GOPATH=$PWD/route_registrar
 
-go install registrar_app
-
-#copy the executable file to bosh install target folder
-cp -a $GOPATH/bin/registrar_app ${BOSH_INSTALL_TARGET}
+go build -o $BOSH_INSTALL_TARGET/registrar_app registrar_app
