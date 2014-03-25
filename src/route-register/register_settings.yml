@@ -1,6 +1,0 @@
----
-message_bus_servers:
-  - nats://127.0.0.1:4222
-external_host: riakcs.vcap.me
-external_ip: 127.0.0.1
-port: 8080
