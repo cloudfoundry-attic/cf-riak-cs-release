@@ -1,9 +1,9 @@
-package route_register_test
+package registrar_test
 
 import (
 	"os"
 	"syscall"
-    . "route_register"
+    . "route_registrar"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	. "config"

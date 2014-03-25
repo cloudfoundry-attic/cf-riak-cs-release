@@ -1,13 +1,13 @@
 package main
 
 import (
-	. "route_register"
+	. "registrar"
 	"config"
 	"os"
 )
 
 func main() {
-	config := config.InitConfigFromFile("register_settings.yml")
+	config := config.InitConfigFromFile("registrar_settings.yml")
 	registrar := NewRegistrar(config)
 	registrar.RegisterRoutes()
 	os.Exit(1)

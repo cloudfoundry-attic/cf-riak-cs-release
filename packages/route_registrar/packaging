@@ -9,9 +9,9 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export PATH=/var/vcap/packages/git/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
 
-export GOPATH=$PWD/route_register
+export GOPATH=$PWD/route_registrar
 
-go install route_register_app
+go install registrar_app
 
 #copy the executable file to bosh install target folder
-cp -a $GOPATH/bin/route_register_app ${BOSH_INSTALL_TARGET}
+cp -a $GOPATH/bin/registrar_app ${BOSH_INSTALL_TARGET}

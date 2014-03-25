@@ -10,8 +10,8 @@ check process riak-cs
   stop program "/var/vcap/jobs/riak-cs/bin/riak-cs_ctl stop"
   group vcap
 
-check process route_register
-  with pidfile /var/vcap/sys/run/route_register/route_register.pid
-  start program "/var/vcap/jobs/riak-cs/bin/route_register_ctl start"
-  stop program "/var/vcap/jobs/riak-cs/bin/route_register_ctl stop"
+check process route_registrar
+  with pidfile /var/vcap/sys/run/route_registrar/route_registrar.pid
+  start program "/var/vcap/jobs/riak-cs/bin/route_registrar_ctl start"
+  stop program "/var/vcap/jobs/riak-cs/bin/route_registrar_ctl stop"
   group vcap

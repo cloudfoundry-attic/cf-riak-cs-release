@@ -1,4 +1,4 @@
-package route_register_test
+package registrar_test
 
 import (
 	. "github.com/onsi/ginkgo"

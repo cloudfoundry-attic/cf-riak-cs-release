@@ -1,4 +1,4 @@
-package route_register
+package registrar
 
 import (
 	"os"

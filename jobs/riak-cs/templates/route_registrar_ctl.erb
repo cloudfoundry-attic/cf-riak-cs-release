@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+JOB_NAME=route_registrar
+
+JOB_DIR=/var/vcap/jobs/route_registrar
+RUN_DIR=/var/vcap/sys/run/route_registrar
+LOG_DIR=/var/vcap/sys/log/route_registrar
+PIDFILE=$RUN_DIR/route_registrar.pid
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+start)
+mkdir -p $JOB_DIR
+mkdir -p $RUN_DIR
+mkdir -p $LOG_DIR
+
+#Copy the config file to right folder
+cp /var/vcap/jobs/riak-cs/config/registrar_settings.yml /var/vcap/packages/route_registrar/registrar_settings.yml
+
+# Update registrar_settings.yml with current IP address
+IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
+sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/route_registrar/registrar_settings.yml
+
+pid_guard $PIDFILE $JOB_NAME
+
+cd /var/vcap/packages/route_registrar
+
+chpst /var/vcap/packages/route_registrar/registrar_app \
+>>$LOG_DIR/route_registrar.stdout.log 2>>$LOG_DIR/route_registrar.stderr.log&
+
+pgrep -f 'registrar_app'> $PIDFILE
+;;
+
+stop)
+kill_and_wait $PIDFILE
+;;
+
+*)
+echo "Usage: registrar-route_ctl {start|stop}" ;;
+
+esac
+exit 0

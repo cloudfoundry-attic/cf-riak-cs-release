@@ -1,9 +1,0 @@
----
-name: route-register
-dependencies:
-- ruby
-- common
-files:
-- route-register/register.rb
-- route-register/Gemfile
-- route-register/Gemfile.lock
