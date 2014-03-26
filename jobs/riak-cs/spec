@@ -6,7 +6,7 @@ packages:
 - git
 - riak-cs
 - common
-- route_registrar
+- route-registrar
 templates:
   riak_ctl.erb: bin/riak_ctl
   riak.app.config.erb: config/riak.app.config

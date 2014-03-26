@@ -9,6 +9,8 @@ export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export PATH=/var/vcap/packages/git/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
 
-export GOPATH=$PWD/route_registrar
+export GOPATH=$PWD/route-registrar/src/github.com/cloudfoundry-incubator/route-registrar/Godeps/_workspace:$PWD/route-registrar
 
-go build -o $BOSH_INSTALL_TARGET/registrar_app registrar_app
+go install github.com/cloudfoundry-incubator/route-registrar
+
+cp route-registrar/bin/route-registrar $BOSH_INSTALL_TARGET/route-registrar

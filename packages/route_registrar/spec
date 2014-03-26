@@ -1,7 +1,0 @@
----
-name: route_registrar
-dependencies:
-- golang
-- common
-files:
-- route_registrar/**/*.go

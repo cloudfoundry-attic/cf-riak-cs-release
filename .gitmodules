@@ -8,15 +8,6 @@
 	path = packages/ruby
 	url = git@github.com:cloudfoundry/ruby.git
 	branch = 1.9.3
-[submodule "src/route_registrar/src/github.com/cloudfoundry/yagnats"]
-	path = src/route_registrar/src/github.com/cloudfoundry/yagnats
-	url = https://github.com/cloudfoundry/yagnats
-[submodule "src/route_registrar/src/github.com/cloudfoundry/gibson"]
-	path = src/route_registrar/src/github.com/cloudfoundry/gibson
-	url = https://github.com/cloudfoundry/gibson
-[submodule "src/route_registrar/src/github.com/nu7hatch/gouuid"]
-	path = src/route_registrar/src/github.com/nu7hatch/gouuid
-	url = https://github.com/nu7hatch/gouuid
-[submodule "src/route_registrar/src/github.com/go-yaml/go-yaml-v1"]
-	path = src/route_registrar/src/github.com/go-yaml/go-yaml-v1
-	url = https://github.com/go-yaml/go-yaml-v1
+[submodule "src/route-registrar/src/github.com/cloudfoundry-incubator/route-registrar"]
+	path = src/route-registrar/src/github.com/cloudfoundry-incubator/route-registrar
+	url = https://github.com/cloudfoundry-incubator/route-registrar.git
