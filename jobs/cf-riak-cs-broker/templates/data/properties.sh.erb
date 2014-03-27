@@ -13,8 +13,8 @@ export PORT=<%= p('broker.port', '9292') %>
 
 export RIAK_CS_BROKER_USERNAME=<%= p('broker.username') %>
 export RIAK_CS_BROKER_PASSWORD=<%= p('broker.password') %>
-export RIAK_CS_HOST=<%= p('riak.seed_node') %>
-export RIAK_CS_PORT=<%= p('riak_cs.port', '8080') %>
+export RIAK_CS_HOST=<%= p('external_host') %>
+export RIAK_CS_PORT=<%= '80' %>
 export RIAK_CS_SCHEME=http
 export RIAK_CS_ACCESS_KEY_ID=<%= p('riak_cs.admin_key') %>
 export RIAK_CS_SECRET_ACCESS_KEY=<%= p('riak_cs.admin_secret') %>
