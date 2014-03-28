@@ -1,3 +1,9 @@
 properties:
   riak:
     firewall_enabled: false
+  nats:
+    machines:
+    - 10.244.0.6
+    user: nats
+    password: nats
+    port: 4222

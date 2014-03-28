@@ -17,6 +17,8 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 1. Create a stub file called `riak-cs-lite-stub.yml` that contains your director UUID (which you can get from running `bosh status`):
 
 		director_uuid: your-director-guid-here
+		properties:
+		  domain: your-cf-system-domain-here   # such as 10.244.0.34.xip.io
 
 2. Generate the manifest: `./generate_deployment_manifest warden riak-cs-lite-stub.yml > riak-cs-lite.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-lite.yml`.
@@ -47,6 +49,14 @@ It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like 
 		    - 10.0.0.103
 		    - 10.0.0.104
 		    - 10.0.0.105
+		properties:
+		  domain: your-cf-system-domain-here
+		  nats:
+        machines:
+        - 10.0.0.15   # IP of nats server
+        user: nats-username-here
+        password: nats-password-here
+        port: 4222
 
 1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
