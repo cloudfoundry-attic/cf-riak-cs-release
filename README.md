@@ -12,6 +12,18 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 1.  Then upload the release.
 1.  Finally make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
 
+### Configurations common to both environments
+1. SSL:
+	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
+	* `ssl_enabled` is defaulted to true and `skip_ssl_validation` defaults to false, which will only work if you have valid certs on your CF deployment
+	* If you wish to change either of these, you can create a stub with these properties set to your needs:
+```  properties:
+        riak_cs:
+    	    ssl_enabled: <your value>
+    	    skip_ssl_validation: <your value>
+```
+
+
 ### To a BOSH-lite environment
 
 1. Create a stub file called `riak-cs-lite-stub.yml` that contains your director UUID (which you can get from running `bosh status`):
