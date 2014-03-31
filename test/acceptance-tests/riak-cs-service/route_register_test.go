@@ -12,10 +12,10 @@ import (
 var _ = Describe("Route Register", func() {
 
 		It("Allows users to access the riak-cs service using external url instead of IP of single machine after register the route", func() {
-			endpointURL := "http://riakcs." + IntegrationConfig.AppsDomain + "/riak-cs/ping"
+			endpointURL := IntegrationConfig.RiakCsScheme + "riakcs." + IntegrationConfig.AppsDomain + "/riak-cs/ping"
 			fmt.Println("Endpoint URL: " + endpointURL)
 			var session *cmdtest.Session
-			session = runner.Curl(endpointURL)
+			session = runner.Curl("-k", endpointURL)
 			Expect(session).To(Say("OK"))
 		})
 	})

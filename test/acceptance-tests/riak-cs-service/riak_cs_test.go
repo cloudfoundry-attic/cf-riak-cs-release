@@ -35,15 +35,15 @@ var _ = Describe("Riak CS Service", func() {
 		delete_uri := AppUri(AppName) + "/service/blobstore/" + ServiceInstanceName
 
 		fmt.Println("Posting to url: ", uri)
-		Eventually(Curling("-d", "myvalue", uri), 10.0, 1.0).Should(Say("myvalue"))
+		Eventually(Curling("-k", "-d", "myvalue", uri), 10.0, 1.0).Should(Say("myvalue"))
 		fmt.Println("\n")
 
 		fmt.Println("Curling url: ", uri)
-		Eventually(Curling(uri), 10.0, 1.0).Should(Say("myvalue"))
+		Eventually(Curling("-k", uri), 10.0, 1.0).Should(Say("myvalue"))
 		fmt.Println("\n")
 
 		fmt.Println("Sending delete to: ", delete_uri)
-		Eventually(Curling("-X", "DELETE", delete_uri), 10.0, 1.0).Should(Say(""))
+		Eventually(Curling("-X", "DELETE", "-k", delete_uri), 10.0, 1.0).Should(Say(""))
 		fmt.Println("\n")
 
 		Expect(Cf("unbind-service", AppName, ServiceInstanceName)).To(ExitWithTimeout(0, 20*time.Second))
