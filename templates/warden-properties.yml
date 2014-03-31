@@ -7,3 +7,7 @@ properties:
     user: nats
     password: nats
     port: 4222
+  cf:
+    admin_username: admin
+    admin_password: admin
+    api_url: (( merge ))

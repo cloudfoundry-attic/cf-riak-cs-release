@@ -19,6 +19,8 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 		director_uuid: YOUR-DIRECTOR-GUID-HERE
 		properties:
 		  domain: your-cf-system-domain-here   # such as 10.244.0.34.xip.io
+		  cf:
+        api_url: http://api.YOUR-CF-DOMAIN-HERE    # such as http://api.10.244.0.34.xip.io
 
 2. Generate the manifest: `./generate_deployment_manifest warden riak-cs-lite-stub.yml > riak-cs-lite.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-lite.yml`.
@@ -57,6 +59,10 @@ It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like 
         user: nats-username-here
         password: nats-password-here
         port: 4222
+      cf:
+        api_url: https://api.YOUR-CF-DOMAIN-HERE
+        admin_username: CF-ADMIN-USERNAME
+        admin_password: CF-ADMIN-PASSWORD
 
 1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
@@ -83,12 +89,32 @@ It also needs your network settings, like this:
           cloud_properties:
             availability_zone: YOUR-PRIMARY-AZ-NAME-AGAIN
 
+        properties:
+          domain: your-cf-system-domain-here
+          nats:
+            machines:
+            - IP-OF-NATS-SERVER-HERE
+            user: NATS-USERNAME-HERE
+            password: NATS-PASSWORD-HERE
+            port: 4222
+          cf:
+            api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
+            admin_username: CF-ADMIN-USERNAMEå
+            admin_password: CF-ADMIN-PASSWORD
+
 1. Generate the manifest: `./generate_deployment_manifest aws riak-cs-aws-stub.yml > riak-cs-aws.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-aws.yml`.
 1. To deploy: `bosh deployment riak-cs-aws.yml && bosh deploy`
 
 ## Registering the broker
 
+### Using BOSH errands
+
+If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+
+        bosh run errand broker-registrar
+
+### Manually
 First register the broker using the `cf` CLI.  You have to be logged in as an admin, and the IP of the broker will likely be different on vsphere (use `bosh vms` to find it if necessary)
 ```
 cf create-service-broker riakcs admin admin http://10.244.3.22:8080

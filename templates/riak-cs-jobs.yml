@@ -2,11 +2,11 @@ networks: (( merge ))
 jobs:
 - name: riak-cs
   template: riak-cs
-  instances: 4
+  instances: 3
   resource_pool: riak-pool
   networks:
   - name: riak-cs-network
-    static_ips: (( static_ips(0, 1, 2, 3) ))
+    static_ips: (( static_ips(0, 1, 2) ))
   persistent_disk: 4096
 - name: stanchion
   template: stanchion
@@ -23,4 +23,10 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips: (( static_ips(5) ))
-
+- name: broker-registrar
+  lifecycle: errand
+  template: broker-registrar
+  instances: 1
+  resource_pool: broker-pool
+  networks:
+  - name: riak-cs-network
