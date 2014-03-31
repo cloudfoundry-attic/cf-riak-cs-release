@@ -5,8 +5,9 @@ TEMPLATES=$(dirname $0)/templates
 infrastructure=$1
 
 if [ "$infrastructure" != "warden" ] && \
-    [ "$infrastructure" != "vsphere" ] ; then
-  echo "usage: ./generate_deployment_manifest <warden|vsphere> [stubs...]"
+    [ "$infrastructure" != "vsphere" ] && \
+    [ "$infrastructure" != "aws" ]; then
+  echo "usage: ./generate_deployment_manifest <warden|vsphere|aws> [stubs...]"
   exit 1
 fi
 

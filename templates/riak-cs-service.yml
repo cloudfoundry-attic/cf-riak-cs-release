@@ -22,6 +22,7 @@ update:
   max_in_flight: 3
 
 properties:
+  cf: (( merge ))
   riak:
     firewall_enabled: (( merge ))
     seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
@@ -35,6 +36,8 @@ properties:
   stanchion:
     ip: (( jobs.[1].networks.[0].static_ips.[0] ))
   broker:
+    name: p-blobstore
+    host: (( jobs.cf-riak-cs-broker.networks.[0].static_ips.[0] ))
     port: 8080
     username: admin
     password: admin
