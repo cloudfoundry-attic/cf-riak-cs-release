@@ -16,7 +16,7 @@ func TestServices(t *testing.T) {
 }
 
 func AppUri(appname string) string {
-	return "http://" + appname + "." + IntegrationConfig.AppsDomain
+	return IntegrationConfig.RiakCsScheme + appname + "." + IntegrationConfig.AppsDomain
 }
 
 func Curling(args ...string) func() *cmdtest.Session {
