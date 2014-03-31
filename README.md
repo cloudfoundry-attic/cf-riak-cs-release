@@ -17,18 +17,11 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
 	* `ssl_enabled` is defaulted to true and `skip_ssl_validation` defaults to false, which will only work if you have valid certs on your CF deployment
 	* If you wish to change either of these, you can create a stub with these properties set to your needs:
-<<<<<<< HEAD
-```  properties:
-        riak_cs:
-    	    ssl_enabled: <your value>
-    	    skip_ssl_validation: <your value>
-=======
-```  
+```
 properties:
   riak_cs:
     ssl_enabled: <your value>
     skip_ssl_validation: <your value>
->>>>>>> Update broker and enable ssl capabilities
 ```
 
 
