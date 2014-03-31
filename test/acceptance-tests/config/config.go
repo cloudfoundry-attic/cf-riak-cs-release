@@ -7,6 +7,7 @@ import (
 
 type IntegrationConfig struct {
 	AppsDomain        string `json:"apps_domain"`
+	RiakCsScheme      string `json:"riak_cs_scheme"`
 }
 
 func Load() (config IntegrationConfig) {

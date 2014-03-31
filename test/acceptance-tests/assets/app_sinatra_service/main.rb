@@ -4,7 +4,7 @@ require 'bundler'
 require 'fog'
 
 Bundler.require
-
+Excon.defaults[:ssl_verify_peer] = false
 class ServiceUnavailableError < StandardError;
 end
 
