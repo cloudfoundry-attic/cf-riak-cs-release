@@ -75,14 +75,14 @@ It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like 
 		  domain: your-cf-system-domain-here
 		  nats:
         machines:
-        - 10.0.0.15   # IP of nats server
-        user: nats-username-here
-        password: nats-password-here
-        port: 4222
-      cf:
-        api_url: https://api.YOUR-CF-DOMAIN-HERE
-        admin_username: CF-ADMIN-USERNAME
-        admin_password: CF-ADMIN-PASSWORD
+         - 10.0.0.15   # IP of nats server
+         user: nats-username-here
+         password: nats-password-here
+         port: 4222
+        cf:
+         api_url: https://api.YOUR-CF-DOMAIN-HERE
+         admin_username: CF-ADMIN-USERNAME
+         admin_password: CF-ADMIN-PASSWORD
 
 1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
