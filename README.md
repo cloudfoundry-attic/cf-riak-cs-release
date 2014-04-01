@@ -15,7 +15,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 ### Configurations common to both environments
 1. SSL:
 	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
-	* `ssl_enabled` is defaulted to true and `skip_ssl_validation` defaults to false, which will only work if you have valid certs on your CF deployment
+	* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which will only work if you have valid certs on your CF deployment
 	* If you wish to change either of these, you can create a stub with these properties set to your needs:
 ```
 properties:
