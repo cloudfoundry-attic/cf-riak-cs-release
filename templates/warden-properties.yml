@@ -11,3 +11,5 @@ properties:
     admin_username: admin
     admin_password: admin
     api_url: (( merge ))
+  riak_cs:
+    skip_ssl_validation: true
