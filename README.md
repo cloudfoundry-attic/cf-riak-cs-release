@@ -13,23 +13,25 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 1.  Finally make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
 
 ### Configurations common to both environments
-1. SSL:
+
+1. SSL Properties:
 	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
-	* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which will only work if you have valid certs on your CF deployment
-	* If you wish to change either of these, you can create a stub with these properties set to your needs:
-```
-properties:
-  riak_cs:
-    ssl_enabled: <your value>
-    skip_ssl_validation: <your value>
-```
+	* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
+	* If you wish to change either of these put them in a stub file and configure them as needed:
+
+	```
+	properties:
+  	  riak_cs:
+	    ssl_enabled: <your value>
+	    skip_ssl_validation: <your value>
+	```
 
 2. Cloud Foundry Properties:
 
-This release needs to know a little about your CF installation.  The `domain` property refers to the system domain
-that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to publish a route `riakcs.YOUR-CF-SYSTEM-DOMAIN` and a route for the broker.  This route allows traffic to get to the riak CS HTTP API server and also load balances among the riak CS nodes.
+	This release needs to know a little about your CF installation.  The `domain` property refers to the system domain
+that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to publish a route for the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and a route for the broker.  The route for the cluster allows traffic to be load balanced across the riak CS nodes.
 
-The `cf.api_url` refers to the CloudController API URL (same thing you use to target with the `cf` CLI).  It's used by an BOSH errand to register the newly deployed broker with CloudController (see below for invocation).  `cf.admin_username` and `cf.admin_password` are also needed to register the new broker, but are not required for bosh-lite since the credentials are admin/admin.
+	The `cf.api_url` parameter refers to the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by an BOSH errand to register the newly deployed broker with CloudController (see below for invocation).  `cf.admin_username` and `cf.admin_password` are also needed by the BOSH errand to register the broker, but are not required for bosh-lite since the credentials are admin/admin.
 
 
 ### To a BOSH-lite environment
@@ -40,7 +42,7 @@ The `cf.api_url` refers to the CloudController API URL (same thing you use to ta
 		properties:
 		  domain: your-cf-system-domain-here   # such as 10.244.0.34.xip.io
 		  cf:
-                    api_url: http://api.YOUR-CF-DOMAIN-HERE    # such as http://api.10.244.0.34.xip.io
+		    api_url: http://api.YOUR-CF-DOMAIN-HERE    # such as http://api.10.244.0.34.xip.io
 
 2. Generate the manifest: `./generate_deployment_manifest warden riak-cs-lite-stub.yml > riak-cs-lite.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-lite.yml`.
@@ -119,7 +121,7 @@ It also needs your network settings, like this:
             port: 4222
           cf:
             api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
-            admin_username: CF-ADMIN-USERNAMEå
+            admin_username: CF-ADMIN-USERNAME
             admin_password: CF-ADMIN-PASSWORD
 
 1. Generate the manifest: `./generate_deployment_manifest aws riak-cs-aws-stub.yml > riak-cs-aws.yml`
