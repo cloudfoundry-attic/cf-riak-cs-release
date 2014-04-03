@@ -15,8 +15,7 @@ case $1 in
 
     cd /var/vcap/packages/cf-riak-cs-broker
     bundle exec rackup -E deployment -p $PORT -P $PIDFILE\
-         >>$LOG_DIR/$JOB_NAME.stdout.log \
-         2>>$LOG_DIR/$JOB_NAME.stderr.log &
+         2>>$LOG_DIR/$JOB_NAME.log &
     ;;
 
   stop)
