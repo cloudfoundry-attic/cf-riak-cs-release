@@ -193,7 +193,6 @@
           %%
           %% {lager_syslog_backend, ["riak", local1, info]}
           {handlers, [
-                      {lager_console_backend, info},
                       {lager_file_backend, [{file, "/var/vcap/sys/log/riak-cs/error.log"},
                                             {level, error},
                                             {size, 10485760},

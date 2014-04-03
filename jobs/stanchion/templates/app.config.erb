@@ -34,7 +34,6 @@
           %% and the rotation time to "", or instead specify a 2-tuple that only
           %% consists of {Logfile, Level}.
           {handlers, [
-                      {lager_console_backend, info},
                       {lager_file_backend, [{file, "/var/vcap/sys/log/stanchion/error.log"},
                                             {level, error},
                                             {size, 10485760},

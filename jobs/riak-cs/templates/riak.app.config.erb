@@ -221,11 +221,16 @@
 %% and the rotation time to "", or instead specify a 2-tuple that only
 %% consists of {Logfile, Level}.
 {handlers, [
-{lager_console_backend, info},
-{lager_file_backend, [
-{"/var/vcap/sys/log/riak/error.log", error, 10485760, "$D0", 5},
-{"/var/vcap/sys/log/riak/console.log", info, 10485760, "$D0", 5}
-]}
+    {lager_file_backend, [{file, "/var/vcap/sys/log/riak/error.log"},
+                          {level, error},
+                          {size, 10485760},
+                          {date, "$D0"},
+                          {count, 5}]},
+    {lager_file_backend, [{file, "/var/vcap/sys/log/riak/console.log"},
+                          {level, info},
+                          {size, 10485760},
+                          {date, "$D0"},
+                          {count, 5}]}
 ]},
 
 %% Whether to write a crash log, and where.
