@@ -7,3 +7,5 @@ message_bus_server:
 external_host: <%= p('external_host') %>
 external_ip: 127.0.0.1
 port: <%= p('riak_cs.port', '8080') %>
+health_checker:
+  name: riak-cs-cluster

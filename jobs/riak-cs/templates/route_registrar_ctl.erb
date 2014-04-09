@@ -10,6 +10,8 @@ LOG_DIR=/var/vcap/sys/log/route-registrar
 PIDFILE=$RUN_DIR/route_registrar.pid
 source /var/vcap/packages/common/utils.sh
 
+export HOME=/var/vcap
+
 case $1 in
 
 start)
@@ -28,7 +30,7 @@ pid_guard $PIDFILE $JOB_NAME
 
 cd /var/vcap/packages/route-registrar
 
-chpst /var/vcap/packages/route-registrar/route-registrar \
+/var/vcap/packages/route-registrar/route-registrar \
 >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 
 pgrep -f 'route-registrar'> $PIDFILE
