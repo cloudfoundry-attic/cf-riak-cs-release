@@ -52,8 +52,8 @@ case $1 in
     # Start riak
     /var/vcap/packages/riak/rel/bin/riak start
 
-    # find the PID of the riak process not the riak-cs process
-    pgrep -f 'beam.*riak' | xargs ps hp | grep -v 'riak-cs' | awk '{print $1}' > $PIDFILE
+    # find the PID of the riak process
+    pgrep -f 'beam.*riak' | xargs ps hp | grep 'progname riak ' | awk '{print $1}' > $PIDFILE
 
     # Join the cluster if we aren't the seed node
     if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
