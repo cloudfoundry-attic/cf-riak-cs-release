@@ -30,3 +30,10 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+- name: broker-deregistrar
+  lifecycle: errand
+  template: broker-deregistrar
+  instances: 1
+  resource_pool: broker-pool
+  networks:
+  - name: riak-cs-network

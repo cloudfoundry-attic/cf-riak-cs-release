@@ -143,6 +143,13 @@ cf create-service-broker riakcs admin admin http://10.244.3.22:8080
 ```
 Then make the [service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
 
+## De-registering the broker
+
+### Using BOSH errands
+
+If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+
+        bosh run errand broker-deregistrar
 
 ## Caveats
 
