@@ -8,6 +8,6 @@ export HOME=/home/vcap
 (
   cd otp_src_R15B01
   ./configure --prefix=${BOSH_INSTALL_TARGET} --without-termcap
-  make
+  make -j 3
   make install
 )
