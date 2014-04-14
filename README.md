@@ -12,8 +12,11 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 1.  Then upload the release.
 1.  Finally make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
 
-### Configurations common to both environments
+### BOSH-lite environment
 
+1. Create a stub file called `riak-cs-lite-stub.yml` that contains the following configuration parameters.
+
+	```
 	director_uuid: YOUR-DIRECTOR-GUID-HERE
 	  properties:
   	    riak_cs:
@@ -22,33 +25,28 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 	    domain: YOUR-CF-SYSTEM-DOMAIN # such as 10.244.0.34.xip.io for bosh-lite
 	    cf:
 	      api_url: http://api.YOUR-CF-DOMAIN-HERE # such as http://api.10.244.0.34.xip.io
+	```
+	
+	* Director uuid can be found from running `bosh status`
 
-* Director uuid can be found from running `bosh status`
+	* SSL Properties:
+		* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
+		* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
+		* If you wish to change either of these put them in a stub file and configure them as needed:
 
-* SSL Properties:
-	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
-	* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
-	* If you wish to change either of these put them in a stub file and configure them as needed:
+	* Cloud Foundry Properties:
 
-* Cloud Foundry Properties:
+		This release needs to know a little about your CF installation.  The `domain` property refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to publish a route for the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and a route for the broker.  The route for the cluster allows traffic to be load balanced across the riak CS nodes.
 
-	This release needs to know a little about your CF installation.  The `domain` property refers to the system domain
-that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to publish a route for the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and a route for the broker.  The route for the cluster allows traffic to be load balanced across the riak CS nodes.
-
-	The `cf.api_url` parameter refers to the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by an BOSH errand to register the newly deployed broker with CloudController (see below for invocation).  `cf.admin_username` and `cf.admin_password` are also needed by the BOSH errand to register the broker, but are not required for bosh-lite since the credentials are admin/admin.
-
-
-### To a BOSH-lite environment
-
-1. Create a stub file called `riak-cs-lite-stub.yml` that contains the common configuration parameters above.
-
+		The `cf.api_url` parameter refers to the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by an BOSH errand to register the newly deployed broker with CloudController (see below for invocation).  `cf.admin_username` and `cf.admin_password` are also needed by the BOSH errand to register the broker, but are not required for bosh-lite since the credentials are admin/admin.
+	
 2. Generate the manifest: `./generate_deployment_manifest warden riak-cs-lite-stub.yml > riak-cs-lite.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-lite.yml`.
 3. To deploy: `bosh deployment riak-cs-lite.yml && bosh deploy`
 
-### To a vSphere environment
+### vSphere environment
 
-1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains the common parameters above. In addition, you must include:
+1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains the parameters described for bosh-lite above. In addition, you must include:
 
 	* Username and password for admin user to support errands
 	* Network settings, with 6 static IPs and 6+ dynamic IPs
@@ -93,12 +91,12 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-vsp
 
 3. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
 
-### To an AWS environment
+### AWS environment
 
-1. Create a stub file called `riak-cs-aws-stub.yml` that contains the common parameters above. In addition, you must include:
+1. Create a stub file called `riak-cs-aws-stub.yml` that contains the parameters described for bosh-lite above. In addition, you must include:
 
 	* Username and password for admin user to support errands
-	* Network settings as follows
+	* Network and resource pool settings
 
 	```	
         director_uuid: YOUR-DIRECTOR-GUID-HERE
