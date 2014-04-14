@@ -10,7 +10,8 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 1.  First create the release, naming it `cf-riak-cs`.
 1.  Then upload the release.
-1.  Finally make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
+1.  Make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
+1.  Create a deployment manifest and deploy, following environment-specific instructions below.
 
 ### BOSH-lite environment
 
