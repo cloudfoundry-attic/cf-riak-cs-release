@@ -14,19 +14,23 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ### Configurations common to both environments
 
-1. SSL Properties:
+	director_uuid: YOUR-DIRECTOR-GUID-HERE
+	  properties:
+  	    riak_cs:
+	      ssl_enabled: YOUR-CHOICE-HERE #true or false
+	      skip_ssl_validation: YOUR-CHOICE-HERE #true or false
+	    domain: YOUR-CF-SYSTEM-DOMAIN # such as 10.244.0.34.xip.io for bosh-lite
+	    cf:
+	      api_url: http://api.YOUR-CF-DOMAIN-HERE # such as http://api.10.244.0.34.xip.io
+
+* Director uuid can be found from running `bosh status`
+
+* SSL Properties:
 	* There are two properties under properties.riak-cs called `ssl_enabled` and `skip_ssl_validation`
 	* `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
 	* If you wish to change either of these put them in a stub file and configure them as needed:
 
-	```
-	properties:
-  	  riak_cs:
-	    ssl_enabled: <your value>
-	    skip_ssl_validation: <your value>
-	```
-
-2. Cloud Foundry Properties:
+* Cloud Foundry Properties:
 
 	This release needs to know a little about your CF installation.  The `domain` property refers to the system domain
 that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to publish a route for the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and a route for the broker.  The route for the cluster allows traffic to be load balanced across the riak CS nodes.
@@ -36,13 +40,7 @@ that you installed CF against (it should match the domain property from the CF b
 
 ### To a BOSH-lite environment
 
-1. Create a stub file called `riak-cs-lite-stub.yml` that contains your director UUID (which you can get from running `bosh status`):
-
-		director_uuid: YOUR-DIRECTOR-GUID-HERE
-		properties:
-		  domain: your-cf-system-domain-here   # such as 10.244.0.34.xip.io
-		  cf:
-		    api_url: http://api.YOUR-CF-DOMAIN-HERE    # such as http://api.10.244.0.34.xip.io
+1. Create a stub file called `riak-cs-lite-stub.yml` that contains the common configuration parameters above.
 
 2. Generate the manifest: `./generate_deployment_manifest warden riak-cs-lite-stub.yml > riak-cs-lite.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-lite.yml`.
@@ -50,51 +48,59 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-lit
 
 ### To a vSphere environment
 
-1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains your director UUID (which you can get from running `bosh status`).
-It also needs your network settings, with 6 static IPs and 6+ dynamic IPs, like this:
+1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains the common parameters above. In addition, you must include:
 
-		director_uuid: YOUR-DIRECTOR-GUID-HERE
-		networks:
-		- name: riak-cs-network
-		  subnets:
-		  - cloud_properties:
-		      name: VM Network  # name of vsphere network
-		    dns:
-		    - 8.8.8.8
-		    gateway: 10.0.0.1
-		    range: 10.0.0.0/24
-		    reserved:           # IPs that bosh should not use inside your subnet range
-		    - 10.0.0.2-10.0.0.99
-		    - 10.0.0.115-10.0.0.254
-		    static:
-		    - 10.0.0.100
-		    - 10.0.0.101
-		    - 10.0.0.102
-		    - 10.0.0.103
-		    - 10.0.0.104
-		    - 10.0.0.105
-		properties:
-		  domain: your-cf-system-domain-here
-		  nats:
-        machines:
-         - 10.0.0.15   # IP of nats server
-         user: nats-username-here
-         password: nats-password-here
-         port: 4222
-        cf:
-         api_url: https://api.YOUR-CF-DOMAIN-HERE
-         admin_username: CF-ADMIN-USERNAME
-         admin_password: CF-ADMIN-PASSWORD
+	* Username and password for admin user to support errands
+	* Network settings, with 6 static IPs and 6+ dynamic IPs
 
-1. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
+	```
+	director_uuid: YOUR-DIRECTOR-GUID-HERE
+	networks:
+	- name: riak-cs-network
+	  subnets:
+	  - cloud_properties:
+	      name: VM Network  # name of vsphere network
+	    dns:
+	    - 8.8.8.8
+	    gateway: 10.0.0.1
+	    range: 10.0.0.0/24
+	    reserved:           # IPs that bosh should not use inside your subnet range
+	    - 10.0.0.2-10.0.0.99
+	    - 10.0.0.115-10.0.0.254
+	    static:
+	    - 10.0.0.100
+	    - 10.0.0.101
+	    - 10.0.0.102
+	    - 10.0.0.103
+	    - 10.0.0.104
+	    - 10.0.0.105
+	properties:
+	  domain: your-cf-system-domain-here
+	  nats:
+	    machines:
+	     - 10.0.0.15   # IP of nats server
+	       user: nats-username-here
+	       password: nats-password-here
+	       port: 4222
+	  cf:
+	     api_url: https://api.YOUR-CF-DOMAIN-HERE
+	     admin_username: CF-ADMIN-USERNAME
+	     admin_password: CF-ADMIN-PASSWORD
+	```
+
+2. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
-1. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
+
+3. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
 
 ### To an AWS environment
 
-1. Create a stub file called `riak-cs-aws-stub.yml` that contains your director UUID (which you can get from running `bosh status`).
-It also needs your network settings, like this:
+1. Create a stub file called `riak-cs-aws-stub.yml` that contains the common parameters above. In addition, you must include:
 
+	* Username and password for admin user to support errands
+	* Network settings as follows
+
+	```	
         director_uuid: YOUR-DIRECTOR-GUID-HERE
         networks:
           - name: riak-cs-network
@@ -102,7 +108,6 @@ It also needs your network settings, like this:
             - name: riak-cs-subnet
               cloud_properties:
                 subnet: YOUR-AWS-SERVICES-SUBNET-ID-HERE
-
         resource_pools:
         - name: riak-pool
           cloud_properties:
@@ -110,8 +115,10 @@ It also needs your network settings, like this:
         - name: broker-pool
           cloud_properties:
             availability_zone: YOUR-PRIMARY-AZ-NAME-AGAIN
-
         properties:
+	  riak_cs:
+	    ssl_enabled: YOUR-CHOICE-HERE #true or false
+	    skip_ssl_validation: YOUR-CHOICE-HERE #true or false
           domain: your-cf-system-domain-here
           nats:
             machines:
@@ -123,9 +130,11 @@ It also needs your network settings, like this:
             api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
             admin_username: CF-ADMIN-USERNAME
             admin_password: CF-ADMIN-PASSWORD
+	```
 
 1. Generate the manifest: `./generate_deployment_manifest aws riak-cs-aws-stub.yml > riak-cs-aws.yml`
 To tweak the deployment settings, you can modify the resulting file `riak-cs-aws.yml`.
+
 1. To deploy: `bosh deployment riak-cs-aws.yml && bosh deploy`
 
 ## Registering the broker
