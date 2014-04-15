@@ -19,13 +19,13 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 	```
 	director_uuid: YOUR-DIRECTOR-GUID-HERE
-	  properties:
-  	    riak_cs:
-	      ssl_enabled: YOUR-CHOICE-HERE #true or false
-	      skip_ssl_validation: YOUR-CHOICE-HERE #true or false
-	    domain: YOUR-CF-SYSTEM-DOMAIN # such as 10.244.0.34.xip.io for bosh-lite
-	    cf:
-	      api_url: http://api.YOUR-CF-DOMAIN-HERE # such as http://api.10.244.0.34.xip.io
+	properties:
+  	  riak_cs:
+	    ssl_enabled: YOUR-CHOICE-HERE #true or false
+	    skip_ssl_validation: YOUR-CHOICE-HERE #true or false
+	  domain: YOUR-CF-SYSTEM-DOMAIN # such as 10.244.0.34.xip.io for bosh-lite
+	  cf:
+	    api_url: http://api.YOUR-CF-DOMAIN-HERE # such as http://api.10.244.0.34.xip.io
 	```
 	
 	* Director uuid can be found from running `bosh status`
