@@ -79,3 +79,9 @@ networks:
     static: []
     cloud_properties:
       name: random
+  - cloud_properties:
+      name: random
+    range: 10.244.3.48/30
+    reserved:
+    - 10.244.3.49
+    static: []
