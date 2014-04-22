@@ -164,15 +164,49 @@ If you're using a new enough BOSH director, stemcell, and CLI to support errands
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Tests
+
+To run the Riak CS Release Acceptance tests, you will need:
+- a running CF instance
+- credentials for an Admin user
+- an environment variable `$CONFIG` which points to a `.json` file that contains the application domain
+
 Instructions for running the acceptance tests:
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
-1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`
-1. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json` with the domain of the Cloud Foundry you wish to test against. NOTE: this should not include `http://` or `https://`. E.g. for bosh-lite this might be `10.244.0.34.xip.io`.
+1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`, this is not required, but will provide output that is easier to read.
 1. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
-1. Target and log into your CF instance, e.g. `cf login -a http://api.10.244.0.34.xip.io -u admin -p admin`
-1. Run `CONFIG=/Users/pivotal/workspace/cf-riak-cs-release/test/acceptance-tests/integration_config.json bin/test`
+1. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json`
 
+The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
+installation. Replace credentials and URLs as appropriate for your environment.
+
+```bash
+#! /bin/bash
+
+cat > integration_config.json <<EOF
+{
+  "api": "api.10.244.0.34.xip.io",
+  "admin_user": "admin",
+  "admin_password": "admin",
+  "apps_domain": "10.244.0.34.xip.io",
+  "riak_cs_scheme" : "http://"
+}
+EOF
+export CONFIG=$PWD/integration_config.json
+```
+
+If you are running the tests with version newer than 6.0.2-0bba99f of the Go CLI against bosh-lite or any other environment
+using self-signed certificates, add
+
+```
+  "skip_ssl_validation": true
+```
+
+1. Run  the tests
+
+```bash
+./bin/test
+```
 
 ## Blobs
 

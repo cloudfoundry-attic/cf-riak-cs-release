@@ -7,12 +7,14 @@ import (
 	. "github.com/pivotal-cf-experimental/cf-test-helpers/runner"
 
 	"testing"
-	"../config"
+	"../helpers"
 )
 
 func TestServices(t *testing.T) {
+	helpers.SetupEnvironment(helpers.NewContext(IntegrationConfig))
+
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Services Suite")
+	RunSpecs(t, "Riak CS Services Suite")
 }
 
 func AppUri(appname string) string {
@@ -25,7 +27,7 @@ func Curling(args ...string) func() *cmdtest.Session {
 	}
 }
 
-var IntegrationConfig = config.Load()
+var IntegrationConfig = helpers.LoadConfig()
 
 var AppName = ""
 

@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var _ = Describe("Riak CS Service", func() {
+var _ = Describe("Riak CS Service Lifecycle", func() {
 	BeforeEach(func() {
 		AppName = RandomName()
 
