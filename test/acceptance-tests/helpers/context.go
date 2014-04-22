@@ -30,10 +30,10 @@ func NewContext(config IntegrationConfig) *ConfiguredContext {
 	return &ConfiguredContext{
 		config: config,
 
-		organizationName: fmt.Sprintf("CATS-ORG-%d-%s", node, timeTag),
-		spaceName:        fmt.Sprintf("CATS-SPACE-%d-%s", node, timeTag),
+		organizationName: fmt.Sprintf("RiakATS-ORG-%d-%s", node, timeTag),
+		spaceName:        fmt.Sprintf("RiakATS-SPACE-%d-%s", node, timeTag),
 
-		regularUserUsername: fmt.Sprintf("CATS-USER-%d-%s", node, timeTag),
+		regularUserUsername: fmt.Sprintf("RiakATS-USER-%d-%s", node, timeTag),
 		regularUserPassword: "meow",
 
 		isPersistent: false,
@@ -47,16 +47,16 @@ func (context *ConfiguredContext) Setup() {
 			cmdtest.ExpectBranch{"scim_resource_already_exists", func() {}},
 		))
 
-		Expect(cf.Cf("create-org", context.organizationName)).To(ExitWith(0))
+		Expect(cf.Cf("create-org", context.organizationName)).To(ExitWithTimeout(0, 60*time.Second))
 	})
 }
 
 func (context *ConfiguredContext) Teardown() {
 	cf.AsUser(context.AdminUserContext(), func() {
-		Expect(cf.Cf("delete-user", "-f", context.regularUserUsername)).To(Say("OK"))
+		Expect(cf.Cf("delete-user", "-f", context.regularUserUsername)).To(ExitWithTimeout(0, 60*time.Second))
 
 		if !context.isPersistent {
-			Expect(cf.Cf("delete-org", "-f", context.organizationName)).To(Say("OK"))
+			Expect(cf.Cf("delete-org", "-f", context.organizationName)).To(ExitWithTimeout(0, 60*time.Second))
 		}
 	})
 }

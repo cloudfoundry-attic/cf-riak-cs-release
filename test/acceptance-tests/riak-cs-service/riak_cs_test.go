@@ -19,7 +19,7 @@ var _ = Describe("Riak CS Service Lifecycle", func() {
 	})
 
 	AfterEach(func() {
-		Expect(Cf("delete", AppName, "-f")).To(ExitWithTimeout(0, 20*time.Second))
+		Expect(Cf("delete", AppName, "-f")).To(ExitWithTimeout(0, 60*time.Second))
 	})
 
 	It("Allows users to create, bind, write to, read from, unbind, and destroy the service instance", func() {
@@ -39,14 +39,14 @@ var _ = Describe("Riak CS Service Lifecycle", func() {
 		fmt.Println("\n")
 
 		fmt.Println("Curling url: ", uri)
-		Eventually(Curling("-k", uri), 10.0, 1.0).Should(Say("myvalue"))
+		Eventually(Curling("-k", uri), 10.0, 1.0).Should(SayWithTimeout("myvalue", 60*time.Second))
 		fmt.Println("\n")
 
 		fmt.Println("Sending delete to: ", delete_uri)
 		Eventually(Curling("-X", "DELETE", "-k", delete_uri), 10.0, 1.0).Should(Say(""))
 		fmt.Println("\n")
 
-		Expect(Cf("unbind-service", AppName, ServiceInstanceName)).To(ExitWithTimeout(0, 20*time.Second))
-		Expect(Cf("delete-service", "-f", ServiceInstanceName)).To(ExitWithTimeout(0, 20*time.Second))
+		Expect(Cf("unbind-service", AppName, ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))
+		Expect(Cf("delete-service", "-f", ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))
 	})
 })

@@ -18,4 +18,5 @@ gocart install
 
 go install github.com/onsi/ginkgo/ginkgo
 
-ginkgo -r -v -slowSpecThreshold=300 "$@"
+CF_COLOR=false CF_VERBOSE_OUTPUT=true \
+  ginkgo -r -v -slowSpecThreshold=300 "$@"

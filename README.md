@@ -167,15 +167,15 @@ We have not tested changing the structure of a live cluster, e.g. changing the s
 
 To run the Riak CS Release Acceptance tests, you will need:
 - a running CF instance
-- credentials for an Admin user
+- credentials for a CF Admin user
+- a deployed Riak CS Release with the broker registered and the plan made public
 - an environment variable `$CONFIG` which points to a `.json` file that contains the application domain
 
 Instructions for running the acceptance tests:
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
-1. Set environment variables `export CF_COLOR=false` and `export CF_VERBOSE_OUTPUT=true`, this is not required, but will provide output that is easier to read.
-1. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
-1. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json`
+2. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
+3. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json`
 
 The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
 installation. Replace credentials and URLs as appropriate for your environment.
@@ -202,7 +202,7 @@ using self-signed certificates, add
   "skip_ssl_validation": true
 ```
 
-1. Run  the tests
+4. Run  the tests
 
 ```bash
 ./bin/test
