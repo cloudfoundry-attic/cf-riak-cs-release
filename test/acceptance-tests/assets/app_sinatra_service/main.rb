@@ -72,6 +72,8 @@ delete '/service/blobstore/:service_name' do
   client.directories.get(bucket_name).files.all.each do |file|
     file.destroy
   end
+
+  'successfully_deleted'
 end
 
 def blobstore_client(service_name)

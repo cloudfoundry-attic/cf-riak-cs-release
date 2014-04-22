@@ -39,11 +39,11 @@ var _ = Describe("Riak CS Service Lifecycle", func() {
 		fmt.Println("\n")
 
 		fmt.Println("Curling url: ", uri)
-		Eventually(Curling("-k", uri), 10.0, 1.0).Should(SayWithTimeout("myvalue", 60*time.Second))
+		Eventually(Curling("-k", uri), 10.0, 1.0).Should(Say("myvalue"))
 		fmt.Println("\n")
 
 		fmt.Println("Sending delete to: ", delete_uri)
-		Eventually(Curling("-X", "DELETE", "-k", delete_uri), 10.0, 1.0).Should(Say(""))
+		Eventually(Curling("-X", "DELETE", "-k", delete_uri), 10.0, 1.0).Should(Say("successfully_deleted"))
 		fmt.Println("\n")
 
 		Expect(Cf("unbind-service", AppName, ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))
