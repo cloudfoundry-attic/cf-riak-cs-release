@@ -1,4 +1,4 @@
-name: riak-cs-service
+name: cf-riak-cs
 director_uuid: (( merge ))
 
 resource_pools: (( merge ))
