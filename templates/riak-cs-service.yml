@@ -31,18 +31,19 @@ properties:
     admin_key: "admin-key"
     admin_secret: "admin-secret"
     ips: (( properties.riak.ips ))
-    ssl_enabled: (( merge || true))
-    skip_ssl_validation: ((merge || false))
+    ssl_enabled: (( merge || true ))
+    skip_ssl_validation: (( merge || false ))
+    register_route: (( merge || true ))
   stanchion:
     ip: (( jobs.[1].networks.[0].static_ips.[0] ))
   broker:
     name: p-blobstore
-    host: (( jobs.cf-riak-cs-broker.networks.[0].static_ips.[0] ))
+    host: (( jobs.cf-riak-cs-broker.networks.[0].static_ips.[0] || "example.com" ))
     port: 8080
     username: admin
     password: admin
   networks:
     riak_cs_network: riak-cs-network
   nats: (( merge ))
-  domain : (( merge ))
+  domain : (( merge || "example.com" ))
   external_host: (( "riakcs." properties.domain ))

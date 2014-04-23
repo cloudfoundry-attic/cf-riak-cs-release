@@ -1,3 +1,4 @@
+<% if properties.riak_cs.register_route %>
 message_bus_server:
 <% p('nats.machines').each do |ip| %>
     host: <%= ip %>:<%= p('nats.port') %>
@@ -9,3 +10,6 @@ external_ip: 127.0.0.1
 port: <%= p('riak_cs.port', '8080') %>
 health_checker:
   name: riak-cs-cluster
+<% else %>
+# The route registration process is disabled because properties.riak_cs.register_route is set to false
+<% end %>

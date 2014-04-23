@@ -15,29 +15,37 @@ export HOME=/var/vcap
 case $1 in
 
 start)
-mkdir -p $JOB_DIR
-mkdir -p $RUN_DIR
-mkdir -p $LOG_DIR
+<% if properties.riak_cs.register_route %>
+  mkdir -p $JOB_DIR
+  mkdir -p $RUN_DIR
+  mkdir -p $LOG_DIR
 
-#Copy the config file to right folder
-cp /var/vcap/jobs/riak-cs/config/registrar_settings.yml /var/vcap/packages/route-registrar/registrar_settings.yml
+  #Copy the config file to right folder
+  cp /var/vcap/jobs/riak-cs/config/registrar_settings.yml /var/vcap/packages/route-registrar/registrar_settings.yml
 
-# Update registrar_settings.yml with current IP address
-IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
-sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/route-registrar/registrar_settings.yml
+  # Update registrar_settings.yml with current IP address
+  IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
+  sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/route-registrar/registrar_settings.yml
 
-pid_guard $PIDFILE $JOB_NAME
+  pid_guard $PIDFILE $JOB_NAME
 
-cd /var/vcap/packages/route-registrar
+  cd /var/vcap/packages/route-registrar
 
-/var/vcap/packages/route-registrar/route-registrar \
->>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
+  /var/vcap/packages/route-registrar/route-registrar \
+  >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 
-pgrep -f 'route-registrar'> $PIDFILE
+  pgrep -f 'route-registrar'> $PIDFILE
+<% else %>
+  echo 1 >> $PIDFILE
+<% end %>
 ;;
 
 stop)
-kill_and_wait $PIDFILE
+<% if properties.riak_cs.register_route %>
+  kill_and_wait $PIDFILE
+<% else %>
+  rm $PIDFILE
+<% end %>
 ;;
 
 *)
