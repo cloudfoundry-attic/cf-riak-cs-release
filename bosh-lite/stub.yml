@@ -1,0 +1,11 @@
+---
+director_uuid: PLACEHOLDER-DIRECTOR-UUID
+
+properties:
+  riak_cs:
+    ssl_enabled: true
+    skip_ssl_validation: true
+  domain: 10.244.0.34.xip.io
+  cf:
+    api_url: https://api.10.244.0.34.xip.io
+    apps_domain: 10.244.0.34.xip.io

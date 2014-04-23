@@ -1,3 +1,5 @@
+bosh-lite/manifests/*
+bosh-lite/tmp/*
 config/dev.yml
 config/private.yml
 releases/*.tgz
