@@ -1,0 +1,6 @@
+---
+name: acceptance-tests
+dependencies:
+  - golang
+files:
+  - acceptance-tests/**/*

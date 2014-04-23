@@ -1,0 +1,21 @@
+---
+name: acceptance-tests
+packages:
+  - acceptance-tests
+  - golang
+templates:
+  errand.sh.erb: bin/run
+properties:
+  cf.api_url:
+    description: 'Full URL of Cloud Foundry API'
+  cf.admin_username:
+    description: 'Username of the admin user'
+  cf.admin_password:
+    description: 'Password of the admin user'
+  cf.apps_domain:
+    description: 'Shared domain for pushed apps'
+
+  riak_cs.ssl_enabled:
+    description: 'Use SSL (i.e. https or http)'
+  riak_cs.skip_ssl_validation:
+    description: 'Whether to skip validation of SSL certficates'

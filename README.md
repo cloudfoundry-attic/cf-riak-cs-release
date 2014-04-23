@@ -172,7 +172,21 @@ To run the Riak CS Release Acceptance tests, you will need:
 - a deployed Riak CS Release with the broker registered and the plan made public
 - an environment variable `$CONFIG` which points to a `.json` file that contains the application domain
 
-Instructions for running the acceptance tests:
+### Using BOSH errands
+
+The following properties must be included in the manifest (most will be there by default):
+- cf.api_url:
+- cf.admin_username:
+- cf.admin_password:
+- cf.apps_domain:
+- riak_cs.ssl_enabled:
+- riak_cs.skip_ssl_validation:
+
+If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+
+        bosh run errand acceptance-tests
+
+### Manually running tests
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 2. `cd` into `cf-riak-cs-release/test/acceptance-tests/`

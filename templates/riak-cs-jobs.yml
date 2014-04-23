@@ -37,3 +37,10 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+- name: acceptance-tests
+  lifecycle: errand
+  template: acceptance-tests
+  instances: 1
+  resource_pool: broker-pool
+  networks:
+  - name: riak-cs-network
