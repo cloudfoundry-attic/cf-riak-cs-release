@@ -1,5 +1,7 @@
 #!/bin/bash
-set -e -x
+set -e
+
+<% if p("riak_cs.register_route") %>
 
 cd /var/vcap/packages/acceptance-tests
 
@@ -20,3 +22,9 @@ cat > integration_config.json <<EOF
 EOF
 
 bin/test errand
+
+<% else %>
+echo "The route registration process is disabled because properties.riak_cs.register_route is set to false"
+echo "This assumes no cloudfoundry instance is deployed alongside cf-riak-cs-release"
+echo "Unable to run tests because they require the presence of a cloudfoundry instance"
+<% end %>

@@ -16,7 +16,7 @@ BROKER_PASSWORD='<%= p("broker.password") %>'
 
 # partially-redacted command for debugging
 echo "
-bundle exec ./bin/broker-registrar delete
+bundle exec ./bin/broker-registrar register
     --cf-address $CF_API_URL
     --cf-username $CF_ADMIN_USERNAME
     --cf-password ********
@@ -26,7 +26,7 @@ bundle exec ./bin/broker-registrar delete
     --broker-password ********
 "
 
-bundle exec ./bin/broker-registrar delete \
+bundle exec ./bin/broker-registrar register \
     --cf-address $CF_API_URL                \
     --cf-username $CF_ADMIN_USERNAME        \
     --cf-password $CF_ADMIN_PASSWORD        \

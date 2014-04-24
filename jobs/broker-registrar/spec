@@ -1,5 +1,5 @@
 ---
-name: broker-deregistrar
+name: broker-registrar
 packages:
 - ruby
 - broker-registrar

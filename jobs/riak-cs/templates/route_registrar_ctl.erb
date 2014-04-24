@@ -15,9 +15,11 @@ export HOME=/var/vcap
 case $1 in
 
 start)
+
+  mkdir -p $RUN_DIR
+
 <% if properties.riak_cs.register_route %>
   mkdir -p $JOB_DIR
-  mkdir -p $RUN_DIR
   mkdir -p $LOG_DIR
 
   #Copy the config file to right folder
