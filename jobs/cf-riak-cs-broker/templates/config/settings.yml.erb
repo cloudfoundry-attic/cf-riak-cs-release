@@ -1,0 +1,13 @@
+---
+username: <%= p('broker.username') %>
+password: <%= p('broker.password') %>
+
+ssl_validation: <%= !p('riak_cs.skip_ssl_validation')%>
+
+riak_cs:
+  host: <%= p('external_host') %>
+  port: <%= p('riak_cs.ssl_enabled')? '443' : '80' %>
+  scheme: <%= p('riak_cs.ssl_enabled')? 'https' : 'http' %>
+  access_key_id: <%= p('riak_cs.admin_key') %>
+  secret_access_key: <%= p('riak_cs.admin_secret') %>
+

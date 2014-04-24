@@ -8,6 +8,8 @@ source /var/vcap/jobs/cf-riak-cs-broker/helpers/ctl_setup.sh 'cf-riak-cs-broker'
 
 export LANG=en_US.UTF-8
 
+cp $JOB_DIR/config/settings.yml /var/vcap/packages/cf-riak-cs-broker/
+
 case $1 in
 
   start)
