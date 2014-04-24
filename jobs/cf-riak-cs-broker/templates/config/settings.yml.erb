@@ -11,3 +11,40 @@ riak_cs:
   access_key_id: <%= p('riak_cs.admin_key') %>
   secret_access_key: <%= p('riak_cs.admin_secret') %>
 
+catalog:
+  services:
+  <% (properties.catalog.services || []).each do |service| %>
+  - bindable: true
+    description: <%= service.description %>
+    id: <%= service.id %>
+    metadata:
+      displayName: <%= service.metadata.displayName %>
+      imageUrl: <%= service.metadata.imageUrl %>
+      longDescription: <%= service.metadata.longDescription %>
+      providerDisplayName: <%= service.metadata.providerDisplayName %>
+      documentationUrl: <%= service.metadata.documentationUrl %>
+      supportUrl: <%= service.metadata.supportUrl %>
+    name: <%= service.name %>
+    plans:
+    <% (service.plans || []).each do |plan| %>
+    - id: <%= plan.id %>
+      name: <%= plan.name %>
+      description: <%= plan.description %>
+      max_storage_mb: <%= plan.max_storage_mb %>
+      metadata:
+        costs:
+        <% (plan.metadata.costs || []).each do |cost| %>
+          - amount:
+              usd: <%= cost.amount.usd %>
+            unit: <%= cost.unit %>
+        <% end %>
+        bullets: <% (plan.metadata.bullets || []).each do |bullet| %>
+          - <%= bullet %>
+        <% end %>
+        displayName: <%= plan.metadata.displayName %>
+    <% end %>
+    tags:
+    <% (service.tags || []).each do |tag| %>
+    - <%= tag %>
+    <% end %>
+  <% end %>

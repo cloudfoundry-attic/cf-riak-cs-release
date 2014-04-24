@@ -47,3 +47,31 @@ properties:
   nats: (( merge ))
   domain : (( merge || "example.com" ))
   external_host: (( "riakcs." properties.domain ))
+  catalog:
+    services:
+    - bindable: true
+      description: An S3-compatible open source storage built on top of Riak.
+      id: 33d2eeb0-0236-4c83-b494-da3faeb5b2e8
+      metadata:
+        displayName: Riak CS Storage
+        documentationUrl: https://github.com/cloudfoundry/cf-riak-cs-broker
+        imageUrl: http://www.linux.com/news/galleries/image/riak-cs%3Fformat%3Dimage%26thumbnail%3Dsmall
+        longDescription: Provisioning the service creates a Riak CS bucket. Binding an
+          application creates unique credentials for that application to access the bucket.
+        providerDisplayName: Riak CS
+        supportUrl: https://github.com/cloudfoundry/cf-riak-cs-broker/issues
+      name: riak-cs
+      plans:
+      - description: A bucket on Riak CS.
+        id: 946ce484-376b-41b4-8c4e-4bc830676115
+        metadata:
+          bullets:
+          - Buckets are private
+          costs:
+          - amount:
+              usd: 0.0
+            unit: MONTHLY
+          displayName: Bucket
+        name: bucket
+      tags:
+      - blobstore
