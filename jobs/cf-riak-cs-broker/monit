@@ -1,5 +1,5 @@
 check process cf-riak-cs-broker
-  with pidfile /var/vcap/sys/run/cf-riak-cs-broker/cf-riak-cs-broker.pid
+  with pidfile /var/vcap/sys/run/cf-riak-cs-broker/unicorn.pid
   start program "/var/vcap/jobs/cf-riak-cs-broker/bin/monit_debugger cf-riak-cs-broker_ctl '/var/vcap/jobs/cf-riak-cs-broker/bin/cf-riak-cs-broker_ctl start'"
   stop program "/var/vcap/jobs/cf-riak-cs-broker/bin/monit_debugger cf-riak-cs-broker_ctl '/var/vcap/jobs/cf-riak-cs-broker/bin/cf-riak-cs-broker_ctl stop'"
   group vcap

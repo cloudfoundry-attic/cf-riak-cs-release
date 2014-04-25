@@ -5,7 +5,7 @@ password: <%= p('broker.password') %>
 ssl_validation: <%= !p('riak_cs.skip_ssl_validation')%>
 
 riak_cs:
-  host: <%= p('external_host') %>
+  host: <%= p('external_riakcs_host') %>
   port: <%= p('riak_cs.ssl_enabled')? '443' : '80' %>
   scheme: <%= p('riak_cs.ssl_enabled')? 'https' : 'http' %>
   access_key_id: <%= p('riak_cs.admin_key') %>
@@ -48,3 +48,12 @@ catalog:
     - <%= tag %>
     <% end %>
   <% end %>
+
+message_bus_servers:
+<% p('nats.machines').each do |ip| %>
+- nats://<%= p('nats.user') %>:<%= p('nats.password') %>@<%= ip %>:<%= p('nats.port') %>
+<% end %>
+
+ip: <%= spec.networks.send(p('networks.broker_network')).ip %>
+port: <%= p('broker.port') %>
+external_host: <%= p('external_broker_host') %>

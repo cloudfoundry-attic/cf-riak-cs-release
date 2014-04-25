@@ -1,0 +1,23 @@
+# See: http://unicorn.bogomips.org/examples/unicorn.conf.rb
+
+# Use at least one worker per core if you're on a dedicated server,
+# more will usually help for _short_ waits on databases/caches.
+worker_processes 4
+
+working_directory '/var/vcap/packages/cf-riak-cs-broker'
+
+listen <%= p('broker.port') %>, :tcp_nopush => true
+
+pid '/var/vcap/sys/run/cf-riak-cs-broker/unicorn.pid'
+
+# By default, the Unicorn logger will write to stderr.
+# Additionally, some applications/frameworks log to stderr or stdout,
+# so prevent them from going to /dev/null when daemonized here:
+stderr_path '/var/vcap/sys/log/cf-riak-cs-broker/unicorn.stderr.log'
+stdout_path '/var/vcap/sys/log/cf-riak-cs-broker/unicorn.stdout.log'
+
+# combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
+# http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
+#preload_app true
+#GC.respond_to?(:copy_on_write_friendly=) and
+#  GC.copy_on_write_friendly = true

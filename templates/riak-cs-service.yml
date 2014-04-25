@@ -38,15 +38,16 @@ properties:
     ip: (( jobs.[1].networks.[0].static_ips.[0] ))
   broker:
     name: p-blobstore
-    host: (( jobs.cf-riak-cs-broker.networks.[0].static_ips.[0] || "example.com" ))
-    port: 8080
+    host: (( properties.external_broker_host ))
+    port: 80
     username: admin
     password: admin
   networks:
     riak_cs_network: riak-cs-network
   nats: (( merge ))
   domain : (( merge || "example.com" ))
-  external_host: (( "riakcs." properties.domain ))
+  external_riakcs_host: (( "riakcs." properties.domain ))
+  external_broker_host: (( "p-cs." properties.domain ))
   catalog:
     services:
     - bindable: true

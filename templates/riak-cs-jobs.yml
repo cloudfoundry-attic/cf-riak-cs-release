@@ -23,6 +23,9 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips: (( static_ips(5) ))
+  properties:
+    networks:
+      broker_network: riak-cs-network
 - name: broker-registrar
   lifecycle: errand
   template: broker-registrar

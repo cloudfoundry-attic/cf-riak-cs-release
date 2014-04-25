@@ -33,6 +33,7 @@ stub that contains all of the information required.
   * The `cf.admin_username` parameter refers to a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
   * The `cf.admin_password` parameter refers to a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
   * The `cf.apps_domain` parameter refers to the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
+  * The `cf.system_domain` parameter refers to the CloudFoundry System Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
 ### BOSH-lite environment
 
@@ -85,6 +86,7 @@ To deploy: Ensure you have created and uploaded a release, then run `bosh deploy
     cf:
        api_url: https://api.YOUR-CF-DOMAIN-HERE
        apps_domain: YOUR-APP-DOMAIN-HERE
+       system_domain: YOUR-SYSTEM-DOMAIN-HERE
        admin_username: CF-ADMIN-USERNAME
        admin_password: CF-ADMIN-PASSWORD
   ```
@@ -130,6 +132,7 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-vsp
     cf:
       api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
       apps_domain: YOUR-APP-DOMAIN-HERE
+      system_domain: YOUR-SYSTEM-DOMAIN-HERE
       admin_username: CF-ADMIN-USERNAME
       admin_password: CF-ADMIN-PASSWORD
   ```
@@ -150,7 +153,7 @@ If you're using a new enough BOSH director, stemcell, and CLI to support errands
 ### Manually
 First register the broker using the `cf` CLI.  You have to be logged in as an admin, and the IP of the broker will likely be different on vsphere (use `bosh vms` to find it if necessary)
 ```
-cf create-service-broker riakcs admin admin http://10.244.3.22:8080
+cf create-service-broker riakcs admin admin http://p-cs.10.244.0.34.xip.io
 ```
 Then make the [service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
 
@@ -181,6 +184,7 @@ The following properties must be included in the manifest (most will be there by
 - cf.admin_username:
 - cf.admin_password:
 - cf.apps_domain:
+- cf.system_domain:
 - riak_cs.ssl_enabled:
 - riak_cs.skip_ssl_validation:
 
@@ -206,6 +210,7 @@ cat > integration_config.json <<EOF
   "admin_user": "admin",
   "admin_password": "admin",
   "apps_domain": "10.244.0.34.xip.io",
+  "system_domain": "10.244.0.34.xip.io",
   "riak_cs_scheme" : "http://"
 }
 EOF

@@ -11,3 +11,4 @@ templates:
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
   config/settings.yml.erb: config/settings.yml
+  config/unicorn.conf.rb.erb: config/unicorn.conf.rb

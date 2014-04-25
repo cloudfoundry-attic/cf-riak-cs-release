@@ -7,6 +7,7 @@ import (
 
 type IntegrationConfig struct {
 	AppsDomain        string `json:"apps_domain"`
+	SystemDomain      string `json:"system_domain"`
 	ApiEndpoint       string `json:"api"`
 
 	RiakCsScheme      string `json:"riak_cs_scheme"`
