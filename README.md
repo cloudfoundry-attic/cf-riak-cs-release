@@ -79,16 +79,16 @@ To deploy: Ensure you have created and uploaded a release, then run `bosh deploy
     domain: your-cf-system-domain-here
     nats:
       machines:
-       - 10.0.0.15   # IP of nats server
-         user: nats-username-here
-         password: nats-password-here
-         port: 4222
+      - 10.0.0.15   # IP of nats server
+      user: nats-username-here
+      password: nats-password-here
+      port: 4222
     cf:
-       api_url: https://api.YOUR-CF-DOMAIN-HERE
-       apps_domain: YOUR-APP-DOMAIN-HERE
-       system_domain: YOUR-SYSTEM-DOMAIN-HERE
-       admin_username: CF-ADMIN-USERNAME
-       admin_password: CF-ADMIN-PASSWORD
+      api_url: https://api.YOUR-CF-DOMAIN-HERE
+      apps_domain: YOUR-APP-DOMAIN-HERE
+      system_domain: YOUR-SYSTEM-DOMAIN-HERE
+      admin_username: CF-ADMIN-USERNAME
+      admin_password: CF-ADMIN-PASSWORD
   ```
 
 2. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
