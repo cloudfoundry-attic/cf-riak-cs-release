@@ -266,3 +266,4 @@ TODO - verify where the `git`, and `erlang` tarfiles came from.
 - The settings for the Riak job in this release are configured with options suggested by Basho for deploying Riak in a Riak CS cluster.  We could add an option to configure Riak for standalone operation (when a manifest includes only Riak but not Riak CS)
 
 [BOSH lite]: https://github.com/cloudfoundry/bosh-lite
+
