@@ -1,9 +1,9 @@
 <% if properties.riak_cs.register_route %>
-message_bus_server:
+message_bus_servers:
 <% p('nats.machines').each do |ip| %>
-    host: <%= ip %>:<%= p('nats.port') %>
-    user: <%= p('nats.user') %>
-    password: <%= p('nats.password') %>
+    - host: <%= ip %>:<%= p('nats.port') %>
+      user: <%= p('nats.user') %>
+      password: <%= p('nats.password') %>
 <% end %>
 external_host: <%= p('external_riakcs_host') %>
 external_ip: 127.0.0.1
