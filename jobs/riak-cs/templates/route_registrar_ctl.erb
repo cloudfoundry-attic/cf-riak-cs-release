@@ -38,16 +38,13 @@ start)
 
   pgrep -f 'route-registrar'> $PIDFILE
 <% else %>
-  echo 1 >> $PIDFILE
+  tail -f /dev/null &
+  pgrep -f 'tail -f /dev/null'> $PIDFILE
 <% end %>
 ;;
 
 stop)
-<% if properties.riak_cs.register_route %>
   kill_and_wait $PIDFILE
-<% else %>
-  rm $PIDFILE
-<% end %>
 ;;
 
 *)
