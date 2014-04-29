@@ -6,7 +6,7 @@ jobs:
   resource_pool: riak-pool
   networks:
   - name: riak-cs-network
-    static_ips: (( static_ips(0, 1, 2) ))
+    static_ips: (( static_ips(1, 2, 3) ))
   persistent_disk: 4096
 - name: stanchion
   template: stanchion
@@ -14,7 +14,7 @@ jobs:
   resource_pool: riak-pool
   networks:
   - name: riak-cs-network
-    static_ips: (( static_ips(4) ))
+    static_ips: (( static_ips(0) ))
   persistent_disk: 4096
 - name: cf-riak-cs-broker
   template: cf-riak-cs-broker
@@ -22,7 +22,6 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
-    static_ips: (( static_ips(5) ))
   properties:
     networks:
       broker_network: riak-cs-network
