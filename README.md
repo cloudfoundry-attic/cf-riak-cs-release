@@ -182,7 +182,7 @@ If you're using a new enough BOSH director, stemcell, and CLI to support errands
 
         bosh run errand acceptance-tests
 
-### Manually running tests
+### Manually
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 2. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
