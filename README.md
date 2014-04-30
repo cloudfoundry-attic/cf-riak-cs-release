@@ -128,9 +128,10 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 This section describes the parameters that must be added to manifest stub for the supported environments listed above.
 
 * `director_uuid`: can be found from running `bosh status`
-* `domain`: refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest). The value is used to determine both the route advertised by each node in the cluster (see `register_route` below), as well as the route for the broker.
 
 * `properties`
+  * `domain`: refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest). The value is used to determine both the route advertised by each node in the cluster (see `register_route` below), as well as the route for the broker.
+
   * `riak_cs`: These properties control behavior of the Riak CS cluster nodes. As these properties have defaults, it is not necessary to include them in your stub unless you need to change them.
     * `ssl_enabled` defaults to true 
     * `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
