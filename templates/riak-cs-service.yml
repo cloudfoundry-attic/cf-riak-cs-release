@@ -61,7 +61,7 @@ properties:
           application to the instance creates unique credentials for that application to access the bucket.
         providerDisplayName: Pivotal Software
         supportUrl: http://gopivotal.com/support/
-      name: p-riakcs
+      name: riak-cs
       plans:
       - description: A bucket on Riak CS.
         id: 946ce484-376b-41b4-8c4e-4bc830676115
