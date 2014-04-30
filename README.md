@@ -13,26 +13,6 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 1.  Make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
 1.  Create a deployment manifest and deploy, following environment-specific instructions below.
 
-### Manifest stub
-
-The following information is required to generate a manifest stub. If you are deploying to bosh-lite, `bosh-lite/stub.yml` contains all of the necessary information.
-
-* Director uuid can be found from running `bosh status`
-
-* SSL Properties:
-  * There are two properties under `properties.riak-cs` called `ssl_enabled` and `skip_ssl_validation`
-  * `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
-  * If you wish to change either of these put them in a stub file and configure them as needed.
-
-* Cloud Foundry Properties:
-  * This release needs to know a little about your CF installation:
-  * The `riak_cs.register_route` property determines whether each node in the cluster advertises a route. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the property is enabled, a route is advertised by the node when the node is healthy.  Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. NOTE: the broker does not yet support `register_route: false`. A `false` value is useful when deploying `cf-riak-cs-release` without a `cf-release` alongside it.  __You must set the instance count of the `cf-riak-cs-broker`, `acceptance-tests`, `broker-registrar`, and `broker-deregistrar` jobs to `0` when `register_route` is `false`. The `domain` property and all `cf` properties should also be omitted from the stub when `register_route` is `false`.__
-  * The `domain` property refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to determine the route advertised by each node in the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and the route for the broker.
-  * The `cf.api_url` parameter refers to the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-  * The `cf.admin_username` parameter refers to a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-  * The `cf.admin_password` parameter refers to a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-  * The `cf.apps_domain` parameter refers to the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
-  * The `cf.system_domain` parameter refers to the CloudFoundry System Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
 ### BOSH-lite environment
 
@@ -140,6 +120,27 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-vsp
 To tweak the deployment settings, you can modify the resulting file `riak-cs-aws.yml`.
 
 1. To deploy: `bosh deployment riak-cs-aws.yml && bosh deploy`
+
+### Manifest stub
+
+The following information is required to generate a manifest stub. If you are deploying to bosh-lite, `bosh-lite/stub.yml` contains all of the necessary information.
+
+* Director uuid can be found from running `bosh status`
+
+* SSL Properties:
+  * There are two properties under `properties.riak-cs` called `ssl_enabled` and `skip_ssl_validation`
+  * `ssl_enabled` defaults to true and `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
+  * If you wish to change either of these put them in a stub file and configure them as needed.
+
+* Cloud Foundry Properties:
+  * This release needs to know a little about your CF installation:
+  * The `riak_cs.register_route` property determines whether each node in the cluster advertises a route. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the property is enabled, a route is advertised by the node when the node is healthy.  Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. NOTE: the broker does not yet support `register_route: false`. A `false` value is useful when deploying `cf-riak-cs-release` without a `cf-release` alongside it.  __You must set the instance count of the `cf-riak-cs-broker`, `acceptance-tests`, `broker-registrar`, and `broker-deregistrar` jobs to `0` when `register_route` is `false`. The `domain` property and all `cf` properties should also be omitted from the stub when `register_route` is `false`.__
+  * The `domain` property refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest), and it's used to determine the route advertised by each node in the cluster (e.g.`riakcs.YOUR-CF-SYSTEM-DOMAIN`) and the route for the broker.
+  * The `cf.api_url` parameter refers to the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
+  * The `cf.admin_username` parameter refers to a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
+  * The `cf.admin_password` parameter refers to a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
+  * The `cf.apps_domain` parameter refers to the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
+  * The `cf.system_domain` parameter refers to the CloudFoundry System Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
 ## Registering the broker
 
