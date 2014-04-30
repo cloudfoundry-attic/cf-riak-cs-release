@@ -15,8 +15,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ### Manifest stub
 
-The following information is required to generate a manifest stub. If you are deploying to bosh-lite, there is a pre-existing
-stub that contains all of the information required.
+The following information is required to generate a manifest stub. If you are deploying to bosh-lite, `bosh-lite/stub.yml` contains all of the necessary information.
 
 * Director uuid can be found from running `bosh status`
 
