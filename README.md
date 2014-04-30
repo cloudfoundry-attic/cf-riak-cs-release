@@ -9,29 +9,29 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 ## Deployment
 
 1.  First create the release, naming it `cf-riak-cs`.
-1.  Then upload the release.
-1.  Make sure you have uploaded the appropriate stemcell for your deployment (either vsphere or warden)
+1.  Upload the release.
+1.  Upload the appropriate stemcell for your deployment (warden, vsphere, or aws), if it has not already been uploaded.
 1.  Create a deployment manifest and deploy, following environment-specific instructions below.
 
+### Creating a deployment manifest and deploying to BOSH-lite
 
-### BOSH-lite environment
+1. Run the [`make_manifest`](bosh-lite/make_manifest) script to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
-Run the [`make_manifest`](bosh-lite/make_manifest) script to generate your manifest. The manifest will be placed in [cf-riak-cs-release/bosh-lite/manifests](bosh-lite/manifests).
+    ```
+    $ ./bosh-lite/make_manifest
+    ```
+    The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings. 
 
-Example:
-```
-$ ./bosh-lite/make_manifest
-# This step will also set your deployment to ./bosh-lite/manifests/cf-riak-cs-manifest.yml
-```
+1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run `bosh deploy`.
 
-To deploy: Ensure you have created and uploaded a release, then run `bosh deploy`
+### Creating a deployment manifest and deploying to vSphere
 
-### vSphere environment
+1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
+  
+    In addition to what is required for the bosh-lite stub, you must include:
 
-1. Create a stub file called `riak-cs-vsphere-stub.yml` that contains the parameters described for bosh-lite above. In addition, you must include:
-
-  * Username and password for admin user to support errands
-  * Network settings, with 6 static IPs and 6+ dynamic IPs
+    * Username and password for admin user to support errands
+    * Network settings, with 6 static IPs and 6+ dynamic IPs
 
   ```
   director_uuid: YOUR-DIRECTOR-GUID-HERE
@@ -70,17 +70,19 @@ To deploy: Ensure you have created and uploaded a release, then run `bosh deploy
       admin_password: CF-ADMIN-PASSWORD
   ```
 
-2. Generate the manifest: `./generate_deployment_manifest vsphere riak-cs-vsphere-stub.yml > riak-cs-vsphere.yml`
-To tweak the deployment settings, you can modify the resulting file `riak-cs-vsphere.yml`.
+2. Generate the manifest: `./generate_deployment_manifest vsphere cf-riak-cs-vsphere-stub.yml > cf-riak-cs-vsphere.yml`
+To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-vsphere.yml`.
 
-3. To deploy: `bosh deployment riak-cs-vsphere.yml && bosh deploy`
+3. To deploy: `bosh deployment cf-riak-cs-vsphere.yml && bosh deploy`
 
-### AWS environment
+### Creating a deployment manifest and deploying to AWS
 
-1. Create a stub file called `riak-cs-aws-stub.yml` that contains the parameters described for bosh-lite above. In addition, you must include:
+1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
-  * Username and password for admin user to support errands
-  * Network and resource pool settings
+    In addition what is required for the bosh-lite stub, you must include:
+
+    * Username and password for admin user to support errands
+    * Network and resource pool settings
 
   ```  
   director_uuid: YOUR-DIRECTOR-GUID-HERE
@@ -116,12 +118,12 @@ To tweak the deployment settings, you can modify the resulting file `riak-cs-vsp
       admin_password: CF-ADMIN-PASSWORD
   ```
 
-1. Generate the manifest: `./generate_deployment_manifest aws riak-cs-aws-stub.yml > riak-cs-aws.yml`
-To tweak the deployment settings, you can modify the resulting file `riak-cs-aws.yml`.
+1. Generate the manifest: `./generate_deployment_manifest aws cf-riak-cs-aws-stub.yml > cf-riak-cs-aws.yml`
+To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-aws.yml`.
 
-1. To deploy: `bosh deployment riak-cs-aws.yml && bosh deploy`
+1. To deploy: `bosh deployment cf-riak-cs-aws.yml && bosh deploy`
 
-### Manifest stub
+### Manifest Stub Parameters
 
 The following information is required to generate a manifest stub. If you are deploying to bosh-lite, `bosh-lite/stub.yml` contains all of the necessary information.
 
