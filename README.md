@@ -159,19 +159,7 @@ cf create-service-broker riakcs admin admin http://p-cs.10.244.0.34.xip.io
 ```
 Then make the [service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
 
-## De-registering the broker
-
-### Using BOSH errands
-
-If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
-
-        bosh run errand broker-deregistrar
-
-## Caveats
-
-We have not tested changing the structure of a live cluster, e.g. changing the seed node.
-
-## Tests
+## Running Acceptance Tests
 
 To run the Riak CS Release Acceptance tests, you will need:
 - a running CF instance
@@ -231,6 +219,18 @@ using self-signed certificates, add
 ```bash
 ./bin/test
 ```
+
+## De-registering the broker
+
+### Using BOSH errands
+
+If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+
+        bosh run errand broker-deregistrar
+
+## Caveats
+
+We have not tested changing the structure of a live cluster, e.g. changing the seed node.
 
 ## Blobs
 
