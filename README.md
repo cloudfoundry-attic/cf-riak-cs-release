@@ -28,7 +28,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
   
-    In addition to what is required for the bosh-lite stub, you must include:
+    This stub differs from the bosh-lite stub in that it requires:
 
     * Username and password for admin user to support errands
     * Network settings, with 6 static IPs and 6+ dynamic IPs
@@ -79,7 +79,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
-    In addition what is required for the bosh-lite stub, you must include:
+    This stub differs from the bosh-lite stub in that it requires:
 
     * Username and password for admin user to support errands
     * Network and resource pool settings
