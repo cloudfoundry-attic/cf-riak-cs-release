@@ -15,7 +15,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ### Creating a deployment manifest and deploying to BOSH-lite
 
-1. Run the [`make_manifest`](bosh-lite/make_manifest) script to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
+1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
     ```
     $ ./bosh-lite/make_manifest
