@@ -125,7 +125,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 ### Manifest Stub Parameters
 
-The following information is required to generate a manifest stub. If you are deploying to bosh-lite, `bosh-lite/stub.yml` contains all of the necessary information.
+This section describes the parameters that must be added to manifest stub for the supported environments listed above.
 
 * Director uuid can be found from running `bosh status`
 
