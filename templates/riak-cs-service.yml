@@ -67,6 +67,7 @@ properties:
         id: 946ce484-376b-41b4-8c4e-4bc830676115
         metadata:
           bullets:
+          - Shared Riak CS cluster
           - Buckets are private
           - No storage quota
           costs:
