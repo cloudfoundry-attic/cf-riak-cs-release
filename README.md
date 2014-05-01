@@ -201,7 +201,6 @@ installation. Replace credentials and URLs as appropriate for your environment.
       "apps_domain": "10.244.0.34.xip.io",
       "system_domain": "10.244.0.34.xip.io",
       "riak_cs_scheme" : "http://",
-      "skip_ssl_validation": true,                                                                                
       "service_name": "riak-cs",
       "plan_name": "bucket"
     }
