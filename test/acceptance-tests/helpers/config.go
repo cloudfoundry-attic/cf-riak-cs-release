@@ -15,6 +15,9 @@ type IntegrationConfig struct {
 	AdminUser         string `json:"admin_user"`
 	AdminPassword     string `json:"admin_password"`
 
+	ServiceName				string `json:"service_name"`
+	PlanName					string `json:"plan_name"`
+
 	SkipSSLValidation bool `json:"skip_ssl_validation"`
 }
 
@@ -53,6 +56,14 @@ func LoadPath(path string) (config IntegrationConfig) {
 
 	if config.ApiEndpoint == "" {
 		panic("missing configuration 'admin_password'")
+	}
+
+	if config.ServiceName == "" {
+		panic("missing configuration 'service_name'")
+	}
+
+	if config.PlanName == "" {
+		panic("missing configuration 'plan_name'")
 	}
 
 	return

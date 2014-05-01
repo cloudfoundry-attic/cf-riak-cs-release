@@ -27,6 +27,14 @@ func Curling(args ...string) func() *cmdtest.Session {
 	}
 }
 
+func ServiceName() string {
+	return IntegrationConfig.ServiceName
+}
+
+func PlanName() string {
+	return IntegrationConfig.PlanName
+}
+
 var IntegrationConfig = helpers.LoadConfig()
 
 var AppName = ""

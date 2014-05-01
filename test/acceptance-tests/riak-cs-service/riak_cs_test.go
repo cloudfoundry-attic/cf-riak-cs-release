@@ -23,8 +23,8 @@ var _ = Describe("Riak CS Service Lifecycle", func() {
 	})
 
 	It("Allows users to create, bind, write to, read from, unbind, and destroy the service instance", func() {
-		ServiceName := "riak-cs"
-		PlanName := "bucket"
+		ServiceName := ServiceName()
+		PlanName := PlanName()
 		ServiceInstanceName := RandomName()
 
 		Expect(Cf("create-service", ServiceName, PlanName, ServiceInstanceName)).To(ExitWithTimeout(0, 60*time.Second))

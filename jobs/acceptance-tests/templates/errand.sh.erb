@@ -18,7 +18,9 @@ cat > integration_config.json <<EOF
   "apps_domain":         "<%= p("cf.apps_domain") %>",
   "system_domain":       "<%= p("cf.system_domain") %>",
   "riak_cs_scheme" :     "<%= p("riak_cs.ssl_enabled")? "https://" : "http://" %>",
-  "skip_ssl_validation": <%= p("riak_cs.skip_ssl_validation") %>
+  "skip_ssl_validation": <%= p("riak_cs.skip_ssl_validation") %>,
+  "service_name":        "<%= p("catalog.services").first['name'] %>",
+  "plan_name":           "<%= p("catalog.services").first['plans'].first['name'] %>"
 }
 EOF
 
