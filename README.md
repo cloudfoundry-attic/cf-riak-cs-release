@@ -217,9 +217,9 @@ installation. Replace credentials and URLs as appropriate for your environment.
 
 4. Run  the tests
 
-```bash
-./bin/test
-```
+    ```bash
+    ./bin/test
+    ```
 
 ## De-registering the broker
 
