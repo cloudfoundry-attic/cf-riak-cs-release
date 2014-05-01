@@ -187,31 +187,33 @@ If you're using a new enough BOSH director, stemcell, and CLI to support errands
 2. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
 3. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json`
 
-The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
+   The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
 installation. Replace credentials and URLs as appropriate for your environment.
 
-```bash
-#! /bin/bash
+    ```bash
+    #! /bin/bash
+    
+    cat > integration_config.json <<EOF
+    {
+      "api": "api.10.244.0.34.xip.io",
+      "admin_user": "admin",
+      "admin_password": "admin",
+      "apps_domain": "10.244.0.34.xip.io",
+      "system_domain": "10.244.0.34.xip.io",
+      "riak_cs_scheme" : "http://",
+      "skip_ssl_validation": true,                                                                                
+      "service_name": "riak-cs",
+      "plan_name": "bucket"
+    }
+    EOF
+    export CONFIG=$PWD/integration_config.json
+    ```
 
-cat > integration_config.json <<EOF
-{
-  "api": "api.10.244.0.34.xip.io",
-  "admin_user": "admin",
-  "admin_password": "admin",
-  "apps_domain": "10.244.0.34.xip.io",
-  "system_domain": "10.244.0.34.xip.io",
-  "riak_cs_scheme" : "http://"
-}
-EOF
-export CONFIG=$PWD/integration_config.json
-```
+    If you are using running the tests with a version newer than 6.0.2-0bba99f of the Go CLI against bosh-lite or any other environment using self-signed certificates, add
 
-If you are running the tests with version newer than 6.0.2-0bba99f of the Go CLI against bosh-lite or any other environment
-using self-signed certificates, add
-
-```
-  "skip_ssl_validation": true
-```
+    ```
+      "skip_ssl_validation": true
+    ```
 
 4. Run  the tests
 
