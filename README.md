@@ -100,9 +100,6 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
     cloud_properties:
       availability_zone: YOUR-PRIMARY-AZ-NAME-AGAIN
   properties:
-    riak_cs:
-      ssl_enabled: YOUR-CHOICE-HERE #true or false
-      skip_ssl_validation: YOUR-CHOICE-HERE #true or false
     domain: your-cf-system-domain-here
     nats:
       machines:
