@@ -3,11 +3,11 @@ package riak_cs_service
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/vito/cmdtest"
 	. "github.com/pivotal-cf-experimental/cf-test-helpers/runner"
+	"github.com/vito/cmdtest"
 
-	"testing"
 	"../helpers"
+	"testing"
 )
 
 func TestServices(t *testing.T) {

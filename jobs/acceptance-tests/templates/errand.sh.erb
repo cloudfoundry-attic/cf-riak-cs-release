@@ -6,25 +6,32 @@ set -e
 cd /var/vcap/packages/acceptance-tests
 
 export GOROOT=/var/vcap/packages/golang
-export GOPATH=$PWD/vendor
-export PATH=$GOROOT/bin:$GOPATH/bin:$PWD/bin:$PATH
+export PATH=$GOROOT/bin:$PWD/bin:$PATH
 export CONFIG=$PWD/integration_config.json
 
 cat > integration_config.json <<EOF
 {
   "api":                 "<%= p("cf.api_url") %>",
   "admin_user":          "<%= p("cf.admin_username") %>",
-  "admin_password":      "<%= p("cf.admin_password") %>",
   "apps_domain":         "<%= p("cf.apps_domain") %>",
   "system_domain":       "<%= p("cf.system_domain") %>",
   "riak_cs_scheme" :     "<%= p("riak_cs.ssl_enabled")? "https://" : "http://" %>",
   "skip_ssl_validation": <%= p("riak_cs.skip_ssl_validation") %>,
   "service_name":        "<%= p("catalog.services").first['name'] %>",
-  "plan_name":           "<%= p("catalog.services").first['plans'].first['name'] %>"
+  "plan_name":           "<%= p("catalog.services").first['plans'].first['name'] %>",
+EOF
+
+# don't expose passwords
+set +x
+
+cat >> integration_config.json <<EOF
+  "admin_password": "<%= p("cf.admin_password") %>"
 }
 EOF
 
-bin/test errand
+set -x
+
+bin/test
 
 <% else %>
 echo "The route registration process is disabled because properties.riak_cs.register_route is set to false"
