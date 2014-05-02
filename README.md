@@ -143,7 +143,7 @@ This section describes the parameters that must be added to manifest stub for th
     * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
     * `system_domain`: the CloudFoundry System Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
-## Registering the broker
+## Register the Service Broker
 
 ### Using BOSH errands
 
