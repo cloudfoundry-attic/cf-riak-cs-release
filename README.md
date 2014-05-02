@@ -150,6 +150,8 @@ This section describes the parameters that must be added to manifest stub for th
 If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
 
         bosh run errand broker-registrar
+        
+Note: the broker-registrar errand will fail if the broker has already been registered, and the broker name does not match the manifest property `broker.name`. Use the `cf rename-service-broker` CLI command to change the broker name to match the manifest property then this errand will succeed. 
 
 ### Manually
 First register the broker using the `cf` CLI.  You have to be logged in as an admin, and the IP of the broker will likely be different on vsphere (use `bosh vms` to find it if necessary)
