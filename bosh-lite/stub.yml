@@ -11,3 +11,4 @@ properties:
     admin_password: admin
     api_url: https://api.10.244.0.34.xip.io
     apps_domain: 10.244.0.34.xip.io
+    skip_ssl_validation: true

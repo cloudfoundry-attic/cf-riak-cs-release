@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-<% if p("riak_cs.register_route") %>
+<% if p('riak_cs.register_route') %>
 
 cd /var/vcap/packages/acceptance-tests
 
@@ -11,22 +11,24 @@ export CONFIG=$PWD/integration_config.json
 
 cat > integration_config.json <<EOF
 {
-  "api":                 "<%= p("cf.api_url") %>",
-  "admin_user":          "<%= p("cf.admin_username") %>",
-  "apps_domain":         "<%= p("cf.apps_domain") %>",
-  "riak_cs_host":        "<%= p("external_riakcs_host") %>",
-  "riak_cs_scheme" :     "<%= p("riak_cs.ssl_enabled")? "https://" : "http://" %>",
-  "skip_ssl_validation": <%= p("riak_cs.skip_ssl_validation") %>,
-  "service_name":        "<%= p("catalog.services").first['name'] %>",
-  "plan_name":           "<%= p("catalog.services").first['plans'].first['name'] %>",
-  "broker_host":         "<%= p("broker.host") %>",
+  "api":                 "<%= p('cf.api_url') %>",
+  "admin_user":          "<%= p('cf.admin_username') %>",
+  "apps_domain":         "<%= p('cf.apps_domain') %>",
+<% if p('cf.skip_ssl_validation') %>
+  "skip_ssl_validation": true,
+<% end %>
+  "riak_cs_host":        "<%= p('external_riakcs_host') %>",
+  "riak_cs_scheme" :     "<%= p('riak_cs.ssl_enabled')? 'https://' : 'http://' %>",
+  "service_name":        "<%= p('catalog.services').first['name'] %>",
+  "plan_name":           "<%= p('catalog.services').first['plans'].first['name'] %>",
+  "broker_host":         "<%= p('broker.host') %>",
 EOF
 
 # don't expose passwords
 set +x
 
 cat >> integration_config.json <<EOF
-  "admin_password": "<%= p("cf.admin_password") %>"
+  "admin_password": "<%= p('cf.admin_password') %>"
 }
 EOF
 

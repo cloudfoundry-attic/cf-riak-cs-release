@@ -181,8 +181,8 @@ The following properties must be included in the manifest (most will be there by
 - cf.admin_username:
 - cf.admin_password:
 - cf.apps_domain:
+- cf.skip_ssl_validation:
 - riak_cs.ssl_enabled:
-- riak_cs.skip_ssl_validation:
 - broker.host:
 - external_riakcs_host:
 

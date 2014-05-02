@@ -14,11 +14,11 @@ properties:
     description: 'Password of the admin user'
   cf.apps_domain:
     description: 'Shared domain for pushed apps'
+  cf.skip_ssl_validation:
+    description: 'Whether to add --skip-ssl-validation for cf cli'
 
   riak_cs.ssl_enabled:
     description: 'Use SSL (i.e. https or http)'
-  riak_cs.skip_ssl_validation:
-    description: 'Whether to skip validation of SSL certficates'
   riak_cs.register_route:
     description: 'Whether the broker registers a route with the cloudfoundry router'
 
