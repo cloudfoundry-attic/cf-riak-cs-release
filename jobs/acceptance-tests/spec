@@ -14,8 +14,6 @@ properties:
     description: 'Password of the admin user'
   cf.apps_domain:
     description: 'Shared domain for pushed apps'
-  cf.system_domain:
-    description: 'System domain of Cloud Foundry'
 
   riak_cs.ssl_enabled:
     description: 'Use SSL (i.e. https or http)'
@@ -26,3 +24,8 @@ properties:
 
   catalog.services:
     description: 'Information about the riak-cs service'
+
+  broker.host:
+    description: 'Host used for registering the broker'
+  external_riakcs_host:
+    description: 'Host used for registering the riak nodes'

@@ -14,11 +14,12 @@ cat > integration_config.json <<EOF
   "api":                 "<%= p("cf.api_url") %>",
   "admin_user":          "<%= p("cf.admin_username") %>",
   "apps_domain":         "<%= p("cf.apps_domain") %>",
-  "system_domain":       "<%= p("cf.system_domain") %>",
+  "riak_cs_host":        "<%= p("external_riakcs_host") %>",
   "riak_cs_scheme" :     "<%= p("riak_cs.ssl_enabled")? "https://" : "http://" %>",
   "skip_ssl_validation": <%= p("riak_cs.skip_ssl_validation") %>,
   "service_name":        "<%= p("catalog.services").first['name'] %>",
   "plan_name":           "<%= p("catalog.services").first['plans'].first['name'] %>",
+  "broker_host":         "<%= p("broker.host") %>",
 EOF
 
 # don't expose passwords

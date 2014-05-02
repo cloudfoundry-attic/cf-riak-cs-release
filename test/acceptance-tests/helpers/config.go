@@ -7,9 +7,9 @@ import (
 
 type IntegrationConfig struct {
 	AppsDomain        string `json:"apps_domain"`
-	SystemDomain      string `json:"system_domain"`
 	ApiEndpoint       string `json:"api"`
 
+	RiakCsHost				string `json:"riak_cs_host"`
 	RiakCsScheme      string `json:"riak_cs_scheme"`
 
 	AdminUser         string `json:"admin_user"`
@@ -19,6 +19,7 @@ type IntegrationConfig struct {
 	PlanName					string `json:"plan_name"`
 
 	SkipSSLValidation bool `json:"skip_ssl_validation"`
+	BrokerHost				string `json:"broker_host"`
 }
 
 func LoadConfig() (config IntegrationConfig) {
@@ -64,6 +65,14 @@ func LoadPath(path string) (config IntegrationConfig) {
 
 	if config.PlanName == "" {
 		panic("missing configuration 'plan_name'")
+	}
+
+	if config.BrokerHost == "" {
+		panic("missing configuration 'broker_host'")
+	}
+
+	if config.RiakCsHost == "" {
+		panic("missing configuration 'riak_cs_host'")
 	}
 
 	return

@@ -65,7 +65,6 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
     cf:
       api_url: https://api.YOUR-CF-DOMAIN-HERE
       apps_domain: YOUR-APP-DOMAIN-HERE
-      system_domain: YOUR-SYSTEM-DOMAIN-HERE
       admin_username: CF-ADMIN-USERNAME
       admin_password: CF-ADMIN-PASSWORD
   ```
@@ -110,7 +109,6 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
     cf:
       api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
       apps_domain: YOUR-APP-DOMAIN-HERE
-      system_domain: YOUR-SYSTEM-DOMAIN-HERE
       admin_username: CF-ADMIN-USERNAME
       admin_password: CF-ADMIN-PASSWORD
   ```
@@ -141,7 +139,6 @@ This section describes the parameters that must be added to manifest stub for th
     * `admin_username`: a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
     * `admin_password`: a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
     * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
-    * `system_domain`: the CloudFoundry System Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
 ## Register the Service Broker
 
@@ -184,9 +181,10 @@ The following properties must be included in the manifest (most will be there by
 - cf.admin_username:
 - cf.admin_password:
 - cf.apps_domain:
-- cf.system_domain:
 - riak_cs.ssl_enabled:
 - riak_cs.skip_ssl_validation:
+- broker.host:
+- external_riakcs_host:
 
 If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
 
@@ -206,14 +204,15 @@ installation. Replace credentials and URLs as appropriate for your environment.
     
     cat > integration_config.json <<EOF
     {
-      "api": "api.10.244.0.34.xip.io",
-      "admin_user": "admin",
-      "admin_password": "admin",
-      "apps_domain": "10.244.0.34.xip.io",
-      "system_domain": "10.244.0.34.xip.io",
-      "riak_cs_scheme" : "http://",
-      "service_name": "p-riakcs",
-      "plan_name": "bucket"
+      "api":                 "api.10.244.0.34.xip.io",
+      "admin_user":          "admin",
+      "admin_password":      "admin",
+      "apps_domain":         "10.244.0.34.xip.io",
+      "riak_cs_host":        "p-riakcs.10.244.0.34.xip.io",
+      "riak_cs_scheme" :     "https://",
+      "service_name":        "p-riakcs",
+      "plan_name":           "developer",
+      "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io"
     }
     EOF
     export CONFIG=$PWD/integration_config.json

@@ -3,9 +3,10 @@
   "admin_user":          "admin",
   "admin_password":      "admin",
   "apps_domain":         "10.244.0.34.xip.io",
-  "system_domain":       "10.244.0.34.xip.io",
+  "riak_cs_host":        "p-riakcs.10.244.0.34.xip.io",
   "riak_cs_scheme" :     "https://",
   "skip_ssl_validation": true,
-  "service_name":        "riak-cs",
-  "plan_name":           "bucket"
+  "service_name":        "p-riakcs",
+  "plan_name":           "developer",
+  "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io"
 }
