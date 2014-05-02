@@ -154,11 +154,20 @@ If you're using a new enough BOSH director, stemcell, and CLI to support errands
 Note: the broker-registrar errand will fail if the broker has already been registered, and the broker name does not match the manifest property `broker.name`. Use the `cf rename-service-broker` CLI command to change the broker name to match the manifest property then this errand will succeed. 
 
 ### Manually
-First register the broker using the `cf` CLI.  You have to be logged in as an admin, and the IP of the broker will likely be different on vsphere (use `bosh vms` to find it if necessary)
-```
-cf create-service-broker riakcs admin admin http://p-cs.10.244.0.34.xip.io
-```
-Then make the [service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
+
+1. First register the broker using the `cf` CLI.  You must be logged in as an admin.
+
+    ```
+    $ cf create-service-broker p-riakcs BROKER_USERNAME BROKER_PASSWORD URL
+    ```
+    
+    - `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`. 
+    - `URL` specifies where the Cloud Controller will access the MySQL broker. Use the value of the manifest property `properties.broker.host`.
+    
+    For more information, see [Managing Service Brokers](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
+
+2. Then [make the service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
+
 
 ## Running Acceptance Tests
 
