@@ -203,7 +203,7 @@ installation. Replace credentials and URLs as appropriate for your environment.
       "apps_domain": "10.244.0.34.xip.io",
       "system_domain": "10.244.0.34.xip.io",
       "riak_cs_scheme" : "http://",
-      "service_name": "riak-cs",
+      "service_name": "p-riakcs",
       "plan_name": "bucket"
     }
     EOF
