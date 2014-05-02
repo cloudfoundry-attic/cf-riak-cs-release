@@ -51,7 +51,7 @@ properties:
   catalog:
     services:
     - bindable: true
-      description: An S3-compatible object store based on Riak CS.
+      description: An S3-compatible object store based on Riak CS
       id: 33d2eeb0-0236-4c83-b494-da3faeb5b2e8
       metadata:
         displayName: Riak CS for Pivotal CF
@@ -62,7 +62,7 @@ properties:
         supportUrl: http://gopivotal.com/support/
       name: p-riakcs
       plans:
-      - description: A bucket on Riak CS.
+      - description: Shared Riak CS cluster, private buckets, no storage quota
         id: 946ce484-376b-41b4-8c4e-4bc830676115
         metadata:
           bullets:
