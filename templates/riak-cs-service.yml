@@ -77,4 +77,5 @@ properties:
           displayName: Developer
         name: developer
       tags:
-      - blobstore
+      - riak-cs
+      - s3
