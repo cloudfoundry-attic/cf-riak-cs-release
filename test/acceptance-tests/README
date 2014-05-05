@@ -12,3 +12,4 @@ Updating Dependencies
     - Update the Cartridge files by following the instructions at https://github.com/vito/gocart.
     - Vendor the dependencies by running bin/vendor_deps
     - Commit the vendored dependencies
+
