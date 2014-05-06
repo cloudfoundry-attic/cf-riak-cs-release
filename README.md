@@ -212,17 +212,14 @@ installation. Replace credentials and URLs as appropriate for your environment.
       "riak_cs_scheme" :     "https://",
       "service_name":        "p-riakcs",
       "plan_name":           "developer",
-      "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io"
+      "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io",
+      "skip_ssl_validation": true
     }
     EOF
     export CONFIG=$PWD/integration_config.json
     ```
 
-    If you are using running the tests with a version newer than 6.0.2-0bba99f of the Go CLI against bosh-lite or any other environment using self-signed certificates, add
-
-    ```
-      "skip_ssl_validation": true
-    ```
+    Note: `skip_ssl_validation` requires CLI v6.0.2 or newer.
 
 4. Run  the tests
 
