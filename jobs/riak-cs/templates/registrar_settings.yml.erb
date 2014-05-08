@@ -10,6 +10,7 @@ external_ip: 127.0.0.1
 port: <%= p('riak_cs.port', '8080') %>
 health_checker:
   name: riak-cs-cluster
+  interval_in_seconds: 10
 <% else %>
 # The route registration process is disabled because properties.riak_cs.register_route is set to false
 <% end %>
