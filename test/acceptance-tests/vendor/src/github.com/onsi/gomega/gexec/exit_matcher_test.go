@@ -2,6 +2,7 @@ package gexec_test
 
 import (
 	"os/exec"
+	"time"
 	. "github.com/onsi/gomega/gexec"
 
 	. "github.com/onsi/ginkgo"
@@ -22,7 +23,7 @@ var _ = Describe("ExitMatcher", func() {
 	Describe("when passed something that is not a session", func() {
 		It("should error", func() {
 			failures := interceptFailures(func() {
-				Ω(command).Should(Exit())
+				Ω("aardvark").Should(Exit())
 			})
 
 			Ω(failures[0]).Should(ContainSubstring("Exit must be passed a gexit session"))
@@ -79,6 +80,18 @@ var _ = Describe("ExitMatcher", func() {
 			})
 
 			Ω(failures[0]).Should(ContainSubstring("not to match exit code:"))
+		})
+	})
+
+	Describe("bailing out early", func() {
+		It("should bail out early once the process exits", func() {
+			t := time.Now()
+
+			failures := interceptFailures(func() {
+				Eventually(session).Should(Exit(1))
+			})
+			Ω(time.Since(t)).Should(BeNumerically("<=", 500*time.Millisecond))
+			Ω(failures).Should(HaveLen(1))
 		})
 	})
 })

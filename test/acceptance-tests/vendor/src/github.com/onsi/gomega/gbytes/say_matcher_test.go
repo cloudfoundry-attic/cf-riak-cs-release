@@ -8,6 +8,14 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+type speaker struct {
+	buffer *Buffer
+}
+
+func (s *speaker) Buffer() *Buffer {
+	return s.buffer
+}
+
 var _ = Describe("SayMatcher", func() {
 	var buffer *Buffer
 
@@ -16,12 +24,12 @@ var _ = Describe("SayMatcher", func() {
 		buffer.Write([]byte("abc"))
 	})
 
-	Context("when actual is not a gexec Buffer", func() {
+	Context("when actual is not a gexec Buffer, or a BufferProvider", func() {
 		It("should error", func() {
 			failures := interceptFailures(func() {
 				Ω("foo").Should(Say("foo"))
 			})
-			Ω(failures[0]).Should(ContainSubstring("gbytes Buffer"))
+			Ω(failures[0]).Should(ContainSubstring("*gbytes.Buffer"))
 		})
 	})
 
@@ -43,6 +51,43 @@ var _ = Describe("SayMatcher", func() {
 			Ω(buffer).Should(Say("abcd"))
 			Ω(buffer).Should(Say("ef"))
 			Ω(buffer).ShouldNot(Say("[a-z]"))
+		})
+	})
+
+	Context("when no match is found", func() {
+		It("should not error", func() {
+			Ω(buffer).ShouldNot(Say("def"))
+		})
+
+		Context("when the buffer is closed", func() {
+			BeforeEach(func() {
+				buffer.Close()
+			})
+
+			It("should abort an eventually", func() {
+				t := time.Now()
+				failures := interceptFailures(func() {
+					Eventually(buffer).Should(Say("def"))
+				})
+				Eventually(buffer).ShouldNot(Say("def"))
+				Ω(time.Since(t)).Should(BeNumerically("<", 500*time.Millisecond))
+				Ω(failures).Should(HaveLen(1))
+
+				t = time.Now()
+				Eventually(buffer).Should(Say("abc"))
+				Ω(time.Since(t)).Should(BeNumerically("<", 500*time.Millisecond))
+			})
+
+			It("should abort a consistently", func() {
+				t := time.Now()
+				Consistently(buffer, 2.0).ShouldNot(Say("def"))
+				Ω(time.Since(t)).Should(BeNumerically("<", 500*time.Millisecond))
+			})
+
+			It("should not error with a synchronous matcher", func() {
+				Ω(buffer).ShouldNot(Say("def"))
+				Ω(buffer).Should(Say("abc"))
+			})
 		})
 	})
 
@@ -85,6 +130,34 @@ var _ = Describe("SayMatcher", func() {
 			}()
 			Ω(buffer).ShouldNot(Say("def"))
 			Eventually(buffer).Should(Say("def"))
+		})
+	})
+
+	Context("when actual is a BufferProvider", func() {
+		It("should use actual's buffer", func() {
+			s := &speaker{
+				buffer: NewBuffer(),
+			}
+
+			Ω(s).ShouldNot(Say("abc"))
+
+			s.Buffer().Write([]byte("abc"))
+			Ω(s).Should(Say("abc"))
+		})
+
+		It("should abort an eventually", func() {
+			s := &speaker{
+				buffer: NewBuffer(),
+			}
+
+			s.buffer.Close()
+
+			t := time.Now()
+			failures := interceptFailures(func() {
+				Eventually(s).Should(Say("def"))
+			})
+			Ω(failures).Should(HaveLen(1))
+			Ω(time.Since(t)).Should(BeNumerically("<", 500*time.Millisecond))
 		})
 	})
 })

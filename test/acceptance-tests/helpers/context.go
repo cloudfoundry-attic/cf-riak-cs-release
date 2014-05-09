@@ -5,10 +5,10 @@ import (
 	"time"
 
 	ginkgoconfig "github.com/onsi/ginkgo/config"
+	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/cf-test-helpers/cf"
-	"github.com/vito/cmdtest"
-	. "github.com/vito/cmdtest/matchers"
+	. "github.com/onsi/gomega/gexec"
+	"github.com/cloudfoundry-incubator/cf-test-helpers/cf"
 )
 
 type ConfiguredContext struct {
@@ -42,21 +42,24 @@ func NewContext(config IntegrationConfig) *ConfiguredContext {
 
 func (context *ConfiguredContext) Setup() {
 	cf.AsUser(context.AdminUserContext(), func() {
-		Expect(cf.Cf("create-user", context.regularUserUsername, context.regularUserPassword)).To(SayBranches(
-			cmdtest.ExpectBranch{"OK", func() {}},
-			cmdtest.ExpectBranch{"scim_resource_already_exists", func() {}},
-		))
 
-		Expect(cf.Cf("create-org", context.organizationName)).To(ExitWithTimeout(0, 60*time.Second))
+			channel := cf.Cf("create-user", context.regularUserUsername, context.regularUserPassword)
+			select {
+			case <- channel.Out.Detect("OK"):
+			case <- channel.Out.Detect("scime_resource_already_exists"):
+			case <- time.After(10 * time.Second):
+				Fail("failed to create user")
+			}
+		Eventually(cf.Cf("create-org", context.organizationName), 60*time.Second).Should(Exit(0))
 	})
 }
 
 func (context *ConfiguredContext) Teardown() {
 	cf.AsUser(context.AdminUserContext(), func() {
-		Expect(cf.Cf("delete-user", "-f", context.regularUserUsername)).To(ExitWithTimeout(0, 60*time.Second))
+		Eventually(cf.Cf("delete-user", "-f", context.regularUserUsername), 60*time.Second).Should(Exit(0))
 
 		if !context.isPersistent {
-			Expect(cf.Cf("delete-org", "-f", context.organizationName)).To(ExitWithTimeout(0, 60*time.Second))
+			Eventually(cf.Cf("delete-org", "-f", context.organizationName), 60*time.Second).Should(Exit(0))
 		}
 	})
 }

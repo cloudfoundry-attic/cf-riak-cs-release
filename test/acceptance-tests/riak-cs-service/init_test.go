@@ -1,10 +1,10 @@
 package riak_cs_service
 
 import (
+	. "github.com/cloudfoundry-incubator/cf-test-helpers/runner"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	. "github.com/pivotal-cf-experimental/cf-test-helpers/runner"
-	"github.com/vito/cmdtest"
+	"github.com/onsi/gomega/gexec"
 
 	"../helpers"
 	"testing"
@@ -21,8 +21,8 @@ func AppUri(appname string) string {
 	return IntegrationConfig.RiakCsScheme + appname + "." + IntegrationConfig.AppsDomain
 }
 
-func Curling(args ...string) func() *cmdtest.Session {
-	return func() *cmdtest.Session {
+func Curling(args ...string) func() *gexec.Session {
+	return func() *gexec.Session {
 		return Curl(args...)
 	}
 }
