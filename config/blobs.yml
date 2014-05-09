@@ -54,3 +54,13 @@ golang/go1.2.1.linux-amd64.tar.gz:
   sha: !binary |-
     NzYwNWY1NzdmZjZhYzJkNjA4YTNhNGU4MjliMjU1YWUyZWJjOGRjZg==
   size: 56123695
+cli/cf-darwin-amd64.tgz:
+  object_id: 4f40aabf-d3b5-4504-87f0-18365c73d0d3
+  sha: !binary |-
+    MTlkZjg3Njc3YjkyMTI5ZjAxZTMzOWUxZjhmMDQzODMxYjYxNjhkMw==
+  size: 3849482
+cli/cf-linux-amd64.tgz:
+  object_id: fe3f46f7-434a-40ce-a1da-2713782ee70d
+  sha: !binary |-
+    MmRhNzE4ZThlMzMxMDVmZjU4ODRmMWU4MzRiNzk2NTBhYjMzMDgwMw==
+  size: 3886903
