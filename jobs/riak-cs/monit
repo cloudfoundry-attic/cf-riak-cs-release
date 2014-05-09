@@ -10,8 +10,10 @@ check process riak-cs
   stop program "/var/vcap/jobs/riak-cs/bin/riak-cs_ctl stop"
   group vcap
 
+<% if properties.riak_cs.register_route %>
 check process route-registrar
   with pidfile /var/vcap/sys/run/route-registrar/route_registrar.pid
   start program "/var/vcap/jobs/riak-cs/bin/route_registrar_ctl start"
   stop program "/var/vcap/jobs/riak-cs/bin/route_registrar_ctl stop"
   group vcap
+<% end %>

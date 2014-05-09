@@ -17,8 +17,6 @@ case $1 in
 start)
 
   mkdir -p $RUN_DIR
-
-<% if properties.riak_cs.register_route %>
   mkdir -p $JOB_DIR
   mkdir -p $LOG_DIR
 
@@ -37,10 +35,6 @@ start)
   >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 
   pgrep -f 'route-registrar'> $PIDFILE
-<% else %>
-  tail -f /dev/null &
-  pgrep -f 'tail -f /dev/null'> $PIDFILE
-<% end %>
 ;;
 
 stop)
