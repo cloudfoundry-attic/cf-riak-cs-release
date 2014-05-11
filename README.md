@@ -10,7 +10,11 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 1. [Upload a release to the BOSH director](#upload_release)
 1.  Upload the appropriate stemcell for your deployment (warden, vsphere, or aws), if it has not already been uploaded.
-1.  Create a deployment manifest and deploy, following environment-specific instructions below.
+1. [Create a deployment manifest and deploy, following environment-specific instructions below.](#create_manifest)
+  - [BOSH-lite](#bosh-lite)
+  - [vSphere](#vsphere)
+  - [AWS](#aws)
+1. [Register the service broker with Cloud Foundry](#register_broker)
 
 ### Upload a Release<a name="upload_release"></a>
 
@@ -49,8 +53,10 @@ You can use a pre-built final release or build a release from HEAD. Final releas
   ```bash
   bosh upload release
   ```
-  
-### Creating a deployment manifest and deploying to BOSH-lite
+
+### Create a Manifest and Deploy<a name="create_manifest"></a>
+
+#### BOSH-lite<a name="bosh-lite"></a>
 
 1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
@@ -61,7 +67,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run `bosh deploy`.
 
-### Creating a deployment manifest and deploying to vSphere
+#### vSphere<a name="vsphere"></a>
 
 1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
   
@@ -111,7 +117,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 3. To deploy: `bosh deployment cf-riak-cs-vsphere.yml && bosh deploy`
 
-### Creating a deployment manifest and deploying to AWS
+#### AWS<a name="aws"></a>
 
 1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
@@ -177,7 +183,7 @@ This section describes the parameters that must be added to manifest stub for th
     * `admin_password`: a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
     * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
 
-## Register the Service Broker
+## Register the Service Broker<a name="register_broker"></a>
 
 ### Using BOSH errands
 
@@ -191,16 +197,17 @@ Note: the broker-registrar errand will fail if the broker has already been regis
 
 1. First register the broker using the `cf` CLI.  You must be logged in as an admin.
 
-    ```
-    $ cf create-service-broker p-riakcs BROKER_USERNAME BROKER_PASSWORD URL
-    ```
+  ```
+  $ cf create-service-broker p-riakcs BROKER_USERNAME BROKER_PASSWORD URL
+  ```
     
-    - `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`. 
-    - `URL` specifies where the Cloud Controller will access the MySQL broker. Use the value of the manifest property `properties.broker.host`.
-    
-    For more information, see [Managing Service Brokers](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
+  `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`. 
+  
+  `URL` specifies where the Cloud Controller will access the MySQL broker. Use the value of the manifest property `properties.broker.host`.
 
-2. Then [make the service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
+  For more information, see [Managing Service Brokers](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
+
+1. Then [make the service plan public](http://docs.cloudfoundry.org/services/services/managing-service-brokers.html#make-plans-public).
 
 
 ## Running Acceptance Tests
@@ -225,9 +232,9 @@ The following properties must be included in the manifest (most will be there by
 - broker.host:
 - external_riakcs_host:
 
-If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
-
-        bosh run errand acceptance-tests
+```
+bosh run errand acceptance-tests
+```
 
 ### Manually
 
