@@ -8,11 +8,48 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ## Deployment
 
-1.  First create the release, naming it `cf-riak-cs`.
-1.  Upload the release.
+1. [Upload a release to the BOSH director](#upload_release)
 1.  Upload the appropriate stemcell for your deployment (warden, vsphere, or aws), if it has not already been uploaded.
 1.  Create a deployment manifest and deploy, following environment-specific instructions below.
 
+### Upload a Release<a name="upload_release"></a>
+
+You can use a pre-built final release or build a release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, these are created manually and infrequently. To be sure you're deploying the latest code, build a release yourself.
+
+#### Upload a pre-built final BOSH release
+
+1. Check out the tag for the desired version. This is necessary for generating a manifest that matches the code you're deploying.
+
+  ```bash
+  cd ~/workspace/cf-riak-cs-release
+  ./update
+  git checkout v1
+  ```
+
+1. Run the upload command, referencing one of the config files in the `releases` directory.
+
+  ```bash
+  bosh upload release releases/cf-riak-cs-1.yml
+  ```
+
+#### Create a BOSH Release from HEAD and Upload:
+
+1. Build a BOSH development release from HEAD
+
+  ```bash
+  cd ~/workspace/cf-riak-cs-release
+  ./update
+  bosh create release
+  ```
+
+  When prompted to name the release, call it `cf-riak-cs`.
+
+1. Upload the release to your bosh environment:
+
+  ```bash
+  bosh upload release
+  ```
+  
 ### Creating a deployment manifest and deploying to BOSH-lite
 
 1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
@@ -144,7 +181,7 @@ This section describes the parameters that must be added to manifest stub for th
 
 ### Using BOSH errands
 
-If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
 
         bosh run errand broker-registrar
         
@@ -175,6 +212,8 @@ To run the Riak CS Release Acceptance tests, you will need:
 - an environment variable `$CONFIG` which points to a `.json` file that contains the application domain
 
 ### Using BOSH errands
+
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
 
 The following properties must be included in the manifest (most will be there by default):
 - cf.api_url:
@@ -229,11 +268,24 @@ installation. Replace credentials and URLs as appropriate for your environment.
 
 ## De-registering the broker
 
+The following commands are destructive and are intended to be run in conjuction with deleting your BOSH deployment.
+
 ### Using BOSH errands
 
-If you're using a new enough BOSH director, stemcell, and CLI to support errands, run the following errand:
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
 
-        bosh run errand broker-deregistrar
+This errand runs the two commands listed in the manual section below from a BOSH-deployed VM. This errand should be run before deleting your BOSH deployment. If you have already deleted your deployment follow the manual instructions below.
+
+    bosh run errand broker-deregistrar
+
+#### Manually
+
+Run the following:
+
+```bash
+cf purge-service-offering p-riakcs
+cf delete-service-broker p-riakcs
+```
 
 ## Caveats
 
