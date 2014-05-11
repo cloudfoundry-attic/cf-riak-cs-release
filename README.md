@@ -14,6 +14,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
   - [BOSH-lite](#bosh-lite)
   - [vSphere](#vsphere)
   - [AWS](#aws)
+  - [Deployment Manifest Stub Properties](#stub-properties)
 1. [Register the Service Broker with Cloud Foundry](#register_broker)
 
 ### Upload a Release<a name="upload_release"></a>
@@ -161,7 +162,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 1. To deploy: `bosh deployment cf-riak-cs-aws.yml && bosh deploy`
 
-### Manifest Stub Parameters
+#### Deployment Manifest Stub Parameters<a name="stub-properties"></a>
 
 This section describes the parameters that must be added to manifest stub for the supported environments listed above.
 
