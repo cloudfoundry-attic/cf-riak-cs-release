@@ -10,11 +10,11 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 1. [Upload a release to the BOSH director](#upload_release)
 1.  Upload the appropriate stemcell for your deployment (warden, vsphere, or aws), if it has not already been uploaded.
-1. [Create a deployment manifest and deploy, following environment-specific instructions below.](#create_manifest)
+1. [Create a Deployment Manifest and Deploy](#create_manifest)
   - [BOSH-lite](#bosh-lite)
   - [vSphere](#vsphere)
   - [AWS](#aws)
-1. [Register the service broker with Cloud Foundry](#register_broker)
+1. [Register the Service Broker with Cloud Foundry](#register_broker)
 
 ### Upload a Release<a name="upload_release"></a>
 
