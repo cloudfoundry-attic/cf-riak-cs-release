@@ -1,0 +1,145 @@
+---
+packages:
+- name: acceptance-tests
+  version: 1
+  sha1: !binary |-
+    NjdhZmRmZGM2MjliZmZkYWFiMmU0N2IwY2M1MzllZmIxYjI3MzQ3MQ==
+  fingerprint: !binary |-
+    YjIyZjYyYzA4ZWMyZDZmMDZlZmE0NjcyMDc1NTQ4MmEwYjIyYWFiMA==
+  dependencies:
+  - golang
+  - cli
+- name: broker-registrar
+  version: 1
+  sha1: !binary |-
+    MGE0YmM5NTVkZDkwMmFjOTA3MWNkNzYzYzQ1YjY1MDZkNDBiN2FhYQ==
+  fingerprint: !binary |-
+    YWZiZTljYWM0Mzk0NDdlZWMzODYzNDNjYzgzY2E1ZWI4YjhkMzE2NA==
+  dependencies:
+  - ruby
+- name: cf-riak-cs-broker
+  version: 1
+  sha1: !binary |-
+    MjkzYTU0MDIwMTI3ZThiNDRjMzIyOWI2NmMyZmFkZmRmYmJhYWZjYQ==
+  fingerprint: !binary |-
+    ZjBjM2VmYTI5MjkxOGZhMjU2Y2ZlYjZjYjkzMzU0MzRmYTMyYWQ5Yg==
+  dependencies:
+  - git
+  - ruby
+- name: cli
+  version: 1
+  sha1: !binary |-
+    YmRlMzdmZjAwYzliNmMxN2QyZDdlZGYwYmJjMTE4YWMxZmNjYTVmOA==
+  fingerprint: !binary |-
+    MmQxNThhNDFiMGNmMGIzN2RkODEwY2E0OGQ1ODI2ODRiODQxODYzZA==
+  dependencies: []
+- name: common
+  version: 1
+  sha1: !binary |-
+    OGY4YzlkNTNlYTIyZTJlOTE1MzY2OTQ2M2RjNzMwYzIzNWE5ZDMzNw==
+  fingerprint: !binary |-
+    NDdlYWMzYzQxNmY4N2ViMGE2NDhiM2RmZTQ1NjMyYzY1NGQ2ZTY3Zg==
+  dependencies: []
+- name: erlang
+  version: 1
+  sha1: !binary |-
+    MzQyMDE1ZTdkOTcxOWEzM2I2Mjk5ODk1NzRiNWQ3OTdjNWE2MjIzNw==
+  fingerprint: !binary |-
+    OTNhZDg2ZDI1OTNjZDAzMDA5Y2NlZmRjZTU2YmI1YmMzOWM0MDhhZg==
+  dependencies: []
+- name: git
+  version: 1
+  sha1: !binary |-
+    M2MzYWFlMzU5OGM1OGUzZjFjMWIyYWRkMzdhMDBlM2MyOTBlOGNiYg==
+  fingerprint: !binary |-
+    Mzc4MGE1NzY1NDI5NTAzYjBiNjA4NTkwOWNlMTVmMjZkNzgxNmZhMQ==
+  dependencies: []
+- name: golang
+  version: 1
+  sha1: !binary |-
+    MmI2Njg2YWQ3MWNkZWEwZmJlYmFjODE4NTM3ZTE4MGJmMmRmYzU5Mw==
+  fingerprint: !binary |-
+    YmE4NzM0NGM0NWFlNDczODVhMjJkYmVkZTI1YzU2YTc2MmEwYjRhYw==
+  dependencies: []
+- name: riak
+  version: 1
+  sha1: !binary |-
+    Nzc2NWExYzE0M2Q5NmJiZTQ0NTVhNTJjOWQyMTdkMTliNzg4Yzc1Yw==
+  fingerprint: !binary |-
+    MGIxY2YxYWIxODUwYTE3NGEwOTBmN2MyMzk1ZjllZDIzYzc2MTQ4Nw==
+  dependencies:
+  - erlang
+  - git
+- name: riak-cs
+  version: 1
+  sha1: !binary |-
+    Y2I2ZTc1YWU2MzczMWU5ZDUyNTJmNzAzYjc1OTdiMzVlYmM0NzkzMg==
+  fingerprint: !binary |-
+    NDliYzQ5ODg4MWJkN2U4ZmNjMzNlNjQwNTU0MTY1ZWQ5MTg5YzI3Ng==
+  dependencies:
+  - riak
+- name: route-registrar
+  version: 1
+  sha1: !binary |-
+    MDBiMGYwZjhiNDk0OGVkNjEzY2UzOTBiYzNiMDZkMzcyYjNmOGI0Zg==
+  fingerprint: !binary |-
+    MGZkODk1YjNhYjZjYWUyOTdjZmZhODFkNzM4NTkwMzA0OGMzZDhmOA==
+  dependencies:
+  - golang
+- name: ruby
+  version: 1
+  sha1: !binary |-
+    YmUxMzNjYzRjOTAzZDRiYTA2ZmMxM2JmYjk4NTZlOGNiMjU4NmU1ZQ==
+  fingerprint: !binary |-
+    YzUyYTE2MmExZGVmNzBmODI2YzkxZTVmZWMwZGU5NDVjZjNkOWEzOA==
+  dependencies: []
+- name: stanchion
+  version: 1
+  sha1: !binary |-
+    ZjQ5YjFkYzM3Zjk0YTY5ZmVkZDQzOTJjYjRlODA1YjhkNjgzNWJiMA==
+  fingerprint: !binary |-
+    OWQyZmZjZjFmYTE3ZWQ0YWZhYmRmMTE0NjNjZjVkZWVhM2EyMzBlZg==
+  dependencies:
+  - erlang
+  - git
+jobs:
+- name: acceptance-tests
+  version: 1
+  fingerprint: !binary |-
+    N2I4YzNmZjg3MmFhYWM1NTdhNzdmNTc1Zjk2YWRiZWIyMGY0OTkzMA==
+  sha1: !binary |-
+    MjEyMTFmZDNjNmJiNTBhZWY2ZDM4NTViM2M0Njk1MWFjNDUzOTdiOA==
+- name: broker-deregistrar
+  version: 1
+  fingerprint: !binary |-
+    NzI0NDNlNTUyODJmYTgzM2U1OWM3MzhlNTQ5NDk5NDM3YjhjYTVhMw==
+  sha1: !binary |-
+    ZjZiMGQ3YTA5NzVmMDVmYjk1M2UzNTIzMDU5OTlhYTA4YWE0OTk1NQ==
+- name: broker-registrar
+  version: 1
+  fingerprint: !binary |-
+    Nzc4MTVkZjIxOGUwYjI0NTUwM2NhM2M1YjE4ZTRiYmYxMGY3OGQ0Ng==
+  sha1: !binary |-
+    NjRkMzMzMWU0MTlkNTdlYjZkMjBhY2E4ZDIwOTM0ZTNjMDdjYjcxMQ==
+- name: cf-riak-cs-broker
+  version: 1
+  fingerprint: !binary |-
+    MGVkNDlmMGFiMjg5MGM5YzhhYjMxNzRmNTYwOWMxMWFlNjBmY2Q4Yw==
+  sha1: !binary |-
+    ZTc1NjBjNjJhZTg4ZWQwMTMyYjg5MDBmZWVhNGY2NWU2ZTcyYmE2Mw==
+- name: riak-cs
+  version: 1
+  fingerprint: !binary |-
+    NTEwMTI0OTc2M2JjMzhjYjlkOTQ0ODdiZDhhODJiNDgxNDhiMmMyMg==
+  sha1: !binary |-
+    MTczMGIwMzAzNmNhOTlkMDcwYmRhM2JhY2VlYTQyMTY5MjEzYzBkYw==
+- name: stanchion
+  version: 1
+  fingerprint: !binary |-
+    NDUwZjRjYjBkYThjNGMzNTUxNDA1MGU4YjQxMjBjMDNhN2UxM2ZkYg==
+  sha1: !binary |-
+    MDE1OTUxMzM2NGQxOGRkYjU1YTUzNjc5MTI4NzBhZmZjMTdmZTQ3NQ==
+commit_hash: e6267de5
+uncommitted_changes: true
+name: cf-riak-cs
+version: 1

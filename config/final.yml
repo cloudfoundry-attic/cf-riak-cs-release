@@ -4,3 +4,4 @@ blobstore:
   options:
     bucket_name: riak-service-blobs
 min_cli_version: 1.5.0.pre.1117
+final_name: cf-riak-cs
