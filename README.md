@@ -76,7 +76,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
     * Network settings, with 6 static IPs and 6+ dynamic IPs
 
   ```
-  director_uuid: YOUR-DIRECTOR-GUID-HERE
+  director_uuid: YOUR-DIRECTOR-GUID
   networks:
   - name: riak-cs-network
     subnets:
@@ -126,31 +126,31 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
     * Network and resource pool settings
 
   ```  
-  director_uuid: YOUR-DIRECTOR-GUID-HERE
+  director_uuid: YOUR-DIRECTOR-GUID
   networks:
   - name: riak-cs-network
     subnets:
     - name: riak-cs-subnet
       cloud_properties:
-        subnet: YOUR-AWS-SERVICES-SUBNET-ID-HERE
+        subnet: YOUR-AWS-SERVICES-SUBNET-ID
   resource_pools:
   - name: riak-pool
     cloud_properties:
-      availability_zone: YOUR-PRIMARY-AZ-NAME-HERE
+      availability_zone: YOUR-PRIMARY-AZ-NAME
   - name: broker-pool
     cloud_properties:
-      availability_zone: YOUR-PRIMARY-AZ-NAME-AGAIN
+      availability_zone: YOUR-PRIMARY-AZ-NAME
   properties:
-    domain: your-cf-system-domain-here
+    domain: YOUR-CF-SYSTEM-DOMAIN
     nats:
       machines:
-      - IP-OF-NATS-SERVER-HERE
-      user: NATS-USERNAME-HERE
-      password: NATS-PASSWORD-HERE
+      - IP-OF-NATS-SERVER
+      user: NATS-USERNAME
+      password: NATS-PASSWORD
       port: 4222
     cf:
-      api_url: https://api.YOUR-CF-SYSTEM-DOMAIN-HERE
-      apps_domain: YOUR-APP-DOMAIN-HERE
+      api_url: https://api.YOUR-CF-SYSTEM-DOMAIN
+      apps_domain: YOUR-CF-APP-DOMAIN
       admin_username: CF-ADMIN-USERNAME
       admin_password: CF-ADMIN-PASSWORD
   ```
