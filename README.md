@@ -170,8 +170,8 @@ This section describes the parameters that must be added to manifest stub for th
   * `domain`: refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest). The value is used to determine both the route advertised by each node in the cluster (see `register_route` below), as well as the route for the broker.
 
   * `riak_cs`: These properties control behavior of the Riak CS cluster nodes. As these properties have defaults, it is not necessary to include them in your stub unless you need to change them.
-    * `ssl_enabled` defaults to true 
-    * `skip_ssl_validation` defaults to false, which assumes you have valid certs in your CF deployment
+    * `ssl_enabled`: defaults to true 
+    * `skip_ssl_validation`: defaults to false, which requires your Riak cluster uses valid SSL certs. To accept self-signed certs from the Riak cluster, set to true.
     * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. 
 
       When this property is set to false, nodes will not register a route. This is useful when deploying `cf-riak-cs-release` without Cloud Foundry. NOTE: the Riak CS service broker does not yet support `register_route: false`. __When setting `register_route` to false, you must set the instance count of the `cf-riak-cs-broker`, `acceptance-tests`, `broker-registrar`, and `broker-deregistrar` jobs to 0. Also you should omit the `domain` property and all the `cf` properties below.__
@@ -181,6 +181,7 @@ This section describes the parameters that must be added to manifest stub for th
     * `admin_username`: a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
     * `admin_password`: a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
     * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
+    * `skip_ssl_validation`: defaults to false, which requires your cf-release uses valid SSL certificates. To accept self-signed certs from cf-release, set to true.
 
 ## Register the Service Broker<a name="register_broker"></a>
 
