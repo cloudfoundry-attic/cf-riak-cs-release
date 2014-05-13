@@ -57,7 +57,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 #### BOSH-lite<a name="bosh-lite"></a>
 
-1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you in `bosh-lite/stub.yml`. For a description of the parameters in the stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
+1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you, `bosh-lite/stub.yml`. For a description of the parameters in this stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
     ```
     $ ./bosh-lite/make_manifest
@@ -68,7 +68,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 #### vSphere<a name="vsphere"></a>
 
-1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
+1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
   
     This stub differs from the bosh-lite stub in that it requires:
 
@@ -118,7 +118,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 #### AWS<a name="aws"></a>
 
-1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these parameters, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
+1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
 
     This stub differs from the bosh-lite stub in that it requires:
 
