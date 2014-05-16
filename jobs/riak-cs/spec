@@ -21,3 +21,38 @@ templates:
 
   registrar_settings.yml.erb: config/registrar_settings.yml
   route_registrar_ctl.erb: bin/route_registrar_ctl
+
+properties:
+
+  stanchion.ip:
+    description: 'IP of the stanchion node'
+
+  riak.ips:
+    description: 'IP addresses of riak nodes'
+  riak.seed_node:
+    description: 'Host of the riak seed node'
+  riak.firewall_enabled:
+    description: 'Restricts riak requests to cluster ip range'
+
+  riak_cs.ips:
+    description: 'IP addresses of riak_cs'
+  riak_cs.admin_key:
+    description: 'The admin key_id for riak_cs'
+  riak_cs.admin_secret:
+    description: 'The admin secret for riak_cs'
+  riak_cs.port:
+    description: 'Port for riak_cs'
+  riak_cs.register_route:
+    description: 'Registers route with cf-router for riak_cs'
+
+  nats.user:
+    description: 'Username for broker to connect to NATS'
+  nats.password:
+    description: 'Password for broker to connect to NATS'
+  nats.port:
+    description: 'IP port of Cloud Foundry NATS server'
+  nats.machines:
+    description: 'IP of each NATS cluster member'
+
+  external_riakcs_host:
+    description: 'External host for registering riak_cs'

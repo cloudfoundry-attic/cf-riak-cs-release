@@ -12,3 +12,41 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
   config/settings.yml.erb: config/settings.yml
   config/unicorn.conf.rb.erb: config/unicorn.conf.rb
+
+properties:
+
+  broker.port:
+    description: 'Port for registering the service broker'
+  broker.username:
+    description: 'Basic Auth username for the service broker'
+  broker.password:
+    description: 'Basic Auth password for the service broker'
+
+  catalog.services:
+    description: 'Services and plans offered by the broker'
+
+  riak_cs.skip_ssl_validation:
+    description: 'Do not verify certs if true'
+  riak_cs.ssl_enabled:
+    description: 'Use SSL (i.e. https or http)'
+  riak_cs.admin_key:
+    description: 'The admin key_id for riak_cs'
+  riak_cs.admin_secret:
+    description: 'The admin secret for riak_cs'
+
+  external_riakcs_host:
+    description: 'External host for registering riak_cs'
+  external_broker_host:
+    description: 'External host for registering the service broker'
+
+  nats.user:
+    description: 'Username for broker to connect to NATS'
+  nats.password:
+    description: 'Password for broker to connect to NATS'
+  nats.port:
+    description: 'IP port of Cloud Foundry NATS server'
+  nats.machines:
+    description: 'IP of each NATS cluster member'
+
+  networks.broker_network:
+    description: 'Name of the network the broker will get its IP address from'
