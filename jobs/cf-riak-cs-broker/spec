@@ -17,6 +17,7 @@ properties:
 
   broker.port:
     description: 'Port for registering the service broker'
+    default: 80
   broker.username:
     description: 'Basic Auth username for the service broker'
   broker.password:
@@ -27,8 +28,10 @@ properties:
 
   riak_cs.skip_ssl_validation:
     description: 'Do not verify certs if true'
+    default: false
   riak_cs.ssl_enabled:
     description: 'Use SSL (i.e. https or http)'
+    default: true
   riak_cs.admin_key:
     description: 'The admin key_id for riak_cs'
   riak_cs.admin_secret:

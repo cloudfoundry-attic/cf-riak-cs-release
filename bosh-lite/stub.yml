@@ -3,6 +3,8 @@ director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
   riak_cs:
+    admin_key: admin-key
+    admin_secret: admin-secret
     ssl_enabled: true
     skip_ssl_validation: true
   domain: 10.244.0.34.xip.io
@@ -12,3 +14,7 @@ properties:
     api_url: https://api.10.244.0.34.xip.io
     apps_domain: 10.244.0.34.xip.io
     skip_ssl_validation: true
+  broker:
+    name: p-riakcs
+    username: admin
+    password: admin

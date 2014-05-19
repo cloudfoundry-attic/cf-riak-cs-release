@@ -44,6 +44,7 @@ properties:
     description: 'Port for riak_cs'
   riak_cs.register_route:
     description: 'Registers route with cf-router for riak_cs'
+    default: true
 
   nats.user:
     description: 'Username for broker to connect to NATS'
