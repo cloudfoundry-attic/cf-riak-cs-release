@@ -56,4 +56,4 @@ properties:
     description: 'IP of each NATS cluster member'
 
   external_riakcs_host:
-    description: 'External host for registering riak_cs'
+    description: 'External host name used by router to balance http requests across cluster nodes'
