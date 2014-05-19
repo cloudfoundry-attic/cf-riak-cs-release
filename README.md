@@ -169,7 +169,14 @@ This section describes the parameters that must be added to manifest stub for th
 * `properties`
   * `domain`: refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest). The value is used to determine both the route advertised by each node in the cluster (see `register_route` below), as well as the route for the broker.
 
+  * `broker`: These properties configure aspects of the broker
+    * `name`: the name of the broker to use when registering with a BOSH errand.
+    * `username`: username for the broker used for basic auth.
+    * `password`: password for the broker used for basic auth.
+
   * `riak_cs`: These properties control behavior of the Riak CS cluster nodes. As these properties have defaults, it is not necessary to include them in your stub unless you need to change them.
+    * `admin_key`: The admin user key for the Riak CS cluster.
+    * `admin_secret`: The admin user secret for the Riak CS cluster.
     * `ssl_enabled`: Determines whether the route registered for cluster nodes and binding credentials use `https` scheme. Defaults to true.
     * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from the Riak cluster. Defaults to false.
     * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. 
@@ -228,7 +235,6 @@ The following properties must be included in the manifest (most will be there by
 - cf.admin_password:
 - cf.apps_domain:
 - cf.skip_ssl_validation:
-- riak_cs.ssl_enabled:
 - broker.host:
 - external_riakcs_host:
 
