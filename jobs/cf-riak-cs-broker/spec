@@ -27,10 +27,10 @@ properties:
     description: 'Services and plans offered by the broker'
 
   riak_cs.skip_ssl_validation:
-    description: 'Do not verify certs if true'
+    description: 'Determines whether to accept self-signed SSL certs when connecting to cluster nodes through router'
     default: false
   riak_cs.ssl_enabled:
-    description: 'Use SSL (i.e. https or http)'
+    description: 'Determines whether to use https or http in the route registered for the broker, and the scheme to include in binding credentials'
     default: true
   riak_cs.admin_key:
     description: 'The admin key_id for riak_cs'
