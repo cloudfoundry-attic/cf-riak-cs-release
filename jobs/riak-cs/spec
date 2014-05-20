@@ -42,6 +42,7 @@ properties:
     description: 'The admin secret for riak_cs'
   riak_cs.port:
     description: 'Port for riak_cs'
+    default: 8080
   riak_cs.register_route:
     description: 'Registers route with cf-router for riak_cs'
     default: true
