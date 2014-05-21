@@ -177,7 +177,7 @@ This section describes the parameters that must be added to manifest stub for th
   * `riak_cs`: These properties control behavior of the Riak CS cluster nodes. As these properties have defaults, it is not necessary to include them in your stub unless you need to change them.
     * `admin_key`: The admin user key for the Riak CS cluster.
     * `admin_secret`: The admin user secret for the Riak CS cluster.
-    * `ssl_enabled`: Determines whether the route registered for cluster nodes and binding credentials use `https` scheme. Defaults to true.
+    * `ssl_enabled`: Determines the scheme used by the broker to communicate with riak-cs and the scheme returned in the binding credentials. Defaults to true (`https`).
     * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from the Riak cluster. Defaults to false.
     * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. 
 
