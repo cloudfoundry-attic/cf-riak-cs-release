@@ -8,7 +8,7 @@ resource_pools:
     version: (( merge || 2366 ))
   cloud_properties:
     ram: 4096
-    disk: 4096
+    disk: 10240
     cpu: 2
 - name: broker-pool
   network: riak-cs-network
