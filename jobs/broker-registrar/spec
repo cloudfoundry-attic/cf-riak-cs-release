@@ -24,5 +24,5 @@ properties:
   broker.password:
     description: 'Basic Auth password for the service broker'
   riak_cs.register_route:
-    description: 'Whether the broker registers a route with the cloudfoundry router'
+    description: 'Whether the riak cluster registers a route with the cloudfoundry router'
     default: true

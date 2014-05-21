@@ -44,7 +44,7 @@ properties:
     description: 'Port for riak_cs'
     default: 8080
   riak_cs.register_route:
-    description: 'Registers route with cf-router for riak_cs'
+    description: 'Whether the riak cluster registers a route with the cloudfoundry router'
     default: true
 
   nats.user:
