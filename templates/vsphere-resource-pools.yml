@@ -4,18 +4,18 @@ resource_pools:
   network: riak-cs-network
   size: (( auto ))
   stemcell:
-    name: bosh-vsphere-esxi-ubuntu
-    version: (( merge || 2366 ))
+    name: bosh-aws-xen-ubuntu-lucid-go_agent
+    version: (( merge || 2578 ))
   cloud_properties:
     ram: 4096
     disk: 10240
     cpu: 2
 - name: broker-pool
   network: riak-cs-network
-  size: (( auto )) 
+  size: (( auto ))
   stemcell:
-    name: bosh-vsphere-esxi-ubuntu
-    version: (( merge || 2366 ))
+    name: bosh-aws-xen-ubuntu-lucid-go_agent
+    version: (( merge || 2578 ))
   cloud_properties:
     ram: 512
     disk: 4096

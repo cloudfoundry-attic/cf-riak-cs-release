@@ -4,17 +4,17 @@ resource_pools:
   network: riak-cs-network
   size: (( auto ))
   stemcell:
-    name: bosh-aws-xen-ubuntu
-    version: (( merge || 2366 ))
+    name: bosh-aws-xen-ubuntu-lucid-go_agent
+    version: (( merge || 2578 ))
   cloud_properties:
     instance_type: m1.medium
     availability_zone: (( merge ))
 - name: broker-pool
   network: riak-cs-network
-  size: (( auto )) 
+  size: (( auto ))
   stemcell:
-    name: bosh-aws-xen-ubuntu
-    version: (( merge || 2366 ))
+    name: bosh-aws-xen-ubuntu-lucid-go_agent
+    version: (( merge || 2578 ))
   cloud_properties:
     instance_type: m1.small
     availability_zone: (( merge ))
