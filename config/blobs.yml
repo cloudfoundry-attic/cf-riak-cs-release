@@ -24,11 +24,6 @@ ruby/bundler-1.2.1.gem:
   sha: !binary |-
     MGNiZTZhZDdhNDFmMDY0ZDZjMTFjMTA1ODQ2NWZmZmIxYmQ1ODA2OQ==
   size: 226816
-ruby/ruby-1.9.3-p484.tar.gz:
-  object_id: c5f41024-fb16-4c5e-bf97-4c5194039f4c
-  sha: !binary |-
-    NmFlODBmNDI0OTY4YjVjZTY2MWVlOWIyYmVlMWMyMWFkYzllZTY3Yw==
-  size: 12576996
 ruby/rubygems-1.8.24.tgz:
   object_id: 88fa7374-7705-485d-bb3c-0479f2391003
   sha: !binary |-
@@ -64,3 +59,13 @@ cli/cf-linux-amd64.tgz:
   sha: !binary |-
     MmRhNzE4ZThlMzMxMDVmZjU4ODRmMWU4MzRiNzk2NTBhYjMzMDgwMw==
   size: 3886903
+ruby/ruby-1.9.3-p547.tar.gz:
+  object_id: 8f0e9124-f7be-4dd6-959e-6a9dc70c1eb9
+  sha: !binary |-
+    MDFhNzkyZjk3MmY1Nzg3Y2U1MjZhMWFhZDYyOTc2YzU2YzkzMTc0Yg==
+  size: 12582375
+ruby/yaml-0.1.6.tar.gz:
+  object_id: 8c07f24e-c7f8-4224-9d79-1a5fcca13b6a
+  sha: !binary |-
+    ZjNkNDA0ZTExYmVjM2M0ZWZjZGRmZDE0YzQyZDQ2ZjFhYWJlMGI1ZA==
+  size: 503012
