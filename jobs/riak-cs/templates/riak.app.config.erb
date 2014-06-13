@@ -167,10 +167,10 @@
 {multi_backend, [
 {be_default, riak_kv_eleveldb_backend, [
 {max_open_files, 50},
-{data_root, "/var/vcap/packages/riak/rel/lib/eleveldb"}
+{data_root, "/var/vcap/store/riak/rel/lib/eleveldb"}
 ]},
 {be_blocks, riak_kv_bitcask_backend, [
-{data_root, "/var/vcap/packages/riak/rel/lib/bitcask"}
+{data_root, "/var/vcap/store/riak/rel/lib/bitcask"}
 ]}
 ]}
 ]},
@@ -184,7 +184,7 @@
 %% Merge Index Config
 {merge_index, [
 %% The root dir to store search merge_index data
-{data_root, "./data/merge_index"},
+{data_root, "/var/vcap/store/data/merge_index"},
 
 %% Size, in bytes, of the in-memory buffer.  When this
 %% threshold has been reached the data is transformed
@@ -200,12 +200,12 @@
 
 %% Bitcask Config
 {bitcask, [
-{data_root, "./data/bitcask"}
+{data_root, "/var/vcap/store/data/bitcask"}
 ]},
 
 %% eLevelDB Config
 {eleveldb, [
-{data_root, "./data/leveldb"}
+{data_root, "/var/vcap/store/data/leveldb"}
 ]},
 
 %% Lager Config
