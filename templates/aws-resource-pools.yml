@@ -5,7 +5,7 @@ resource_pools:
   size: (( auto ))
   stemcell:
     name: bosh-aws-xen-ubuntu-lucid-go_agent
-    version: (( merge || 2578 ))
+    version: (( merge || 2611 ))
   cloud_properties:
     instance_type: m1.medium
     availability_zone: (( merge ))
@@ -14,7 +14,7 @@ resource_pools:
   size: (( auto ))
   stemcell:
     name: bosh-aws-xen-ubuntu-lucid-go_agent
-    version: (( merge || 2578 ))
+    version: (( merge || 2611 ))
   cloud_properties:
     instance_type: m1.small
     availability_zone: (( merge ))
