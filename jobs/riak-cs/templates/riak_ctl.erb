@@ -1,4 +1,7 @@
-#!/bin/bash -x
+#!/bin/bash
+
+set -x # Print commands and their arguments as they are executed.
+set -e # exit immediately if a simple command exits with a non-zero status
 
 # Control script to start/stop ruby/rack riak job on a BOSH controlled VM
 #
@@ -35,7 +38,7 @@ case $1 in
 
     # Put the config files in place
     cp /var/vcap/jobs/riak-cs/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
-    cp /var/vcap/jobs/riak-cs /config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
+    cp /var/vcap/jobs/riak-cs/config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
 
     # Set the max open file limit
     ulimit -n 65536
