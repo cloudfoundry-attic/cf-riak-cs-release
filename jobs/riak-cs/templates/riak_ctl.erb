@@ -18,6 +18,7 @@ set -e # exit immediately if a simple command exits with a non-zero status
 
 # TODO - change "EXECUTABLE_SERVER" to the command to run
 
+JOB_DIR=/var/vcap/jobs/riak-cs
 RUN_DIR=/var/vcap/sys/run/riak
 LOG_DIR=/var/vcap/sys/log/riak
 STORE=/var/vcap/store/riak
@@ -37,8 +38,8 @@ case $1 in
     mkdir -p $STORE
 
     # Put the config files in place
-    cp /var/vcap/jobs/riak-cs/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
-    cp /var/vcap/jobs/riak-cs/config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
+    cp $JOB_DIR/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
+    cp $JOB_DIR/config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
 
     # Set the max open file limit
     ulimit -n 65536
@@ -49,7 +50,7 @@ case $1 in
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak/rel/etc/app.config
 
     <% if properties.riak.firewall_enabled %>
-      bash /var/vcap/jobs/riak-cs/restrict_riak_requests_to_cluster_ip_range.sh
+      bash $JOB_DIR/restrict_riak_requests_to_cluster_ip_range.sh
     <% end %>
 
     # Start riak
@@ -61,7 +62,7 @@ case $1 in
     # Join the cluster if we aren't the seed node
     if [ "$IP_ADDR" != "<%= properties.riak.seed_node %>" ]
     then
-      bash /var/vcap/jobs/riak-cs/join_cluster.sh
+      bash $JOB_DIR/join_cluster.sh
     fi
 
     # Create admin user for service broker if we are the seed node
@@ -70,7 +71,7 @@ case $1 in
       # wait for riak_kv to be available before creating an admin user
       /var/vcap/packages/riak/rel/bin/riak-admin wait-for-service riak_kv riak@$IP_ADDR
 
-      /var/vcap/packages/erlang/bin/escript /var/vcap/jobs/riak-cs/bin/create_cs_user.escript &> $LOG_DIR/create_user.log
+      /var/vcap/packages/erlang/bin/escript $JOB_DIR/bin/create_cs_user.escript &> $LOG_DIR/create_user.log
     fi
     ;;
 

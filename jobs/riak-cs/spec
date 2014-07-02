@@ -7,6 +7,8 @@ packages:
 - riak-cs
 - common
 - route-registrar
+- syslog_aggregator
+
 templates:
   riak_ctl.erb: bin/riak_ctl
   riak.app.config.erb: config/riak.app.config
@@ -22,11 +24,15 @@ templates:
   registrar_settings.yml.erb: config/registrar_settings.yml
   route_registrar_ctl.erb: bin/route_registrar_ctl
 
+  syslog_forwarder.conf.erb: config/syslog_forwarder.conf
+
 properties:
 
   stanchion.ip:
     description: 'IP of the stanchion node'
 
+  riak.network:
+    description: 'The name of the network that the riak/riak-cs nodes run on (needed for the syslog aggregator)'
   riak.ips:
     description: 'IP addresses of riak nodes'
   riak.seed_node:
@@ -58,3 +64,14 @@ properties:
 
   external_riakcs_host:
     description: 'External host name used by router to balance http requests across cluster nodes'
+
+  syslog_aggregator.address:
+    description: 'IP address for syslog aggregator'
+  syslog_aggregator.port:
+    description: 'TCP port of syslog aggregator'
+  syslog_aggregator.all:
+    description: 'Define whether forwarders should send all their syslog data to our aggregator.'
+    default: false
+  syslog_aggregator.transport:
+    description: 'Transport to be used when forwarding logs (tcp|udp|relp).'
+    default: 'tcp'

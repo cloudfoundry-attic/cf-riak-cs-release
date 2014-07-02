@@ -54,6 +54,6 @@ message_bus_servers:
 - nats://<%= p('nats.user') %>:<%= p('nats.password') %>@<%= ip %>:<%= p('nats.port') %>
 <% end %>
 
-ip: <%= spec.networks.send(p('networks.broker_network')).ip %>
+ip: <%= spec.networks.send(p('broker.network')).ip %>
 port: <%= p('broker.port') %>
 external_host: <%= p('external_broker_host') %>

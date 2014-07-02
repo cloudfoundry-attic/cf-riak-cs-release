@@ -20,6 +20,7 @@ RUN_DIR=/var/vcap/sys/run/riak-cs
 LOG_DIR=/var/vcap/sys/log/riak-cs
 STORE=/var/vcap/store/riak-cs
 PIDFILE=$RUN_DIR/riak-cs.pid
+JOB_DIR=/var/vcap/jobs/riak-cs
 
 export PATH=/var/vcap/packages/ruby/bin:$PATH
 export HOME=/var/vcap
@@ -35,8 +36,11 @@ case $1 in
     mkdir -p $STORE
 
     # Put the config files in place
-    cp /var/vcap/jobs/riak-cs/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
-    cp /var/vcap/jobs/riak-cs/config/riak_cs.vm.args /var/vcap/packages/riak-cs/rel/etc/vm.args
+    cp $JOB_DIR/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
+    cp $JOB_DIR/config/riak_cs.vm.args /var/vcap/packages/riak-cs/rel/etc/vm.args
+
+    # Start syslog forwarding
+    /var/vcap/packages/syslog_aggregator/setup_syslog_forwarder.sh $JOB_DIR/config
 
     # Set the max open file limit
     ulimit -n 65536

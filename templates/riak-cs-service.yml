@@ -27,6 +27,7 @@ properties:
     firewall_enabled: (( merge ))
     seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
     ips: (( jobs.[0].networks.[0].static_ips ))
+    network: (( jobs.[0].networks.[0].name ))
   riak_cs:
     admin_key: (( merge ))
     admin_secret: (( merge ))
@@ -39,7 +40,9 @@ properties:
     host: (( properties.external_broker_host ))
     username: (( merge ))
     password: (( merge ))
+    network: (( jobs.[2].networks.[0].name ))
   nats: (( merge ))
+  syslog_aggregator: (( merge || nil ))
   domain : (( merge ))
   external_riakcs_host: (( "p-riakcs." properties.domain ))
   external_broker_host: (( "p-riakcs-broker." properties.domain ))

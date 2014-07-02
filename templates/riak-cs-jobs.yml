@@ -22,9 +22,6 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
-  properties:
-    networks:
-      broker_network: riak-cs-network
 - name: broker-registrar
   lifecycle: errand
   template: broker-registrar

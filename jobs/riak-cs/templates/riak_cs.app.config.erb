@@ -202,7 +202,8 @@
                                             {level, info},
                                             {size, 10485760},
                                             {date, "$D0"},
-                                            {count, 5}]}
+                                            {count, 5}]},
+                      {lager_syslog_backend, ["vcap.riak-cs", local1, info]}
                      ]},
 
           %% Whether to write a crash log, and where.
