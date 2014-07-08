@@ -4,6 +4,7 @@ packages:
 - git
 - ruby
 - cf-riak-cs-broker
+- syslog_aggregator
 templates:
   bin/cf-riak-cs-broker_ctl: bin/cf-riak-cs-broker_ctl
   bin/monit_debugger: bin/monit_debugger
@@ -12,6 +13,7 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
   config/settings.yml.erb: config/settings.yml
   config/unicorn.conf.rb.erb: config/unicorn.conf.rb
+  config/syslog_forwarder.conf.erb: config/syslog_forwarder.conf
 
 properties:
 
@@ -52,4 +54,20 @@ properties:
     description: 'IP port of Cloud Foundry NATS server'
   nats.machines:
     description: 'IP of each NATS cluster member'
+
+  riak.network:
+    description: 'The name of the network that the riak/riak-cs nodes run on (needed for the syslog aggregator)'
+  syslog_aggregator.prog_name:
+    description: 'The program name the broker users to log to syslog'
+    default: 'vcap.riak-cs-broker'
+  syslog_aggregator.address:
+    description: 'IP address for syslog aggregator'
+  syslog_aggregator.port:
+    description: 'TCP port of syslog aggregator'
+  syslog_aggregator.all:
+    description: 'Define whether forwarders should send all their syslog data to our aggregator.'
+    default: false
+  syslog_aggregator.transport:
+    description: 'Transport to be used when forwarding logs (tcp|udp|relp).'
+    default: 'tcp'
 

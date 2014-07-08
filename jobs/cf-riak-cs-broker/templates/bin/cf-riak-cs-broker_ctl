@@ -5,7 +5,7 @@ set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the webapp_ctl script
 source /var/vcap/jobs/cf-riak-cs-broker/helpers/ctl_setup.sh 'cf-riak-cs-broker'
-pidfile=$RUN_DIR/unicorn.pid
+PIDFILE=$RUN_DIR/unicorn.pid
 
 export LANG=en_US.UTF-8
 export RACK_ENV=production
@@ -15,13 +15,17 @@ cp $JOB_DIR/config/settings.yml /var/vcap/packages/cf-riak-cs-broker/
 case $1 in
 
   start)
+    pid_guard $PIDFILE "cf-riak-cs-broker"
+
+    # Start syslog forwarding
+    /var/vcap/packages/syslog_aggregator/setup_syslog_forwarder.sh $JOB_DIR/config
 
     cd /var/vcap/packages/cf-riak-cs-broker
     bundle exec unicorn --daemonize -c $JOB_DIR/config/unicorn.conf.rb
     ;;
 
   stop)
-    kill -QUIT `cat $pidfile`
+    kill -QUIT `cat $PIDFILE`
     ;;
   *)
     echo "Usage: cf-riak-cs-broker_ctl {start|stop}"

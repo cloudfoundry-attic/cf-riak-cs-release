@@ -57,3 +57,5 @@ message_bus_servers:
 ip: <%= spec.networks.send(p('broker.network')).ip %>
 port: <%= p('broker.port') %>
 external_host: <%= p('external_broker_host') %>
+
+syslog_progname: <%= p('syslog_aggregator.prog_name') %>
