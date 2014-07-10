@@ -39,7 +39,6 @@ case $1 in
 
     # Put the config files in place
     cp $JOB_DIR/config/riak.app.config /var/vcap/packages/riak/rel/etc/app.config
-    cp $JOB_DIR/config/riak.vm.args /var/vcap/packages/riak/rel/etc/vm.args
 
     # Set the max open file limit
     ulimit -n 65536
