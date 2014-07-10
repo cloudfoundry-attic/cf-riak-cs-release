@@ -190,6 +190,12 @@ This section describes the parameters that must be added to manifest stub for th
     * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
     * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from Cloud Foundry when running BOSH errands. Defaults to false.
 
+  * `syslog_aggregator`:
+    * `address`: IP address for syslog aggregator
+    * `port`: TCP port of syslog aggregator
+    * `all`: Define whether forwarders should send all their syslog data to our aggregator. Defaults to false.
+    * `transport`: Transport to be used when forwarding logs. Valid values are tcp, udp, or relp. Defaults to tcp.
+
 ## Register the Service Broker<a name="register_broker"></a>
 
 ### Using BOSH errands
