@@ -193,8 +193,8 @@ This section describes the parameters that must be added to manifest stub for th
   * `syslog_aggregator`:
     * `address`: IP address for syslog aggregator
     * `port`: TCP port of syslog aggregator
-    * `all`: Define whether forwarders should send all their syslog data to our aggregator. Defaults to false.
     * `transport`: Transport to be used when forwarding logs. Valid values are tcp, udp, or relp. Defaults to tcp.
+    * `all`: Determines whether syslog data for all processes should be forwarded or only configured jobs. Defaults to false.
 
 ## Register the Service Broker<a name="register_broker"></a>
 
