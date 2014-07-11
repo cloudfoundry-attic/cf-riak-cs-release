@@ -306,6 +306,53 @@ cf purge-service-offering p-riakcs
 cf delete-service-broker p-riakcs
 ```
 
+## Using s3curl to read and write to your Riak CS bucket
+
+Clone s3curl from github:
+
+`git clone https://github.com/rtdp/s3curl`
+
+Add credentials to `~/.s3curl`:
+```
+%awsSecretAccessKeys = (
+    myuser => {
+        id => 'my-access-key-id',
+        key => 'my-secret-access-key'
+    }
+);
+```
+
+Edit `s3curl.pl` to add `p-riakcs.mydomain` to the known endpoints:
+
+```
+...
+my @endpoints = ( 's3.amazonaws.com',
+                  's3-us-west-1.amazonaws.com',
+                  's3-us-west-2.amazonaws.com',
+                  's3-us-gov-west-1.amazonaws.com',
+                  's3-eu-west-1.amazonaws.com',
+                  's3-ap-southeast-1.amazonaws.com',
+                  's3-ap-northeast-1.amazonaws.com',
+                  's3-sa-east-1.amazonaws.com',
+                  'p-riakcs.mydomain');
+...
+```
+*Note: If you never intend on communicating with any of the amazon services, then you can delete the existing entries (the ones beginning with 's3').*
+
+To list bucket contents at service-instance-location:
+
+`./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id`
+
+To put contents file to bucket with key `mykey`:
+
+`./s3curl.pl --id myuser --put filename -- http://p-riakcs.mydomain/service-instance-id/mykey`
+
+*Note: curl requires you to escape any special characters in filenames - e.g. filename\\.txt*
+
+To get file with key `mykey` from bucket:
+
+`./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id/mykey`
+
 ## Caveats
 
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
