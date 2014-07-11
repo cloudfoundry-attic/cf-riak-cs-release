@@ -37,7 +37,6 @@ case $1 in
 
     # Put the config files in place
     cp $JOB_DIR/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
-    cp $JOB_DIR/config/riak_cs.vm.args /var/vcap/packages/riak-cs/rel/etc/vm.args
 
     # Start syslog forwarding
     /var/vcap/packages/syslog_aggregator/setup_syslog_forwarder.sh $JOB_DIR/config

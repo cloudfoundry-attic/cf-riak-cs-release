@@ -18,7 +18,6 @@ templates:
 
   riak-cs_ctl.erb: bin/riak-cs_ctl
   riak_cs.app.config.erb: config/riak_cs.app.config
-  riak_cs.vm.args.erb: config/riak_cs.vm.args
 
   registrar_settings.yml.erb: config/registrar_settings.yml
   route_registrar_ctl.erb: bin/route_registrar_ctl
