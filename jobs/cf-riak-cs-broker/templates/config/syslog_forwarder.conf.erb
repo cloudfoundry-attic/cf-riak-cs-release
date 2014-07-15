@@ -14,7 +14,7 @@
     $ActionQueueTimeoutEnqueue 0            # Discard messages if the queue + disk is full
     $ActionQueueSaveOnShutdown on           # Save in-memory data to disk if rsyslog shuts down
 
-    <% ip = spec.networks.send(p('riak.network')).ip %>
+    <% ip = spec.networks.send(p('broker.network')).ip %>
     template(name="RiakLogTemplate" type="list") {
     constant(value="<")
     property(name="pri")

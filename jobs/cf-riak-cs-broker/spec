@@ -55,8 +55,6 @@ properties:
   nats.machines:
     description: 'IP of each NATS cluster member'
 
-  riak.network:
-    description: 'The name of the network that the riak/riak-cs nodes run on (needed for the syslog aggregator)'
   syslog_aggregator.prog_name:
     description: 'The program name the broker users to log to syslog'
     default: 'vcap.riak-cs-broker'
