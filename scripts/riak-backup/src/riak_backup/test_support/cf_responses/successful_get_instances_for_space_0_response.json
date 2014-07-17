@@ -1,51 +1,81 @@
 {
-  "total_results": 1,
-  "total_pages": 1,
-  "prev_url": null,
-  "next_url": null,
-  "resources": [
+  "guid": "space-0",
+  "name": "asdf",
+  "apps": [
     {
-      "metadata": {
-        "guid": "service-instance-0",
-        "url": "/v2/service_instances/service-instance-0",
-        "created_at": "2014-07-17T16:52:15+00:00",
-        "updated_at": null
-      },
-      "entity": {
-        "name": "adsf",
-        "credentials": {
+      "guid": "app-guid-0",
+      "urls": [
+        "asdf.10.244.0.34.xip.io"
+      ],
+      "routes": [
+        {
+          "guid": "fe06e1cf-2dec-4ae8-891b-7d169255d190",
+          "host": "asdf",
+          "domain": {
+            "guid": "6ee10eed-fcec-4250-a62a-3b9e00f07ac1",
+            "name": "10.244.0.34.xip.io"
+          }
+        }
+      ],
+      "service_count": 1,
+      "service_names": [
+        "adsf"
+      ],
+      "running_instances": 1,
+      "name": "asdf",
+      "production": false,
+      "space_guid": "space-1",
+      "stack_guid": "e344fb1b-42f4-4b91-8581-77a0724132b9",
+      "buildpack": null,
+      "detected_buildpack": "Ruby",
+      "environment_json": {
 
-        },
-        "service_plan_guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
-        "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
-        "gateway_data": null,
-        "dashboard_url": null,
-        "type": "managed_service_instance",
-        "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
-        "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
-        "service_bindings_url": "/v2/service_instances/service-instance-0/service_bindings"
+      },
+      "memory": 256,
+      "instances": 1,
+      "disk_quota": 1024,
+      "state": "STARTED",
+      "version": "1a540436-ec5e-4e09-b393-72d11371e91c",
+      "command": null,
+      "console": false,
+      "debug": null,
+      "staging_task_id": "efc69156d32548ff94109fb276ef3649",
+      "package_state": "STAGED",
+      "health_check_timeout": null,
+      "staging_failed_reason": null
+    }
+  ],
+  "services": [
+    {
+      "guid": "service-instance-0",
+      "name": "adsf",
+      "bound_app_count": 1,
+      "dashboard_url": null,
+      "service_plan": {
+        "guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "name": "developer",
+        "service": {
+          "guid": "35c128c9-348f-4041-994e-e34ef298b1ba",
+          "label": "p-riakcs",
+          "provider": null,
+          "version": null
+        }
       }
     },
     {
-      "metadata": {
-        "guid": "service-instance-1",
-        "url": "/v2/service_instances/service-instance-1",
-        "created_at": "2014-07-17T16:52:15+00:00",
-        "updated_at": null
-      },
-      "entity": {
-        "name": "adsf",
-        "credentials": {
-
-        },
-        "service_plan_guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
-        "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
-        "gateway_data": null,
-        "dashboard_url": null,
-        "type": "managed_service_instance",
-        "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
-        "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
-        "service_bindings_url": "/v2/service_instances/service-instance-1/service_bindings"
+      "guid": "service-instance-1",
+      "name": "adsf",
+      "bound_app_count": 1,
+      "dashboard_url": null,
+      "service_plan": {
+        "guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "name": "developer",
+        "service": {
+          "guid": "35c128c9-348f-4041-994e-e34ef298b1ba",
+          "label": "p-riakcs",
+          "provider": null,
+          "version": null
+        }
       }
     }
   ]

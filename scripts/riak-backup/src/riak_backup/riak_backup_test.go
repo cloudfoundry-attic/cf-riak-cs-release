@@ -45,6 +45,7 @@ var _ = Describe("RiakBackup", func() {
 		guids = []string{ directories[0].Name(), directories[1].Name() }
 		Expect(guids).To(ContainElement("service-instance-2"))
 		Expect(guids).To(ContainElement("service-instance-3"))
+		Expect(guids).NotTo(ContainElement("non-riak-service-instance"))
 	})
 
 	It("saves the instance name and list of bound apps in a metadata file for each instance", func() {

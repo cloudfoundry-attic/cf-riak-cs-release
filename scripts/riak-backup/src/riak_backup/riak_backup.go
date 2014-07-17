@@ -19,13 +19,18 @@ type Space struct {
 }
 
 type ServiceInstances struct {
-	Resources []ServiceInstance
+	Services []ServiceInstance
+}
+
+type ServicePlan struct {
+	Service struct {
+		Label string
+	}
 }
 
 type ServiceInstance struct {
-	Metadata struct {
-		Guid string
-	}
+	Guid string
+	ServicePlan ServicePlan `json:"service_plan"`
 }
 
 type Bindings struct {
@@ -60,10 +65,12 @@ func Backup(cf CfClientInterface) {
 		service_instances := &ServiceInstances{}
 		json.Unmarshal([]byte(service_instances_json), service_instances)
 
-		for _, service_instance := range service_instances.Resources {
-			service_instance_guid := service_instance.Metadata.Guid
-			os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_guid, service_instance_guid), 0777)
-			writeMetadataFile(cf, space_guid, service_instance_guid)
+		for _, service_instance := range service_instances.Services {
+			if service_instance.ServicePlan.Service.Label == "p-riakcs" {
+				service_instance_guid := service_instance.Guid
+				os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_guid, service_instance_guid), 0777)
+				writeMetadataFile(cf, space_guid, service_instance_guid)
+			}
 		}
 	}
 }
