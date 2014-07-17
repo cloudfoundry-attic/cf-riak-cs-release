@@ -1,0 +1,52 @@
+{
+  "total_results": 1,
+  "total_pages": 1,
+  "prev_url": null,
+  "next_url": null,
+  "resources": [
+    {
+      "metadata": {
+        "guid": "service-instance-0",
+        "url": "/v2/service_instances/service-instance-0",
+        "created_at": "2014-07-17T16:52:15+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "name": "adsf",
+        "credentials": {
+
+        },
+        "service_plan_guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
+        "gateway_data": null,
+        "dashboard_url": null,
+        "type": "managed_service_instance",
+        "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
+        "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
+        "service_bindings_url": "/v2/service_instances/service-instance-0/service_bindings"
+      }
+    },
+    {
+      "metadata": {
+        "guid": "service-instance-1",
+        "url": "/v2/service_instances/service-instance-1",
+        "created_at": "2014-07-17T16:52:15+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "name": "adsf",
+        "credentials": {
+
+        },
+        "service_plan_guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
+        "gateway_data": null,
+        "dashboard_url": null,
+        "type": "managed_service_instance",
+        "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
+        "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
+        "service_bindings_url": "/v2/service_instances/service-instance-1/service_bindings"
+      }
+    }
+  ]
+}

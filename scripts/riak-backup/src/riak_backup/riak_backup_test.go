@@ -8,6 +8,7 @@ import (
 	. "github.com/onsi/gomega"
 	"io/ioutil"
 	"os"
+	"fmt"
 )
 
 var _ = Describe("RiakBackup", func() {
@@ -19,12 +20,31 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[0].IsDir()).To(BeTrue())
 		Expect(directories[1].IsDir()).To(BeTrue())
 
-		names := []string{ directories[0].Name(), directories[1].Name() }
-		Expect(names).To(ContainElement("413c4df3-66b6-4a7e-a681-bd7f89cffcd9"))
-		Expect(names).To(ContainElement("0d8ff79a-b9b1-4d84-9de1-015a6c884269"))
+		guids := []string{ directories[0].Name(), directories[1].Name() }
+		Expect(guids).To(ContainElement("space-0"))
+		Expect(guids).To(ContainElement("space-1"))
+	})
+
+	It("Makes a sub-directory for each riak-cs service instance in each space", func() {
+		Backup(&test_support.FakeCfClient{})
+
+		for i := 0; i < 2; i++ {
+			path := fmt.Sprintf("/tmp/backup/spaces/space-%d/service_instances", i)
+			directories, _ := ioutil.ReadDir(path)
+			Expect(directories).To(HaveLen(2))
+			Expect(directories[0].IsDir()).To(BeTrue())
+			Expect(directories[1].IsDir()).To(BeTrue())
+
+			guids := []string{ directories[0].Name(), directories[1].Name() }
+			Expect(guids).To(ContainElement("service-instance-0"))
+			Expect(guids).To(ContainElement("service-instance-1"))
+		}
 	})
 
 	AfterEach(func(){
-		os.Remove("/tmp/backup")
+		err := os.RemoveAll("/tmp/backup")
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 	})
 })
