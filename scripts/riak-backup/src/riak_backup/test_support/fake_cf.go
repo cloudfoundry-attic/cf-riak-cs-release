@@ -22,7 +22,13 @@ func(cf *FakeCfClient) GetSpaces() string {
 }
 
 func(cf *FakeCfClient) GetServiceInstancesForSpace(space_guid string) string {
-	bytes, err := ioutil.ReadFile(getFixturePath("successful_get_instances_for_space_0_response.json"))
+	var filename string
+	switch space_guid {
+		case "space-0": filename = "successful_get_instances_for_space_0_response.json"
+		case "space-1": filename = "successful_get_instances_for_space_1_response.json"
+	}
+
+	bytes, err := ioutil.ReadFile(getFixturePath(filename))
 	if err != nil {
 		fmt.Println(err.Error())
 	}
