@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"encoding/json"
 	"os"
+	"gopkg.in/v1/yaml"
+	"io/ioutil"
 )
 
 type Spaces struct{
@@ -26,6 +28,25 @@ type ServiceInstance struct {
 	}
 }
 
+type Bindings struct {
+	Resources []Binding
+}
+
+type Binding struct {
+	Entity struct {
+		App App
+	}
+}
+
+type App struct {
+	Metadata struct {
+		Guid string
+	}
+	Entity struct {
+		Name string
+	}
+}
+
 func Backup(cf CfClientInterface) {
 	spaces_json := cf.GetSpaces()
 	spaces := &Spaces{}
@@ -42,6 +63,33 @@ func Backup(cf CfClientInterface) {
 		for _, service_instance := range service_instances.Resources {
 			service_instance_guid := service_instance.Metadata.Guid
 			os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_guid, service_instance_guid), 0777)
+			writeMetadataFile(cf, space_guid, service_instance_guid)
 		}
 	}
+}
+
+func writeMetadataFile(cf CfClientInterface, space_guid string, service_instance_guid string) {
+	bindings_json := cf.GetBindings(service_instance_guid)
+	bindings := &Bindings{}
+
+	json.Unmarshal([]byte(bindings_json), bindings)
+
+	metadata := InstanceMetadata{
+		ServiceInstanceGuid: service_instance_guid,
+	}
+
+	app_metadatas := []AppMetadata{}
+	for _, binding := range bindings.Resources {
+		bound_app := binding.Entity.App
+		app_metadatas = append(app_metadatas, AppMetadata{ Name: bound_app.Entity.Name, Guid: bound_app.Metadata.Guid })
+	}
+	metadata.BoundApps = app_metadatas
+
+	bytes, err := yaml.Marshal(metadata)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	path := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/metadata.yml", space_guid, service_instance_guid)
+	ioutil.WriteFile(path, bytes, 0777)
 }
