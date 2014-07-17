@@ -56,11 +56,18 @@ var _ = Describe("RiakBackup", func() {
 		Expect(entries[0].IsDir()).To(BeFalse())
 		Expect(entries[0].Name()).To(Equal("metadata.yml"))
 
+		// instance with a bound app
 		file_path := "/tmp/backup/spaces/space-0/service_instances/service-instance-0/metadata.yml"
 		metadata := NewFromFilename(file_path)
 		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-0"))
 		Expect(metadata.BoundApps).To(HaveLen(1))
 		Expect(metadata.BoundApps[0].Guid).To(Equal("app-guid-0"))
+
+		// instance with no bound apps
+		file_path = "/tmp/backup/spaces/space-0/service_instances/service-instance-1/metadata.yml"
+		metadata = NewFromFilename(file_path)
+		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-1"))
+		Expect(metadata.BoundApps).To(HaveLen(0))
 	})
 
 	AfterEach(func(){
