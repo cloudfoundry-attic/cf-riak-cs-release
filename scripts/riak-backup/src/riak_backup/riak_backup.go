@@ -9,6 +9,7 @@ import (
 )
 
 type Spaces struct{
+	NextUrl string `json:"next_url"`
 	Resources []Space
 }
 
@@ -34,6 +35,7 @@ type ServiceInstance struct {
 }
 
 type Bindings struct {
+	NextUrl string `json:"next_url"`
 	Resources []Binding
 }
 
@@ -53,11 +55,9 @@ type App struct {
 }
 
 func Backup(cf CfClientInterface) {
-	spaces_json := cf.GetSpaces()
-	spaces := &Spaces{}
-	json.Unmarshal([]byte(spaces_json), spaces)
+	spaces := fetchSpaces(cf)
 
-	for _, space := range spaces.Resources {
+	for _, space := range spaces {
 		space_guid := space.Metadata.Guid
 		os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s", space_guid), 0777)
 
@@ -75,18 +75,43 @@ func Backup(cf CfClientInterface) {
 	}
 }
 
-func writeMetadataFile(cf CfClientInterface, space_guid string, service_instance_guid string) {
-	bindings_json := cf.GetBindings(service_instance_guid)
-	bindings := &Bindings{}
+func fetchSpaces(cf CfClientInterface) []Space {
+	spaces := []Space{}
+	next_url := "/v2/spaces"
+	for next_url != "" {
+		spaces_json := cf.GetSpaces(next_url)
+		page := &Spaces{}
+		json.Unmarshal([]byte(spaces_json), page)
 
-	json.Unmarshal([]byte(bindings_json), bindings)
+		spaces = append(spaces, page.Resources...)
+		next_url = page.NextUrl
+	}
+	return spaces
+}
+
+func fetchBindings(cf CfClientInterface, service_instance_guid string) []Binding {
+	next_url := "/v2/service_instances/" + service_instance_guid + "/service_bindings?inline-relations-depth=1"
+	bindings := []Binding{}
+	for next_url != "" {
+		bindings_json := cf.GetBindings(next_url)
+		page := &Bindings{}
+		json.Unmarshal([]byte(bindings_json), page)
+
+		bindings = append(bindings, page.Resources...)
+		next_url = page.NextUrl
+	}
+	return bindings
+}
+
+func writeMetadataFile(cf CfClientInterface, space_guid string, service_instance_guid string) {
+	bindings := fetchBindings(cf, service_instance_guid)
 
 	metadata := InstanceMetadata{
 		ServiceInstanceGuid: service_instance_guid,
 	}
 
 	app_metadatas := []AppMetadata{}
-	for _, binding := range bindings.Resources {
+	for _, binding := range bindings {
 		bound_app := binding.Entity.App
 		app_metadatas = append(app_metadatas, AppMetadata{ Name: bound_app.Entity.Name, Guid: bound_app.Metadata.Guid })
 	}

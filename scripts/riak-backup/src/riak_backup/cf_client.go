@@ -1,7 +1,7 @@
 package riak_backup
 
 type CfClientInterface interface {
-	GetSpaces() string
+	GetSpaces(next_url string) string
 	GetServiceInstancesForSpace(space_guid string) string
 	GetBindings(service_instance_guid string) string
 }
@@ -9,7 +9,7 @@ type CfClientInterface interface {
 type CfClient struct {
 }
 
-func(cf *CfClient) GetSpaces() string {
+func(cf *CfClient) GetSpaces(next_url string) string {
 	return ""
 }
 
