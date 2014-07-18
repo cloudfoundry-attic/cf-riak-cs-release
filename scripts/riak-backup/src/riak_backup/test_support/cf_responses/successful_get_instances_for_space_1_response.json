@@ -48,7 +48,7 @@
   "services": [
     {
       "guid": "service-instance-guid-2",
-      "name": "adsf",
+      "name": "service-instance-name-2",
       "bound_app_count": 1,
       "dashboard_url": null,
       "service_plan": {
@@ -64,7 +64,7 @@
     },
     {
       "guid": "service-instance-guid-3",
-      "name": "adsf",
+      "name": "service-instance-name-3",
       "bound_app_count": 1,
       "dashboard_url": null,
       "service_plan": {
@@ -79,8 +79,8 @@
       }
     },
     {
-      "guid": "non-riak-service-instance",
-      "name": "adsf",
+      "guid": "non-riak-service-instance-guid",
+      "name": "non-riak-service-instance-name",
       "bound_app_count": 1,
       "dashboard_url": null,
       "service_plan": {

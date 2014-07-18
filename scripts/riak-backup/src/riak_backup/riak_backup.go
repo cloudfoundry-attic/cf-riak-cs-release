@@ -34,6 +34,7 @@ type ServicePlan struct {
 
 type ServiceInstance struct {
 	Guid string
+	Name string
 	ServicePlan ServicePlan `json:"service_plan"`
 }
 
@@ -72,8 +73,9 @@ func Backup(cf CfClientInterface) {
 		for _, service_instance := range service_instances.Services {
 			if service_instance.ServicePlan.Service.Label == "p-riakcs" {
 				service_instance_guid := service_instance.Guid
-				os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_name, service_instance_guid), 0777)
-				writeMetadataFile(cf, space_name, service_instance_guid)
+				service_instance_name := service_instance.Name
+				os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_name, service_instance_name), 0777)
+				writeMetadataFile(cf, space_name, service_instance_name, service_instance_guid)
 			}
 		}
 	}
@@ -107,7 +109,7 @@ func fetchBindings(cf CfClientInterface, service_instance_guid string) []Binding
 	return bindings
 }
 
-func writeMetadataFile(cf CfClientInterface, space_name string, service_instance_guid string) {
+func writeMetadataFile(cf CfClientInterface, space_name string, service_instance_name string, service_instance_guid string) {
 	bindings := fetchBindings(cf, service_instance_guid)
 
 	metadata := InstanceMetadata{
@@ -126,6 +128,6 @@ func writeMetadataFile(cf CfClientInterface, space_name string, service_instance
 		fmt.Println(err.Error())
 	}
 
-	path := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/metadata.yml", space_name, service_instance_guid)
+	path := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/metadata.yml", space_name, service_instance_name)
 	ioutil.WriteFile(path, bytes, 0777)
 }
