@@ -16,7 +16,7 @@ type AppMetadata struct {
 	Guid string
 }
 
-func NewFromFilename(filename string) InstanceMetadata {
+func NewMetadataFromFilename(filename string) InstanceMetadata {
 	yamlString, err := ioutil.ReadFile(filename)
 	if err != nil {
 		fmt.Println(err.Error())

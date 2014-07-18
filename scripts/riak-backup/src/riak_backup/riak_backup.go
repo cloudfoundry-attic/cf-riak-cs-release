@@ -58,7 +58,7 @@ type App struct {
 	}
 }
 
-func Backup(cf CfClientInterface) {
+func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 	spaces := fetchSpaces(cf)
 
 	for _, space := range spaces {
@@ -76,10 +76,21 @@ func Backup(cf CfClientInterface) {
 				service_instance_name := service_instance.Name
 				os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_name, service_instance_name), 0777)
 				writeMetadataFile(cf, space_name, service_instance_name, service_instance_guid)
+
+				data_dir := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/data", space_name, service_instance_name)
+				os.MkdirAll(data_dir, 0777)
+
+				bucket_name := bucketNameFromServiceInstanceGuid(service_instance_guid)
+				s3cmd.FetchBucket(bucket_name, data_dir)
 			}
 		}
 	}
 }
+
+func bucketNameFromServiceInstanceGuid(service_instance_guid string) string {
+	return "service-instance-" + service_instance_guid
+}
+
 
 func fetchSpaces(cf CfClientInterface) []Space {
 	spaces := []Space{}
