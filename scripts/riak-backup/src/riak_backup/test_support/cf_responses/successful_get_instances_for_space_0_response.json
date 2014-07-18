@@ -1,5 +1,5 @@
 {
-  "guid": "space-0",
+  "guid": "space-guid-0",
   "name": "asdf",
   "apps": [
     {
@@ -24,7 +24,7 @@
       "running_instances": 1,
       "name": "asdf",
       "production": false,
-      "space_guid": "space-1",
+      "space_guid": "space-guid-1",
       "stack_guid": "e344fb1b-42f4-4b91-8581-77a0724132b9",
       "buildpack": null,
       "detected_buildpack": "Ruby",

@@ -22,9 +22,9 @@ func(cf *FakeCfClient) GetSpaces(next_url string) string {
 func(cf *FakeCfClient) GetServiceInstancesForSpace(space_guid string) string {
 	var filename string
 	switch space_guid {
-		case "space-0": filename = "successful_get_instances_for_space_0_response.json"
-		case "space-1": filename = "successful_get_instances_for_space_1_response.json"
-		case "space-2": return "{}"
+		case "space-guid-0": filename = "successful_get_instances_for_space_0_response.json"
+		case "space-guid-1": filename = "successful_get_instances_for_space_1_response.json"
+		case "space-guid-2": return "{}"
 		default: panic("fixture file not found")
 	}
 
