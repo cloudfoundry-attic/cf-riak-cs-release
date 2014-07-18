@@ -13,9 +13,9 @@
       },
       "entity": {
         "app_guid": "app-guid-1",
-        "service_instance_guid": "service-instance-0",
+        "service_instance_guid": "service-instance-guid-0",
         "credentials": {
-          "uri": "https://SOA8PUCTNVNAA5_GZB62:S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g%3D%3D@p-riakcs.10.244.0.34.xip.io/service-instance-service-instance-0",
+          "uri": "https://SOA8PUCTNVNAA5_GZB62:S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g%3D%3D@p-riakcs.10.244.0.34.xip.io/service-instance-service-instance-guid-0",
           "access_key_id": "SOA8PUCTNVNAA5_GZB62",
           "secret_access_key": "S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g=="
         },
@@ -62,11 +62,11 @@
             "routes_url": "/v2/apps/app-guid-0/routes"
           }
         },
-        "service_instance_url": "/v2/service_instances/service-instance-0",
+        "service_instance_url": "/v2/service_instances/service-instance-guid-0",
         "service_instance": {
           "metadata": {
-            "guid": "service-instance-0",
-            "url": "/v2/service_instances/service-instance-0",
+            "guid": "service-instance-guid-0",
+            "url": "/v2/service_instances/service-instance-guid-0",
             "created_at": "2014-07-17T16:52:15+00:00",
             "updated_at": null
           },
@@ -82,7 +82,7 @@
             "type": "managed_service_instance",
             "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
             "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
-            "service_bindings_url": "/v2/service_instances/service-instance-0/service_bindings"
+            "service_bindings_url": "/v2/service_instances/service-instance-guid-0/service_bindings"
           }
         }
       }

@@ -36,8 +36,8 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[1].IsDir()).To(BeTrue())
 
 		guids := []string{ directories[0].Name(), directories[1].Name() }
-		Expect(guids).To(ContainElement("service-instance-0"))
-		Expect(guids).To(ContainElement("service-instance-1"))
+		Expect(guids).To(ContainElement("service-instance-guid-0"))
+		Expect(guids).To(ContainElement("service-instance-guid-1"))
 
 		directories, _ = ioutil.ReadDir("/tmp/backup/spaces/space-name-1/service_instances")
 		Expect(directories).To(HaveLen(2))
@@ -45,23 +45,23 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[1].IsDir()).To(BeTrue())
 
 		guids = []string{ directories[0].Name(), directories[1].Name() }
-		Expect(guids).To(ContainElement("service-instance-2"))
-		Expect(guids).To(ContainElement("service-instance-3"))
+		Expect(guids).To(ContainElement("service-instance-guid-2"))
+		Expect(guids).To(ContainElement("service-instance-guid-3"))
 		Expect(guids).NotTo(ContainElement("non-riak-service-instance"))
 	})
 
-	It("saves the instance name and list of bound apps in a metadata file for each instance", func() {
+	It("saves the instance guid and list of bound apps in a metadata file for each instance", func() {
 		Backup(&test_support.FakeCfClient{})
 
-		entries, _ := ioutil.ReadDir("/tmp/backup/spaces/space-name-0/service_instances/service-instance-0")
+		entries, _ := ioutil.ReadDir("/tmp/backup/spaces/space-name-0/service_instances/service-instance-guid-0")
 		Expect(entries).To(HaveLen(1))
 		Expect(entries[0].IsDir()).To(BeFalse())
 		Expect(entries[0].Name()).To(Equal("metadata.yml"))
 
 		// instance with a bound apps
-		file_path := "/tmp/backup/spaces/space-name-0/service_instances/service-instance-0/metadata.yml"
+		file_path := "/tmp/backup/spaces/space-name-0/service_instances/service-instance-guid-0/metadata.yml"
 		metadata := NewFromFilename(file_path)
-		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-0"))
+		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-guid-0"))
 		Expect(metadata.BoundApps).To(HaveLen(2))
 		Expect(metadata.BoundApps[0].Guid).To(Equal("app-guid-0"))
 		Expect(metadata.BoundApps[0].Name).To(Equal("app-name-0"))
@@ -69,9 +69,9 @@ var _ = Describe("RiakBackup", func() {
 		Expect(metadata.BoundApps[1].Name).To(Equal("app-name-1"))
 
 		// instance with no bound apps
-		file_path = "/tmp/backup/spaces/space-name-0/service_instances/service-instance-1/metadata.yml"
+		file_path = "/tmp/backup/spaces/space-name-0/service_instances/service-instance-guid-1/metadata.yml"
 		metadata = NewFromFilename(file_path)
-		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-1"))
+		Expect(metadata.ServiceInstanceGuid).To(Equal("service-instance-guid-1"))
 		Expect(metadata.BoundApps).To(HaveLen(0))
 	})
 

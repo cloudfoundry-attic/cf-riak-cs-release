@@ -40,8 +40,8 @@ func(cf *FakeCfClient) GetBindings(next_url string) string {
 
 	var filename string
 	switch service_instance_guid {
-		case "service-instance-0": filename = path
-		case "service-instance-1", "service-instance-2", "service-instance-3": return "{}"
+		case "service-instance-guid-0": filename = path
+		case "service-instance-guid-1", "service-instance-guid-2", "service-instance-guid-3": return "{}"
 		default: panic(fmt.Sprintf("fixture file not found for %s", service_instance_guid))
 	}
 

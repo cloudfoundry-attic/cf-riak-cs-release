@@ -47,7 +47,7 @@
   ],
   "services": [
     {
-      "guid": "service-instance-0",
+      "guid": "service-instance-guid-0",
       "name": "adsf",
       "bound_app_count": 1,
       "dashboard_url": null,
@@ -63,7 +63,7 @@
       }
     },
     {
-      "guid": "service-instance-1",
+      "guid": "service-instance-guid-1",
       "name": "adsf",
       "bound_app_count": 1,
       "dashboard_url": null,
