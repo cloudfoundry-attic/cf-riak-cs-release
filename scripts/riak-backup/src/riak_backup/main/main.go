@@ -8,16 +8,17 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 5 {
+	if len(os.Args) != 6 {
 		printUsage()
 	}
 
 	ensureS3cmdIsInstalled()
 
 	operation := os.Args[1]
-	s3cfg := os.Args[2]
-	cf_user := os.Args[3]
-	cf_password := os.Args[4]
+	backup_dir := os.Args[2]
+	s3cfg := os.Args[3]
+	cf_user := os.Args[4]
+	cf_password := os.Args[5]
 
 	if _, err := os.Stat(s3cfg); os.IsNotExist(err) {
 		fmt.Printf("no such file or directory: %s", s3cfg)
@@ -30,14 +31,14 @@ func main() {
 	s3cmd_client := *riak_backup.NewS3CmdClient(s3cfg)
 
 	switch operation {
-		case "backup": riak_backup.Backup(&cf_client, &s3cmd_client)
+		case "backup": riak_backup.Backup(&cf_client, &s3cmd_client, backup_dir)
 		case "restore": fmt.Println("not implemented")
 		default: printUsage()
 	}
 }
 
 func printUsage() {
-	fmt.Println("Usage: riak-backup [backup|restore] PATH_TO_S3CFG_FILE CF_ADMIN_USER CF_ADMIN_PASSWORD")
+	fmt.Println("Usage: riak-backup [backup|restore] BACKUP_DESTINATION_DIR PATH_TO_S3CFG_FILE CF_ADMIN_USER CF_ADMIN_PASSWORD")
 	os.Exit(1)
 }
 

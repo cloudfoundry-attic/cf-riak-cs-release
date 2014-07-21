@@ -13,7 +13,7 @@ import (
 
 var _ = Describe("RiakBackup", func() {
 	It("Makes a directory for each space that has instances", func() {
-		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{})
+		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{}, "/tmp/backup")
 
 		directories, _ := ioutil.ReadDir("/tmp/backup/orgs/organization-name-0/spaces")
 		Expect(directories).To(HaveLen(2))
@@ -26,7 +26,7 @@ var _ = Describe("RiakBackup", func() {
 	})
 
 	It("Makes a sub-directory for each riak-cs service instance in each space", func() {
-		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{})
+		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{}, "/tmp/backup")
 
 		directories, _ := ioutil.ReadDir("/tmp/backup/orgs/organization-name-0/spaces/space-name-0/service_instances")
 		Expect(directories).To(HaveLen(2))
@@ -49,7 +49,7 @@ var _ = Describe("RiakBackup", func() {
 	})
 
 	It("saves the instance guid and list of bound apps in a metadata file for each instance", func() {
-		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{})
+		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{}, "/tmp/backup")
 
 		entries, _ := ioutil.ReadDir("/tmp/backup/orgs/organization-name-0/spaces/space-name-0/service_instances/service-instance-name-0")
 
@@ -75,7 +75,7 @@ var _ = Describe("RiakBackup", func() {
 	})
 
 	It("saves the data from each instance into the data directory", func() {
-		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{})
+		Backup(&test_support.FakeCfClient{}, &test_support.FakeS3CmdClient{}, "/tmp/backup")
 
 		entries, _ := ioutil.ReadDir("/tmp/backup/orgs/organization-name-0/spaces/space-name-0/service_instances/service-instance-name-0")
 		Expect(entries).To(HaveLen(2))

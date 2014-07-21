@@ -65,7 +65,7 @@ type App struct {
 	}
 }
 
-func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
+func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface, backup_dir string) {
 	spaces := fetchSpaces(cf)
 
 	for _, space := range spaces {
@@ -79,7 +79,7 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 			organization := fetchOrganization(cf, space.Entity.OrganizationGuid)
 			space_name := space.Entity.Name
 			organization_name := organization.Entity.Name
-			space_dir := spaceDirectory(organization_name, space_name)
+			space_dir := spaceDirectory(backup_dir, organization_name, space_name)
 			os.MkdirAll(space_dir, 0777)
 
 			for _, service_instance := range service_instances.Services {
@@ -88,7 +88,7 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 					service_instance_name := service_instance.Name
 					instance_dir := space_dir + "/service_instances/" + service_instance_name
 					os.MkdirAll(instance_dir, 0777)
-					writeMetadataFile(cf, organization_name, space_name, service_instance_name, service_instance_guid)
+					writeMetadataFile(backup_dir, cf, organization_name, space_name, service_instance_name, service_instance_guid)
 
 					data_dir := instance_dir + "/data"
 					os.MkdirAll(data_dir, 0777)
@@ -140,7 +140,7 @@ func fetchBindings(cf CfClientInterface, service_instance_guid string) []Binding
 	return bindings
 }
 
-func writeMetadataFile(cf CfClientInterface, organization_name string, space_name string, service_instance_name string, service_instance_guid string) {
+func writeMetadataFile(backup_dir string, cf CfClientInterface, organization_name string, space_name string, service_instance_name string, service_instance_guid string) {
 	bindings := fetchBindings(cf, service_instance_guid)
 
 	metadata := InstanceMetadata{
@@ -159,11 +159,11 @@ func writeMetadataFile(cf CfClientInterface, organization_name string, space_nam
 		fmt.Println(err.Error())
 	}
 
-	space_dir := spaceDirectory(organization_name, space_name)
+	space_dir := spaceDirectory(backup_dir, organization_name, space_name)
 	path := fmt.Sprintf("%s/service_instances/%s/metadata.yml", space_dir, service_instance_name)
 	ioutil.WriteFile(path, bytes, 0777)
 }
 
-func spaceDirectory(organization_name, space_name string) string {
-	return fmt.Sprintf("/tmp/backup/orgs/%s/spaces/%s", organization_name, space_name)
+func spaceDirectory(backup_dir, organization_name, space_name string) string {
+	return fmt.Sprintf("%s/orgs/%s/spaces/%s", backup_dir, organization_name, space_name)
 }
