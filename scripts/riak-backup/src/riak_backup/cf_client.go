@@ -8,6 +8,7 @@ import (
 
 type CfClientInterface interface {
 	GetSpaces(next_url string) string
+	GetOrganization(organization_guid string) string
 	GetServiceInstancesForSpace(space_guid string) string
 	GetBindings(service_instance_guid string) string
 	Login(user, password string)
@@ -21,6 +22,18 @@ func(cf *CfClient) GetSpaces(next_url string) string {
 	output, err := cmd.Output()
 	if err != nil {
 		fmt.Println("failed to get spaces using URL: ", next_url)
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	return string(output)
+}
+
+func(cf *CfClient) GetOrganization(organization_guid string) string {
+	organization_url := "/v2/organizations/" + organization_guid
+	cmd := exec.Command("cf", "curl", organization_url)
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println("failed to get organization using URL: ", organization_url)
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}

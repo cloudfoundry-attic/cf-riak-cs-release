@@ -9,7 +9,6 @@ import(
 	"strconv"
 )
 
-
 type FakeCfClient struct {
 }
 
@@ -19,12 +18,22 @@ func(cf *FakeCfClient) GetSpaces(next_url string) string {
 	return readFixtureFile(filename)
 }
 
+func(cf *FakeCfClient) GetOrganization(organization_guid string) string {
+	var filename string
+	switch organization_guid {
+		case "organization-guid-0": filename = "successful_get_organization_response.json"
+		default: panic("fixture file not found")
+	}
+
+	return readFixtureFile(filename)
+}
+
 func(cf *FakeCfClient) GetServiceInstancesForSpace(space_guid string) string {
 	var filename string
 	switch space_guid {
 		case "space-guid-0": filename = "successful_get_instances_for_space_0_response.json"
-		case "space-guid-1": filename = "successful_get_instances_for_space_1_response.json"
-		case "space-guid-2": return "{}"
+		case "space-guid-1": return "{}"
+		case "space-guid-2": filename = "successful_get_instances_for_space_2_response.json"
 		default: panic("fixture file not found")
 	}
 

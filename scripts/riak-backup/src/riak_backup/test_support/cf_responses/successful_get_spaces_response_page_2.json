@@ -13,8 +13,8 @@
       },
       "entity": {
         "name": "space-name-2",
-        "organization_guid": "f29c953f-2c1b-4f62-af32-7543cdb4d01e",
-        "organization_url": "/v2/organizations/f29c953f-2c1b-4f62-af32-7543cdb4d01e",
+        "organization_guid": "organization-guid-0",
+        "organization_url": "/v2/organizations/organization-guid-0",
         "developers_url": "/v2/spaces/space-guid-2/developers",
         "managers_url": "/v2/spaces/space-guid-2/managers",
         "auditors_url": "/v2/spaces/space-guid-2/auditors",

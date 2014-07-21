@@ -8,6 +8,12 @@ import (
 	"io/ioutil"
 )
 
+type Organization struct {
+	Entity struct {
+		Name string
+	}
+}
+
 type Spaces struct{
 	NextUrl string `json:"next_url"`
 	Resources []Space
@@ -19,6 +25,7 @@ type Space struct {
 	}
 	Entity struct {
 		Name string
+		OrganizationGuid string `json:"organization_guid"`
 	}
 }
 
@@ -63,26 +70,32 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 
 	for _, space := range spaces {
 		space_guid := space.Metadata.Guid
-		space_name := space.Entity.Name
-		space_dir := fmt.Sprintf("/tmp/backup/spaces/%s", space_name)
-		os.MkdirAll(space_dir, 0777)
 
 		service_instances_json := cf.GetServiceInstancesForSpace(space_guid)
 		service_instances := &ServiceInstances{}
 		json.Unmarshal([]byte(service_instances_json), service_instances)
 
-		for _, service_instance := range service_instances.Services {
-			if service_instance.ServicePlan.Service.Label == "p-riakcs" {
-				service_instance_guid := service_instance.Guid
-				service_instance_name := service_instance.Name
-				os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s", space_name, service_instance_name), 0777)
-				writeMetadataFile(cf, space_name, service_instance_name, service_instance_guid)
+		if len(service_instances.Services) > 0 {
+			organization := fetchOrganization(cf, space.Entity.OrganizationGuid)
+			space_name := space.Entity.Name
+			organization_name := organization.Entity.Name
+			space_dir := spaceDirectory(organization_name, space_name)
+			os.MkdirAll(space_dir, 0777)
 
-				data_dir := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/data", space_name, service_instance_name)
-				os.MkdirAll(data_dir, 0777)
+			for _, service_instance := range service_instances.Services {
+				if service_instance.ServicePlan.Service.Label == "p-riakcs" {
+					service_instance_guid := service_instance.Guid
+					service_instance_name := service_instance.Name
+					instance_dir := space_dir + "/service_instances/" + service_instance_name
+					os.MkdirAll(instance_dir, 0777)
+					writeMetadataFile(cf, organization_name, space_name, service_instance_name, service_instance_guid)
 
-				bucket_name := bucketNameFromServiceInstanceGuid(service_instance_guid)
-				s3cmd.FetchBucket(bucket_name, data_dir)
+					data_dir := instance_dir + "/data"
+					os.MkdirAll(data_dir, 0777)
+
+					bucket_name := bucketNameFromServiceInstanceGuid(service_instance_guid)
+					s3cmd.FetchBucket(bucket_name, data_dir)
+				}
 			}
 		}
 	}
@@ -90,6 +103,13 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 
 func bucketNameFromServiceInstanceGuid(service_instance_guid string) string {
 	return "service-instance-" + service_instance_guid
+}
+
+func fetchOrganization(cf CfClientInterface, organization_guid string) Organization {
+	organization_json := cf.GetOrganization(organization_guid)
+	organization := &Organization{}
+	json.Unmarshal([]byte(organization_json), organization)
+	return *organization
 }
 
 func fetchSpaces(cf CfClientInterface) []Space {
@@ -120,7 +140,7 @@ func fetchBindings(cf CfClientInterface, service_instance_guid string) []Binding
 	return bindings
 }
 
-func writeMetadataFile(cf CfClientInterface, space_name string, service_instance_name string, service_instance_guid string) {
+func writeMetadataFile(cf CfClientInterface, organization_name string, space_name string, service_instance_name string, service_instance_guid string) {
 	bindings := fetchBindings(cf, service_instance_guid)
 
 	metadata := InstanceMetadata{
@@ -139,6 +159,11 @@ func writeMetadataFile(cf CfClientInterface, space_name string, service_instance
 		fmt.Println(err.Error())
 	}
 
-	path := fmt.Sprintf("/tmp/backup/spaces/%s/service_instances/%s/metadata.yml", space_name, service_instance_name)
+	space_dir := spaceDirectory(organization_name, space_name)
+	path := fmt.Sprintf("%s/service_instances/%s/metadata.yml", space_dir, service_instance_name)
 	ioutil.WriteFile(path, bytes, 0777)
+}
+
+func spaceDirectory(organization_name, space_name string) string {
+	return fmt.Sprintf("/tmp/backup/orgs/%s/spaces/%s", organization_name, space_name)
 }
