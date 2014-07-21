@@ -68,22 +68,28 @@ type App struct {
 func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface, backup_dir string) {
 	spaces := fetchSpaces(cf)
 
-	for _, space := range spaces {
+	for space_idx, space := range spaces {
 		space_guid := space.Metadata.Guid
+		space_name := space.Entity.Name
+		organization := fetchOrganization(cf, space.Entity.OrganizationGuid)
+		organization_name := organization.Entity.Name
+
+		fmt.Printf("=== PROCESSING SPACE %d OF %d: SPACE NAME: %s, ORG NAME: %s\n", space_idx+1, len(spaces), space_name, organization_name)
 
 		service_instances_json := cf.GetServiceInstancesForSpace(space_guid)
 		service_instances := &ServiceInstances{}
 		json.Unmarshal([]byte(service_instances_json), service_instances)
 
 		if len(service_instances.Services) > 0 {
-			organization := fetchOrganization(cf, space.Entity.OrganizationGuid)
-			space_name := space.Entity.Name
-			organization_name := organization.Entity.Name
 			space_dir := spaceDirectory(backup_dir, organization_name, space_name)
 			os.MkdirAll(space_dir, 0777)
 
-			for _, service_instance := range service_instances.Services {
+			for service_instance_idx, service_instance := range service_instances.Services {
+				fmt.Printf("=== PROCESSING SERVICE INSTANCE %d OF %d IN SPACE %s: ", service_instance_idx+1, len(service_instances.Services), space_name)
+
 				if service_instance.ServicePlan.Service.Label == "p-riakcs" {
+					fmt.Println("\n")
+
 					service_instance_guid := service_instance.Guid
 					service_instance_name := service_instance.Name
 					instance_dir := space_dir + "/service_instances/" + service_instance_name
@@ -95,6 +101,8 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface, backup_dir string)
 
 					bucket_name := bucketNameFromServiceInstanceGuid(service_instance_guid)
 					s3cmd.FetchBucket(bucket_name, data_dir)
+				} else {
+					fmt.Println("Not of type p-riakcs. Skipping.\n")
 				}
 			}
 		}
