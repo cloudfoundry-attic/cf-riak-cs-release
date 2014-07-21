@@ -64,7 +64,8 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 	for _, space := range spaces {
 		space_guid := space.Metadata.Guid
 		space_name := space.Entity.Name
-		os.MkdirAll(fmt.Sprintf("/tmp/backup/spaces/%s", space_name), 0777)
+		space_dir := fmt.Sprintf("/tmp/backup/spaces/%s", space_name)
+		os.MkdirAll(space_dir, 0777)
 
 		service_instances_json := cf.GetServiceInstancesForSpace(space_guid)
 		service_instances := &ServiceInstances{}
@@ -90,7 +91,6 @@ func Backup(cf CfClientInterface, s3cmd S3CmdClientInterface) {
 func bucketNameFromServiceInstanceGuid(service_instance_guid string) string {
 	return "service-instance-" + service_instance_guid
 }
-
 
 func fetchSpaces(cf CfClientInterface) []Space {
 	spaces := []Space{}

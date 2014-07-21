@@ -48,6 +48,9 @@ func(cf *FakeCfClient) GetBindings(next_url string) string {
 	return readFixtureFile(filename)
 }
 
+func(cf *FakeCfClient) Login(user, password string) {
+}
+
 func readFixtureFile(filename string) string {
 	bytes, err := ioutil.ReadFile(getFixturePath(filename))
 	if err != nil {
