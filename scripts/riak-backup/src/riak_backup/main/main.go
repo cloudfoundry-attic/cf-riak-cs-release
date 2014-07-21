@@ -24,7 +24,7 @@ func main() {
 	cf_client := riak_backup.CfClient{}
 	cf_client.Login(cf_user, cf_password)
 
-	s3cmd_client := riak_backup.S3CmdClient{}
+	s3cmd_client := *riak_backup.NewS3CmdClient(s3cfg)
 
 	switch operation {
 		case "backup": riak_backup.Backup(&cf_client, &s3cmd_client)
