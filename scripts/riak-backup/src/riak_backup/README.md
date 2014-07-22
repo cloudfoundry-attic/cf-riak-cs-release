@@ -45,10 +45,13 @@ bound_apps:
 
 ### Usage
 
+Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](scripts/riak-backup/bin) directory. These were created using (https://github.com/davecheney/golang-crosscompile). 
+
 `riak_backup` interacts with the file system assuming UNIX paths, so it only works on UNIX or OS X based systems. It will not run on Windows.
 
-[s3cmd](http://s3tools.org/s3cmd) is a dependency; it must be installed and must be in your `$PATH` before running `riak_backup`. A `.s3cfg` file is needed to configure `s3cmd` to communicate with your Riak CS cluster. See instructions [here](http://docs.gopivotal.com/p-riakcs/getting-started.html)
+[s3cmd](http://s3tools.org/s3cmd) is a dependency; it must be installed and must be in your `$PATH` before running `riak_backup`. A `.s3cfg` file is needed to configure `s3cmd` to communicate with your Riak CS cluster. See instructions [here](http://docs.gopivotal.com/p-riakcs/getting-started.html#s3cmd)
 
 Run `riak_backup` without any arguments to see its usage.
 
 `riak_backup` uses s3cmd's (sync)[http://s3tools.org/s3cmd-sync] function to fetch files. If the script is interrupted before completing, it can be run again to resume downloading data where it left off (but all metadata files will be regenerated).
+ 
