@@ -1,0 +1,52 @@
+{
+  "total_results": 3,
+  "total_pages": 2,
+  "prev_url": null,
+  "next_url": "/v2/spaces?order-direction=asc&page=2&results-per-page=2",
+  "resources": [
+    {
+      "metadata": {
+        "guid": "space-guid-0",
+        "url": "/v2/spaces/space-guid-0",
+        "created_at": "2014-07-14T21:36:40+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "name": "space-name-0",
+        "organization_guid": "organization-guid-0",
+        "organization_url": "/v2/organizations/organization-guid-0",
+        "developers_url": "/v2/spaces/space-guid-0/developers",
+        "managers_url": "/v2/spaces/space-guid-0/managers",
+        "auditors_url": "/v2/spaces/space-guid-0/auditors",
+        "apps_url": "/v2/spaces/space-guid-0/apps",
+        "routes_url": "/v2/spaces/space-guid-0/routes",
+        "domains_url": "/v2/spaces/space-guid-0/domains",
+        "service_instances_url": "/v2/spaces/space-guid-0/service_instances",
+        "app_events_url": "/v2/spaces/space-guid-0/app_events",
+        "events_url": "/v2/spaces/space-guid-0/events"
+      }
+    },
+    {
+      "metadata": {
+        "guid": "space-guid-1",
+        "url": "/v2/spaces/space-guid-1",
+        "created_at": "2014-07-16T18:20:59+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "name": "space-name-1",
+        "organization_guid": "organization-guid-0",
+        "organization_url": "/v2/organizations/organization-guid-0",
+        "developers_url": "/v2/spaces/space-guid-1/developers",
+        "managers_url": "/v2/spaces/space-guid-1/managers",
+        "auditors_url": "/v2/spaces/space-guid-1/auditors",
+        "apps_url": "/v2/spaces/space-guid-1/apps",
+        "routes_url": "/v2/spaces/space-guid-1/routes",
+        "domains_url": "/v2/spaces/space-guid-1/domains",
+        "service_instances_url": "/v2/spaces/space-guid-1/service_instances",
+        "app_events_url": "/v2/spaces/space-guid-1/app_events",
+        "events_url": "/v2/spaces/space-guid-1/events"
+      }
+    }
+  ]
+}

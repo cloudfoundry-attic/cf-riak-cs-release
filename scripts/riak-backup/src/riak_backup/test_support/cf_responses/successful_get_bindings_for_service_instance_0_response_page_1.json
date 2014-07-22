@@ -1,0 +1,91 @@
+{
+  "total_results": 2,
+  "total_pages": 2,
+  "prev_url": null,
+  "next_url": "/v2/service_instances/service-instance-guid-0/service_bindings?order-direction=asc&page=2&results-per-page=1",
+  "resources": [
+    {
+      "metadata": {
+        "guid": "f53db539-5d7b-4d1c-b550-9c515ae4c059",
+        "url": "/v2/service_bindings/f53db539-5d7b-4d1c-b550-9c515ae4c059",
+        "created_at": "2014-07-17T18:35:12+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "app_guid": "app-guid-0",
+        "service_instance_guid": "service-instance-guid-0",
+        "credentials": {
+          "uri": "https://SOA8PUCTNVNAA5_GZB62:S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g%3D%3D@p-riakcs.10.244.0.34.xip.io/service-instance-service-instance-guid-0",
+          "access_key_id": "SOA8PUCTNVNAA5_GZB62",
+          "secret_access_key": "S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g=="
+        },
+        "binding_options": {
+
+        },
+        "gateway_data": null,
+        "gateway_name": "",
+        "syslog_drain_url": null,
+        "app_url": "/v2/apps/app-guid-0",
+        "app": {
+          "metadata": {
+            "guid": "app-guid-0",
+            "url": "/v2/apps/app-guid-0",
+            "created_at": "2014-07-17T18:31:01+00:00",
+            "updated_at": "2014-07-17T18:32:35+00:00"
+          },
+          "entity": {
+            "name": "app-name-0",
+            "production": false,
+            "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
+            "stack_guid": "e344fb1b-42f4-4b91-8581-77a0724132b9",
+            "buildpack": null,
+            "detected_buildpack": "Ruby",
+            "environment_json": {
+
+            },
+            "memory": 256,
+            "instances": 1,
+            "disk_quota": 1024,
+            "state": "STARTED",
+            "version": "1a540436-ec5e-4e09-b393-72d11371e91c",
+            "command": null,
+            "console": false,
+            "debug": null,
+            "staging_task_id": "efc69156d32548ff94109fb276ef3649",
+            "package_state": "STAGED",
+            "health_check_timeout": null,
+            "staging_failed_reason": null,
+            "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
+            "stack_url": "/v2/stacks/e344fb1b-42f4-4b91-8581-77a0724132b9",
+            "events_url": "/v2/apps/app-guid-0/events",
+            "service_bindings_url": "/v2/apps/app-guid-0/service_bindings",
+            "routes_url": "/v2/apps/app-guid-0/routes"
+          }
+        },
+        "service_instance_url": "/v2/service_instances/service-instance-guid-0",
+        "service_instance": {
+          "metadata": {
+            "guid": "service-instance-guid-0",
+            "url": "/v2/service_instances/service-instance-guid-0",
+            "created_at": "2014-07-17T16:52:15+00:00",
+            "updated_at": null
+          },
+          "entity": {
+            "name": "adsf",
+            "credentials": {
+
+            },
+            "service_plan_guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+            "space_guid": "453541cd-7ae1-4913-8c81-f0690ddcd09d",
+            "gateway_data": null,
+            "dashboard_url": null,
+            "type": "managed_service_instance",
+            "space_url": "/v2/spaces/453541cd-7ae1-4913-8c81-f0690ddcd09d",
+            "service_plan_url": "/v2/service_plans/ee7bb2a0-b727-4534-beee-b5258155616f",
+            "service_bindings_url": "/v2/service_instances/service-instance-guid-0/service_bindings"
+          }
+        }
+      }
+    }
+  ]
+}

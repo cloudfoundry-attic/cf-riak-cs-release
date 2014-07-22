@@ -1,0 +1,98 @@
+{
+  "guid": "space-guid-2",
+  "name": "asdf",
+  "apps": [
+    {
+      "guid": "caf8b5f5-841f-454b-82c0-1e300e36bd13",
+      "urls": [
+        "asdf.10.244.0.34.xip.io"
+      ],
+      "routes": [
+        {
+          "guid": "fe06e1cf-2dec-4ae8-891b-7d169255d190",
+          "host": "asdf",
+          "domain": {
+            "guid": "6ee10eed-fcec-4250-a62a-3b9e00f07ac1",
+            "name": "10.244.0.34.xip.io"
+          }
+        }
+      ],
+      "service_count": 1,
+      "service_names": [
+        "adsf"
+      ],
+      "running_instances": 1,
+      "name": "asdf",
+      "production": false,
+      "space_guid": "space-guid-1",
+      "stack_guid": "e344fb1b-42f4-4b91-8581-77a0724132b9",
+      "buildpack": null,
+      "detected_buildpack": "Ruby",
+      "environment_json": {
+
+      },
+      "memory": 256,
+      "instances": 1,
+      "disk_quota": 1024,
+      "state": "STARTED",
+      "version": "1a540436-ec5e-4e09-b393-72d11371e91c",
+      "command": null,
+      "console": false,
+      "debug": null,
+      "staging_task_id": "efc69156d32548ff94109fb276ef3649",
+      "package_state": "STAGED",
+      "health_check_timeout": null,
+      "staging_failed_reason": null
+    }
+  ],
+  "services": [
+    {
+      "guid": "service-instance-guid-2",
+      "name": "service-instance-name-2",
+      "bound_app_count": 1,
+      "dashboard_url": null,
+      "service_plan": {
+        "guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "name": "developer",
+        "service": {
+          "guid": "35c128c9-348f-4041-994e-e34ef298b1ba",
+          "label": "p-riakcs",
+          "provider": null,
+          "version": null
+        }
+      }
+    },
+    {
+      "guid": "service-instance-guid-3",
+      "name": "service-instance-name-3",
+      "bound_app_count": 1,
+      "dashboard_url": null,
+      "service_plan": {
+        "guid": "ee7bb2a0-b727-4534-beee-b5258155616f",
+        "name": "developer",
+        "service": {
+          "guid": "35c128c9-348f-4041-994e-e34ef298b1ba",
+          "label": "p-riakcs",
+          "provider": null,
+          "version": null
+        }
+      }
+    },
+    {
+      "guid": "non-riak-service-instance-guid",
+      "name": "non-riak-service-instance-name",
+      "bound_app_count": 1,
+      "dashboard_url": null,
+      "service_plan": {
+        "guid": "non-riak-plan",
+        "name": "developer",
+        "service": {
+          "guid": "non-riak-service",
+          "label": "not a riak service",
+          "provider": null,
+          "version": null
+        }
+      }
+    }
+  ]
+}

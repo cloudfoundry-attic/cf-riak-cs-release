@@ -1,0 +1,30 @@
+{
+  "total_results": 3,
+  "total_pages": 2,
+  "prev_url": "/v2/spaces?order-direction=asc&page=1&results-per-page=2",
+  "next_url": null,
+  "resources": [
+    {
+      "metadata": {
+        "guid": "space-guid-2",
+        "url": "/v2/spaces/space-guid-2",
+        "created_at": "2014-07-14T21:36:40+00:00",
+        "updated_at": null
+      },
+      "entity": {
+        "name": "space-name-2",
+        "organization_guid": "organization-guid-0",
+        "organization_url": "/v2/organizations/organization-guid-0",
+        "developers_url": "/v2/spaces/space-guid-2/developers",
+        "managers_url": "/v2/spaces/space-guid-2/managers",
+        "auditors_url": "/v2/spaces/space-guid-2/auditors",
+        "apps_url": "/v2/spaces/space-guid-2/apps",
+        "routes_url": "/v2/spaces/space-guid-2/routes",
+        "domains_url": "/v2/spaces/space-guid-2/domains",
+        "service_instances_url": "/v2/spaces/space-guid-2/service_instances",
+        "app_events_url": "/v2/spaces/space-guid-2/app_events",
+        "events_url": "/v2/spaces/space-guid-2/events"
+      }
+    }
+  ]
+}
