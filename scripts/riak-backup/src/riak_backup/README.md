@@ -45,7 +45,7 @@ bound_apps:
 
 ### Usage
 
-Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](scripts/riak-backup/bin) directory. These were created using (https://github.com/davecheney/golang-crosscompile). 
+Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](../../bin) directory. These were created using (https://github.com/davecheney/golang-crosscompile). 
 
 `riak_backup` interacts with the file system assuming UNIX paths, so it only works on UNIX or OS X based systems. It will not run on Windows.
 
