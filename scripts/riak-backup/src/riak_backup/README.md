@@ -53,5 +53,5 @@ Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](
 
 Run `riak_backup` without any arguments to see its usage.
 
-`riak_backup` uses s3cmd's (sync)[http://s3tools.org/s3cmd-sync] function to fetch files. If the script is interrupted before completing, it can be run again to resume downloading data where it left off (but all metadata files will be regenerated).
+`riak_backup` uses s3cmd's [sync](http://s3tools.org/s3cmd-sync) function to fetch files. If the script is interrupted before completing, it can be run again to resume downloading data where it left off (but all metadata files will be regenerated).
  
