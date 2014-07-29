@@ -49,13 +49,11 @@ Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](
 
 `riak_backup` interacts with the file system assuming UNIX paths, so it only works on UNIX or OS X based systems. It will not run on Windows.
 
-[s3cmd](http://s3tools.org/s3cmd) is a dependency; it must be installed and must be in your `$PATH` before running `riak_backup`. A `.s3cfg` file is needed to configure `s3cmd` to communicate with your Riak CS cluster. 
-
-`riak_backup` will require an admin key and secret to be configured in your `.s3cfg` file. These can be found in your deployment manifest for cf-riak-cs-release. 
+[s3cmd](http://s3tools.org/s3cmd) is a dependency; it must be installed and must be in your `$PATH` before running `riak_backup`. A `.s3cfg` file is needed to configure `s3cmd` to communicate with your Riak CS cluster. To configure `.s3cfg` you will need values for `access_key` and `secret_key`. These can be found in your deployment manifest for cf-riak-cs-release. 
 
         riak_cs:
-          admin_key: admin-key
-          admin_secret: admin-secret
+          admin_key: admin-key # configure for access_key in .s3cfg
+          admin_secret: admin-secret # configure for secret_key in .s3cfg
 
 For more instructions on using `s3cmd` see [Clients](http://docs.gopivotal.com/p-riakcs/clients.html#s3cmd).
 
