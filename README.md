@@ -23,34 +23,34 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 1. Check out the tag for the desired version. This is necessary for generating a manifest that matches the code you're deploying.
 
-  ```bash
-  cd ~/workspace/cf-riak-cs-release
-  ./update
-  git checkout v1
+  ```
+  $ cd ~/workspace/cf-riak-cs-release
+  $ ./update
+  $ git checkout v1
   ```
 
 1. Run the upload command, referencing one of the config files in the `releases` directory.
 
-  ```bash
-  bosh upload release releases/cf-riak-cs-1.yml
+  ```
+  $ bosh upload release releases/cf-riak-cs-1.yml
   ```
 
 #### Create a BOSH Release from HEAD and Upload:
 
 1. Build a BOSH development release from HEAD
 
-  ```bash
-  cd ~/workspace/cf-riak-cs-release
-  ./update
-  bosh create release
+  ```
+  $ cd ~/workspace/cf-riak-cs-release
+  $ ./update
+  $ bosh create release
   ```
 
   When prompted to name the release, call it `cf-riak-cs`.
 
 1. Upload the release to your bosh environment:
 
-  ```bash
-  bosh upload release
+  ```
+  $ bosh upload release
   ```
 
 ### Create a Manifest and Deploy<a name="create_manifest"></a>
