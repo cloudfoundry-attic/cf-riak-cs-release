@@ -71,20 +71,23 @@ You can use a pre-built final release or build a release from HEAD. Final releas
     ```
     $ ./bosh-lite/make_manifest
     ```
-    The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings. 
+    The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings.
 
-1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run `bosh deploy`.
+1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run:
+  ```
+  $ bosh deploy
+  ```
 
 #### vSphere<a name="vsphere"></a>
 
-1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below. 
-  
+1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
+
     This stub differs from the bosh-lite stub in that it requires:
 
     * Username and password for admin user to support errands
     * Network settings, with 6 static IPs and 6+ dynamic IPs
 
-  ```
+  ```bash
   director_uuid: YOUR-DIRECTOR-GUID
   networks:
   - name: riak-cs-network
@@ -120,10 +123,16 @@ You can use a pre-built final release or build a release from HEAD. Final releas
       admin_password: CF-ADMIN-PASSWORD
   ```
 
-2. Generate the manifest: `./generate_deployment_manifest vsphere cf-riak-cs-vsphere-stub.yml > cf-riak-cs-vsphere.yml`
+2. Generate the manifest:
+  ```
+  $ ./generate_deployment_manifest vsphere cf-riak-cs-vsphere-stub.yml > cf-riak-cs-vsphere.yml
+  ```
 To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-vsphere.yml`.
 
-3. To deploy: `bosh deployment cf-riak-cs-vsphere.yml && bosh deploy`
+3. To deploy:
+  ```
+  $ bosh deployment cf-riak-cs-vsphere.yml && bosh deploy
+  ```
 
 #### AWS<a name="aws"></a>
 
@@ -134,7 +143,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
     * Username and password for admin user to support errands
     * Network and resource pool settings
 
-  ```  
+  ```bash  
   director_uuid: YOUR-DIRECTOR-GUID
   networks:
   - name: riak-cs-network
@@ -164,10 +173,16 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
       admin_password: CF-ADMIN-PASSWORD
   ```
 
-1. Generate the manifest: `./generate_deployment_manifest aws cf-riak-cs-aws-stub.yml > cf-riak-cs-aws.yml`
+1. Generate the manifest:
+  ```
+  $ ./generate_deployment_manifest aws cf-riak-cs-aws-stub.yml > cf-riak-cs-aws.yml
+  ```
 To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-aws.yml`.
 
-1. To deploy: `bosh deployment cf-riak-cs-aws.yml && bosh deploy`
+1. To deploy:
+  ```
+  $ bosh deployment cf-riak-cs-aws.yml && bosh deploy
+  ```
 
 #### Deployment Manifest Stub Parameters<a name="stub-properties"></a>
 
@@ -188,7 +203,7 @@ This section describes the parameters that must be added to manifest stub for th
     * `admin_secret`: The admin user secret for the Riak CS cluster.
     * `ssl_enabled`: Determines the scheme used by the broker to communicate with riak-cs and the scheme returned in the binding credentials. Defaults to true (`https`).
     * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from the Riak cluster. Defaults to false.
-    * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. 
+    * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node.
 
       When this property is set to false, nodes will not register a route. This is useful when deploying `cf-riak-cs-release` without Cloud Foundry. NOTE: the Riak CS service broker does not yet support `register_route: false`. __When setting `register_route` to false, you must set the instance count of the `cf-riak-cs-broker`, `acceptance-tests`, `broker-registrar`, and `broker-deregistrar` jobs to 0. Also you should omit the `domain` property and all the `cf` properties below.__
 
@@ -209,11 +224,11 @@ This section describes the parameters that must be added to manifest stub for th
 
 ### Using BOSH errands
 
-BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
-
-        bosh run errand broker-registrar
-        
-Note: the broker-registrar errand will fail if the broker has already been registered, and the broker name does not match the manifest property `broker.name`. Use the `cf rename-service-broker` CLI command to change the broker name to match the manifest property then this errand will succeed. 
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells.
+  ```
+  $ bosh run errand broker-registrar
+  ```
+Note: the broker-registrar errand will fail if the broker has already been registered, and the broker name does not match the manifest property `broker.name`. Use the `cf rename-service-broker` CLI command to change the broker name to match the manifest property then this errand will succeed.
 
 ### Manually
 
@@ -222,9 +237,9 @@ Note: the broker-registrar errand will fail if the broker has already been regis
   ```
   $ cf create-service-broker p-riakcs BROKER_USERNAME BROKER_PASSWORD URL
   ```
-    
-  `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`. 
-  
+
+  `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`.
+
   `URL` specifies where the Cloud Controller will access the MySQL broker. Use the value of the manifest property `properties.broker.host`.
 
   For more information, see [Managing Service Brokers](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
@@ -242,7 +257,7 @@ To run the Riak CS Release Acceptance tests, you will need:
 
 ### Using BOSH errands
 
-BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells.
 
 The following properties must be included in the manifest (most will be there by default):
 - cf.api_url:
@@ -254,7 +269,7 @@ The following properties must be included in the manifest (most will be there by
 - external_riakcs_host:
 
 ```
-bosh run errand acceptance-tests
+$ bosh run errand acceptance-tests
 ```
 
 ### Manually
@@ -268,7 +283,7 @@ installation. Replace credentials and URLs as appropriate for your environment.
 
     ```bash
     #! /bin/bash
-    
+
     cat > integration_config.json <<EOF
     {
       "api":                 "api.10.244.0.34.xip.io",
@@ -290,9 +305,9 @@ installation. Replace credentials and URLs as appropriate for your environment.
 
 4. Run  the tests
 
-    ```bash
-    ./bin/test
-    ```
+  ```
+  $ ./bin/test
+  ```
 
 ## De-registering the broker
 
@@ -300,29 +315,31 @@ The following commands are destructive and are intended to be run in conjuction 
 
 ### Using BOSH errands
 
-BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells. 
+BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells.
 
 This errand runs the two commands listed in the manual section below from a BOSH-deployed VM. This errand should be run before deleting your BOSH deployment. If you have already deleted your deployment follow the manual instructions below.
 
-    bosh run errand broker-deregistrar
+```
+$ bosh run errand broker-deregistrar
+```
 
 #### Manually
 
 Run the following:
 
-```bash
-cf purge-service-offering p-riakcs
-cf delete-service-broker p-riakcs
+```
+$ cf purge-service-offering p-riakcs
+$ cf delete-service-broker p-riakcs
 ```
 
 ## Using s3curl to read and write to your Riak CS bucket
 
 Clone s3curl from github:
-
-`git clone https://github.com/rtdp/s3curl`
-
-Add credentials to `~/.s3curl`:
 ```
+$ git clone https://github.com/rtdp/s3curl
+```
+Add credentials to `~/.s3curl`:
+```bash
 %awsSecretAccessKeys = (
     myuser => {
         id => 'my-access-key-id',
@@ -333,7 +350,7 @@ Add credentials to `~/.s3curl`:
 
 Edit `s3curl.pl` to add `p-riakcs.mydomain` to the known endpoints:
 
-```
+```bash
 ...
 my @endpoints = ( 's3.amazonaws.com',
                   's3-us-west-1.amazonaws.com',
@@ -349,19 +366,19 @@ my @endpoints = ( 's3.amazonaws.com',
 *Note: If you never intend on communicating with any of the amazon services, then you can delete the existing entries (the ones beginning with 's3').*
 
 To list bucket contents at service-instance-location:
-
-`./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id`
-
+```
+$ ./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id
+```
 To put contents file to bucket with key `mykey`:
-
-`./s3curl.pl --id myuser --put filename -- http://p-riakcs.mydomain/service-instance-id/mykey`
-
+```
+$ ./s3curl.pl --id myuser --put filename -- http://p-riakcs.mydomain/service-instance-id/mykey
+```
 *Note: curl requires you to escape any special characters in filenames - e.g. filename\\.txt*
 
 To get file with key `mykey` from bucket:
-
-`./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id/mykey`
-
+```
+$ ./s3curl.pl --id myuser -- http://p-riakcs.mydomain/service-instance-id/mykey
+```
 ## Limitations
 
 We have not tested changing the structure of a live cluster, e.g. changing the seed node.
@@ -399,4 +416,3 @@ The resulting `tar.gz` file can be found in the `package/` directory.
 TODO - verify where the `git`, and `erlang` tarfiles came from.
 
 [BOSH lite]: https://github.com/cloudfoundry/bosh-lite
-
