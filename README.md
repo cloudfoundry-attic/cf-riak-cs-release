@@ -27,6 +27,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
   $ cd ~/workspace/cf-riak-cs-release
   $ ./update
   $ git checkout v4
+  $ git submodule update --recursive
   ```
 
 1. Run the upload command, referencing one of the config files in the `releases` directory.
