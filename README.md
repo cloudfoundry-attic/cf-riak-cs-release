@@ -6,6 +6,16 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ## Deployment
 
+### Prerequisites
+
+- A deployment of [BOSH](https://github.com/cloudfoundry/bosh)
+- A deployment of [Cloud Foundry](https://github.com/cloudfoundry/cf-release)
+- Instructions for installing BOSH and Cloud Foundry can be found at http://docs.cloudfoundry.org/.
+
+### Overview
+
+1. The Riak CS service requires a deployment of Cloud Foundry
+
 1. [Upload a release to the BOSH director](#upload_release)
 1.  Upload the appropriate stemcell for your deployment (warden, vsphere, or aws), if it has not already been uploaded.
 1. [Create a Deployment Manifest and Deploy](#create_manifest)
