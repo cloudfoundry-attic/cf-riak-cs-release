@@ -1,4 +1,10 @@
 networks: (( merge ))
+
+meta:
+  external_broker_host: (( "p-riakcs-broker." domain ))
+  external_riakcs_host: (( "p-riakcs." domain ))
+  <<: (( merge || nil ))
+
 jobs:
 - name: riak-cs
   template: riak-cs
@@ -8,6 +14,24 @@ jobs:
   - name: riak-cs-network
     static_ips: (( static_ips(1, 2, 3) ))
   persistent_disk: 4096
+  properties:
+    stanchion:
+      ip: (( jobs.[1].networks.[0].static_ips.[0] ))
+    riak:
+      network: (( jobs.[0].networks.[0].name ))
+      ips: (( jobs.[0].networks.[0].static_ips ))
+      seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
+      firewall_enabled: (( merge ))
+    riak_cs:
+      ips:  (( jobs.[0].networks.[0].static_ips ))
+      admin_key: (( meta.riak_cs.admin_key ))
+      admin_secret: (( meta.riak_cs.admin_secret ))
+      port: ~
+      register_route: ~
+    nats: (( meta.nats ))
+    external_riakcs_host: (( meta.external_riakcs_host ))
+    syslog_aggregator: (( meta.syslog_aggregator ))
+
 - name: stanchion
   template: stanchion
   instances: 1
@@ -16,12 +40,64 @@ jobs:
   - name: riak-cs-network
     static_ips: (( static_ips(0) ))
   persistent_disk: 4096
+  properties:
+    riak:
+      seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
+    riak_cs:
+      admin_key: (( meta.riak_cs.admin_key ))
+      admin_secret: (( meta.riak_cs.admin_secret ))
+
 - name: cf-riak-cs-broker
   template: cf-riak-cs-broker
   instances: 1
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+  properties:
+    broker:
+      port: ~
+      network: (( jobs.[2].networks.[0].name ))
+      name: (( meta.broker.name ))
+      host: (( meta.external_broker_host ))
+      username: (( meta.broker.username ))
+      password: (( meta.broker.password ))
+    catalog:
+      services:
+      - bindable: true
+        description: An S3-compatible object store based on Riak CS
+        id: 33d2eeb0-0236-4c83-b494-da3faeb5b2e8
+        metadata:
+          displayName: Riak CS for Pivotal CF
+          documentationUrl: http://docs.gopivotal.com/
+          imageUrl: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAypJREFUeNrsm72O00AQgPes9A68AAeiv0gUdCQCCujMCxA30J3OoqM5OTSUGNFROS9AXNCCEjoKJF/NCUIBJdg9UpgN45PP5//1XtYejzRyoii7O59nZ/9m9zabDaMsA+kVPD+awIPrCHQIOi74ywo0APVBl39fvl7KbN+eDA8Ao014GGi4LlhcyEGAegDDVRYAGL0PDwvUbMDoPBgcggMw1koAAMO5Wzug00vuvnMOHEAEIoVogsbzN77egfEM61xjGy7XA9DdPdADRYL5CY85dbqFVsN4AyO0KsYzbIuPbZMHACqw4bGQGOREhLdpgW1svgtAwe6O+nqtAAndwWzMA1pm/DZAYpvFAaBLtcn4OARbqAtgUFm0fLr/CLqDVxkADnW+ogGv6uxxlDVE5nUBrwPGR6ODVykGYN8pPc4f33/IgDAb37ipKoSDrBmjljG3t1j3xEbbCj3A6Yjrp3UFJxcABr4p665M0cZMD7BY98XKA2ASAGCmAsBtLJ0AAB1tveABBqMjRhqACSEAk3MAcOtaJwRAR5vPPIDS2z/nBRGAEUEAW5ujk6Fh06V/fHrI7lxvZm3w6fspu/v2zfbz/pWr7PGt22z17SvoqUixwziAsSzMvPEikoR4DQAc33vAXsBnQQDjOABpEr25usJXmTJFY8SlB9AD6AH0AHoA7H9aCjVZxQEEBAEEcQA+QQB+HMCSIIDlGQBMRQsJGR9G6Xdakgilt58E4BEC4F0AgEmIIRH3d6MvyeUw/+GoydpkL2driBv/kgTgNAXA//WzufGqwbJY4nxwkHhbPPGQZ2AKnw8+e/9ORfefJxMl0tYCVkdjQchSzj4HKX02wASJV1Vr+PDkUGUAdlpe8SAjcDl4flYqS+THn9/Cm59VhddZQU64TWk/5G2KRimxhSdG8y+ft6qw6xuV9wMwWJgd6PtmXhK1VjCG8xnTrMXGz/JyBLmUyhVuYapsNOQVenCpLTEsaN4140sDiEGYtcTtS8euyjdGMH/YZerlE4QY8CqtaslfmRG6NYbpp/YOvSHEGZ5TtwDy1+b6i5P91VnJt8dJXp5uk/wTYAAYLEbR+lwY3QAAAABJRU5ErkJggg==
+          longDescription: Provisioning a service instance creates a Riak CS bucket. Binding applications to the instance creates unique credentials for each application to access the bucket.
+          providerDisplayName: Pivotal Software
+          supportUrl: http://gopivotal.com/support/
+        name: p-riakcs
+        plans:
+        - description: Shared Riak CS cluster, private buckets, no storage quota
+          id: 946ce484-376b-41b4-8c4e-4bc830676115
+          metadata:
+            bullets:
+            - Not for production use
+            - Shared Riak CS cluster
+            - Buckets are private
+            - No storage quota
+            costs:
+            - amount:
+                usd: 0.0
+              unit: MONTH
+            displayName: Developer
+          name: developer
+        tags:
+        - riak-cs
+        - s3
+    riak_cs: (( meta.riak_cs ))
+    external_riakcs_host: (( meta.external_riakcs_host ))
+    external_broker_host: (( meta.external_broker_host ))
+    nats: (( meta.nats ))
+    syslog_aggregator: (( meta.syslog_aggregator ))
+
 - name: broker-registrar
   lifecycle: errand
   template: broker-registrar
@@ -29,6 +105,19 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+  properties:
+    cf:
+      admin_username: (( meta.cf.admin_username ))
+      admin_password: (( meta.cf.admin_password ))
+      api_url: (( meta.cf.api_url ))
+    broker:
+      name: (( meta.broker.name ))
+      host: (( meta.external_broker_host ))
+      port: ~
+      username: (( meta.broker.username ))
+      password: (( meta.broker.password ))
+      register_route: ~
+
 - name: broker-deregistrar
   lifecycle: errand
   template: broker-deregistrar
@@ -36,6 +125,20 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+  properties:
+    cf:
+      admin_username: (( meta.cf.admin_username ))
+      admin_password: (( meta.cf.admin_password ))
+      api_url: (( meta.cf.api_url ))
+    broker:
+      name: (( meta.broker.name ))
+      host: (( meta.external_broker_host ))
+      port: ~
+      username: (( meta.broker.username ))
+      password: (( meta.broker.password ))
+    riak_cs:
+      register_route: ~
+
 - name: acceptance-tests
   lifecycle: errand
   template: acceptance-tests
@@ -43,3 +146,18 @@ jobs:
   resource_pool: broker-pool
   networks:
   - name: riak-cs-network
+  properties:
+    cf:
+      admin_username: (( meta.cf.admin_username ))
+      admin_password: (( meta.cf.admin_password ))
+      apps_domain: (( meta.cf.apps_domain ))
+      api_url: (( meta.cf.api_url ))
+      skip_ssl_validation: (( meta.cf.skip_ssl_validation ))
+    riak_cs:
+      ssl_enabled: (( meta.riak_cs.ssl_enabled ))
+      register_route: ~
+    catalog:
+      services: (( jobs.[2].properties.catalog.services ))
+    broker:
+      host: (( meta.external_broker_host ))
+    external_riakcs_host: (( meta.external_riakcs_host ))

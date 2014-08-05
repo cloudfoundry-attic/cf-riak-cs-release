@@ -1,13 +1,7 @@
 ---
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
-properties:
-  riak_cs:
-    admin_key: admin-key
-    admin_secret: admin-secret
-    ssl_enabled: true
-    skip_ssl_validation: true
-  domain: 10.244.0.34.xip.io
+meta:
   cf:
     admin_username: admin
     admin_password: admin
@@ -18,3 +12,10 @@ properties:
     name: p-riakcs
     username: admin
     password: admin
+  domain: 10.244.0.34.xip.io
+  riak_cs:
+    admin_key: admin-key
+    admin_secret: admin-secret
+    ssl_enabled: true
+    skip_ssl_validation: true
+  syslog_aggregator: ~

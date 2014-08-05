@@ -1,11 +1,14 @@
-properties:
-  riak:
-    firewall_enabled: false
+jobs:
+- name: riak-cs
+  properties:
+    riak:
+      firewall_enabled: false
+
+meta:
   nats:
     machines:
     - 10.244.0.6
     user: nats
     password: nats
     port: 4222
-  riak_cs:
-    skip_ssl_validation: true
+  <<: (( merge || nil ))
