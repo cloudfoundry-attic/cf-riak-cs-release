@@ -1,4 +1,4 @@
-# cf-riak-cs-release
+# Cloud Foundry Riak CS Service
 
 A BOSH release for Riak and Riak CS.
 
