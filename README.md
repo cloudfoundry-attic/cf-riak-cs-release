@@ -1,6 +1,6 @@
 # Cloud Foundry Riak CS Service
 
-A BOSH release for Riak and Riak CS.
+A BOSH release of an S3-compatible object store for Cloud Foundry using [Riak CS](http://basho.com/riak-cloud-storage/) and a [v2 Service Broker](http://docs.cloudfoundry.org/services/).
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
