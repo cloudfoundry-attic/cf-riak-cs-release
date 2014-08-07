@@ -14,14 +14,14 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ### Overview
 
-1. Upload a supported stemcell
-1. [Upload a release to the BOSH director](#upload_release)
-1. [Create a Deployment Manifest and Deploy](#create_manifest)
+1. Upload Stemcell
+1. [Upload Release](#upload_release)
+1. [Create Manifest and Deploy](#create_manifest)
   - [BOSH-lite](#bosh-lite)
   - [vSphere](#vsphere)
   - [AWS](#aws)
   - [Deployment Manifest Stub Properties](#stub-properties)
-1. [Register the Service Broker with Cloud Foundry](#register_broker)
+1. [Register the Service Broker](#register_broker)
 
 ### Upload a Release<a name="upload_release"></a>
 
