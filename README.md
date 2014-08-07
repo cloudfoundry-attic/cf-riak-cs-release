@@ -23,7 +23,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
   - [Deployment Manifest Stub Properties](#stub-properties)
 1. [Register the Service Broker](#register_broker)
 
-### Upload a Release<a name="upload_release"></a>
+### Upload Release<a name="upload_release"></a>
 
 You can use a pre-built final release or build a release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, these are created manually and infrequently. To be sure you're deploying the latest code, build a release yourself.
 
@@ -62,7 +62,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
   $ bosh upload release
   ```
 
-### Create a Manifest and Deploy<a name="create_manifest"></a>
+### Create Manifest and Deploy<a name="create_manifest"></a>
 
 #### BOSH-lite<a name="bosh-lite"></a>
 
@@ -184,7 +184,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
   $ bosh deployment cf-riak-cs-aws.yml && bosh deploy
   ```
 
-#### Deployment Manifest Stub Parameters<a name="stub-properties"></a>
+#### Deployment Manifest Properties<a name="stub-properties"></a>
 
 This section describes the parameters that must be added to manifest stub for the supported environments listed above.
 
