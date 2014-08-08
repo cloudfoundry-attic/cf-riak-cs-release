@@ -2,7 +2,6 @@ jobs: (( merge ))
 resource_pools:
 - name: riak-pool
   network: riak-cs-network
-  size: (( auto ))
   stemcell:
     name: bosh-aws-xen-ubuntu-lucid-go_agent
     version: (( merge || 2611 ))
@@ -11,7 +10,6 @@ resource_pools:
     availability_zone: (( merge ))
 - name: broker-pool
   network: riak-cs-network
-  size: (( auto ))
   stemcell:
     name: bosh-aws-xen-ubuntu-lucid-go_agent
     version: (( merge || 2611 ))
