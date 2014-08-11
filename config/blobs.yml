@@ -1,66 +1,53 @@
 ---
 erlang/otp_src_R15B01.tar.gz:
   object_id: ec4d9eb6-e5e9-4c3f-898a-8915b09ed7ab
-  sha: !binary |-
-    YzZlMWYyZmFkOTY1ZGViMzY5NjE4NGMxZWUxNjQ3MmJjZWEyYmYyMg==
+  sha: c6e1f2fad965deb3696184c1ee16472bcea2bf22
   size: 75592537
 git/git-1.8.4.tar.gz:
   object_id: b5ca56c0-0753-4ee3-bc27-efe3361d04f3
-  sha: !binary |-
-    YTIzOGYyYjUyNzM2NWI4OTZiOGVjNDQ3YjNlNWFiNWQ3YjRhMmM1YQ==
+  sha: a238f2b527365b896b8ec447b3e5ab5d7b4a2c5a
   size: 4657745
 riak-cs/riak-cs-1.4.4.tar.gz:
   object_id: 47fbbd39-daac-46aa-be25-e6829c19ca15
-  sha: !binary |-
-    ZmZmN2E0ZGIxMWFjZmEwMjA1MTRhOTcwZWZjZGM2NzUzZTFkZDU1Mw==
+  sha: fff7a4db11acfa020514a970efcdc6753e1dd553
   size: 4755824
 stanchion/stanchion-1.4.3.tar.gz:
   object_id: c9b67ad7-8403-4d30-89f1-ebe1c5e7e79b
-  sha: !binary |-
-    YjMyMmEwYjNiYjM4ZWQ5MGViZGY2YWI1ODE3ZTVkZTlmNDk4MGZjYQ==
+  sha: b322a0b3bb38ed90ebdf6ab5817e5de9f4980fca
   size: 3275695
 riak/riak-1.4.7.tar.gz:
   object_id: bbe77bfb-8976-4fd2-868e-8720dec1cc6c
-  sha: !binary |-
-    M2M3OWI5MzIxZjhlMjNkZTYxMzRiNzhiZWY1MzA4NTM2YjZlMGVlYg==
+  sha: 3c79b9321f8e23de6134b78bef5308536b6e0eeb
   size: 13754630
 ruby/yaml-0.1.5.tar.gz:
   object_id: c47ce236-6e27-45ed-90fd-79605fca276b
-  sha: !binary |-
-    OGI3OGNiOWY3NTljN2Q4MGRiOGE3MzI4YzBlYmVjZmUzNGZkZTczNw==
+  sha: 8b78cb9f759c7d80db8a7328c0ebecfe34fde737
   size: 504897
 golang/go1.2.1.linux-amd64.tar.gz:
   object_id: ecb931a3-499e-4548-96f0-5d1a2fded749
-  sha: !binary |-
-    NzYwNWY1NzdmZjZhYzJkNjA4YTNhNGU4MjliMjU1YWUyZWJjOGRjZg==
+  sha: 7605f577ff6ac2d608a3a4e829b255ae2ebc8dcf
   size: 56123695
 cli/cf-darwin-amd64.tgz:
   object_id: 4f40aabf-d3b5-4504-87f0-18365c73d0d3
-  sha: !binary |-
-    MTlkZjg3Njc3YjkyMTI5ZjAxZTMzOWUxZjhmMDQzODMxYjYxNjhkMw==
+  sha: 19df87677b92129f01e339e1f8f043831b6168d3
   size: 3849482
 cli/cf-linux-amd64.tgz:
   object_id: fe3f46f7-434a-40ce-a1da-2713782ee70d
-  sha: !binary |-
-    MmRhNzE4ZThlMzMxMDVmZjU4ODRmMWU4MzRiNzk2NTBhYjMzMDgwMw==
+  sha: 2da718e8e33105ff5884f1e834b79650ab330803
   size: 3886903
 ruby/yaml-0.1.6.tar.gz:
   object_id: 8c07f24e-c7f8-4224-9d79-1a5fcca13b6a
-  sha: !binary |-
-    ZjNkNDA0ZTExYmVjM2M0ZWZjZGRmZDE0YzQyZDQ2ZjFhYWJlMGI1ZA==
+  sha: f3d404e11bec3c4efcddfd14c42d46f1aabe0b5d
   size: 503012
 ruby/bundler-1.3.5.gem:
   object_id: 690bf086-9e22-4eae-ad54-a3ea71614c6d
-  sha: !binary |-
-    MmNhZDMwNTJhNTliODNmMWY2MTZlODIwMmY1YzcxNGU0NmJkODUyMw==
+  sha: 2cad3052a59b83f1f616e8202f5c714e46bd8523
   size: 268800
 ruby/ruby-2.0.0-p353.tar.gz:
   object_id: c15a780a-176b-433b-9ca1-cdbc09014bb7
-  sha: !binary |-
-    N2YyYzhiOGY1NjgyYWFiYzExMTRmNDRkMzZkMzE0YzZjMzdjMTFiOA==
+  sha: 7f2c8b8f5682aabc1114f44d36d314c6c37c11b8
   size: 13572794
 ruby/rubygems-2.1.11.tgz:
   object_id: 5d54f9b1-44d2-46ba-9593-5eada6ae6c7c
-  sha: !binary |-
-    Y2EzMDMzNDMyY2FlMjhkZWI3Y2VkNzljZGEyNzFjYjI5MmI3MGU1OQ==
+  sha: ca3033432cae28deb7ced79cda271cb292b70e59
   size: 367166

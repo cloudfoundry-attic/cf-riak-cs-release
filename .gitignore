@@ -24,3 +24,5 @@ Vagrantfile
 .nise_bosh_install.sh
 .nise-bosh-install.sh
 scripts/riak-backup/pkg
+releases/**/*.tgz
+blobs
