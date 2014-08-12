@@ -4,6 +4,7 @@ set -e
 tar xzf git/git-1.8.4.tar.gz
 
 export HOME=/home/vcap
+cp /var/vcap/packages/python/bin/python /usr/bin/python
 
 (
   cd git-1.8.4

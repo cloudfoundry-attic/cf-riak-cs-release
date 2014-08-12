@@ -1,0 +1,10 @@
+set -e
+
+PACKAGING_ROOT=`pwd`
+PYTHON_VERSION=2.7.8
+cd ${PACKAGING_ROOT}/python
+tar xfz Python-${PYTHON_VERSION}.tgz
+cd Python-${PYTHON_VERSION}
+./configure  --prefix=${BOSH_INSTALL_TARGET}
+make
+make install

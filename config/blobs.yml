@@ -51,3 +51,11 @@ ruby/rubygems-2.1.11.tgz:
   object_id: 5d54f9b1-44d2-46ba-9593-5eada6ae6c7c
   sha: ca3033432cae28deb7ced79cda271cb292b70e59
   size: 367166
+python/Python-2.7.8.tgz:
+  object_id: 005c3244-e15a-4bb4-9be1-4b8a2db1e65e
+  sha: 511960dd78451a06c9df76509635aeec05b2051a
+  size: 14846119
+ruby/ruby-2.0.0-p481.tar.gz:
+  object_id: 83e98807-ab09-45d4-b612-db29ea12c2a8
+  sha: dded7b7349d59feb83d4f774b2ddec23eeab7978
+  size: 13586757

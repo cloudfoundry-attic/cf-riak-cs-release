@@ -4,8 +4,8 @@ resource_pools:
   network: riak-cs-network
   size: (( auto ))
   stemcell:
-    name: bosh-vsphere-esxi-ubuntu-lucid-go_agent
-    version: (( merge || 2611 ))
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: (( merge || 2682 ))
   cloud_properties:
     ram: 4096
     disk: 10240
@@ -14,8 +14,8 @@ resource_pools:
   network: riak-cs-network
   size: (( auto ))
   stemcell:
-    name: bosh-vsphere-esxi-ubuntu-lucid-go_agent
-    version: (( merge || 2611 ))
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: (( merge || 2682 ))
   cloud_properties:
     ram: 512
     disk: 4096
