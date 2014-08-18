@@ -66,12 +66,13 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 #### BOSH-lite<a name="bosh-lite"></a>
 
-1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you, `bosh-lite/stub.yml`. For a description of the parameters in this stub, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
+1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you, `bosh-lite/stub.yml`.
 
-    ```
+```
     $ ./bosh-lite/make_manifest
-    ```
-    The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings.
+```
+
+The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings.
 
 1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run:
   ```
@@ -80,48 +81,7 @@ You can use a pre-built final release or build a release from HEAD. Final releas
 
 #### vSphere<a name="vsphere"></a>
 
-1. Create a stub file called `cf-riak-cs-vsphere-stub.yml` that contains the properties in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
-
-    This stub differs from the bosh-lite stub in that it requires:
-
-    * Username and password for admin user to support errands
-    * Network settings, with 6 static IPs and 6+ dynamic IPs
-
-  ```bash
-  director_uuid: YOUR-DIRECTOR-GUID
-  networks:
-  - name: riak-cs-network
-    subnets:
-    - cloud_properties:
-        name: YOUR-VSPHERE-NETWORK-NAME
-      dns:
-      - 8.8.8.8
-      gateway: 10.0.0.1
-      range: 10.0.0.0/24
-      reserved:           # IPs that bosh should not use inside your subnet range
-      - 10.0.0.2-10.0.0.99
-      - 10.0.0.115-10.0.0.254
-      static:
-      - 10.0.0.100
-      - 10.0.0.101
-      - 10.0.0.102
-      - 10.0.0.103
-      - 10.0.0.104
-      - 10.0.0.105
-  properties:
-    domain: YOUR-CF-SYSTEM-DOMAIN
-    nats:
-      machines:
-      - 10.0.0.15   # IP of nats server
-      user: NATS-USERNAME
-      password: NATS-PASSWORD
-      port: 4222
-    cf:
-      api_url: https://api.YOUR-CF-SYSTEM-DOMAIN
-      apps_domain: YOUR-CF-APP-DOMAIN
-      admin_username: CF-ADMIN-USERNAME
-      admin_password: CF-ADMIN-PASSWORD
-  ```
+1. Create a stub file called cf-riak-cs-vsphere-stub.yml by copying and modifying the [sample_vsphere_stub.yml](https://github.com/cloudfoundry/cf-riak-cs-release/blob/master/templates/sample_stubs/sample_vsphere_stub.yml) in templates/sample_stubs.
 
 2. Generate the manifest:
   ```
@@ -136,42 +96,7 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 #### AWS<a name="aws"></a>
 
-1. Create a stub file called `cf-riak-cs-aws-stub.yml` that contains the parameters in the example below. For a description of these and other manifest properties, see <a href="#manifest-stub-parameters">Manifest Stub Parameters</a> below.
-
-    This stub differs from the bosh-lite stub in that it requires:
-
-    * Username and password for admin user to support errands
-    * Network and resource pool settings
-
-  ```bash  
-  director_uuid: YOUR-DIRECTOR-GUID
-  networks:
-  - name: riak-cs-network
-    subnets:
-    - name: riak-cs-subnet
-      cloud_properties:
-        subnet: YOUR-AWS-SERVICES-SUBNET-ID
-  resource_pools:
-  - name: riak-pool
-    cloud_properties:
-      availability_zone: YOUR-PRIMARY-AZ-NAME
-  - name: broker-pool
-    cloud_properties:
-      availability_zone: YOUR-PRIMARY-AZ-NAME
-  properties:
-    domain: YOUR-CF-SYSTEM-DOMAIN
-    nats:
-      machines:
-      - IP-OF-NATS-SERVER
-      user: NATS-USERNAME
-      password: NATS-PASSWORD
-      port: 4222
-    cf:
-      api_url: https://api.YOUR-CF-SYSTEM-DOMAIN
-      apps_domain: YOUR-CF-APP-DOMAIN
-      admin_username: CF-ADMIN-USERNAME
-      admin_password: CF-ADMIN-PASSWORD
-  ```
+1. Create a stub file called cf-riak-cs-aws-stub.yml by copying and modifying the [sample_aws_stub.yml](https://github.com/cloudfoundry/cf-riak-cs-release/blob/master/templates/sample_stubs/sample_aws_stub.yml) in templates/sample_stubs.
 
 1. Generate the manifest:
   ```
@@ -186,39 +111,9 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
 
 #### Deployment Manifest Properties<a name="stub-properties"></a>
 
-This section describes the parameters that must be added to manifest stub for the supported environments listed above.
+Manifest properties are described in the `spec` file for each job; see [jobs](jobs).
 
-* `director_uuid`: can be found from running `bosh status`
-
-* `properties`
-  * `domain`: refers to the system domain that you installed CF against (it should match the domain property from the CF bosh manifest). The value is used to determine both the route advertised by each node in the cluster (see `register_route` below), as well as the route for the broker.
-
-  * `broker`: These properties configure aspects of the broker
-    * `name`: the name of the broker to use when registering with a BOSH errand.
-    * `username`: username for the broker used for basic auth.
-    * `password`: password for the broker used for basic auth.
-
-  * `riak_cs`: These properties control behavior of the Riak CS cluster nodes. As these properties have defaults, it is not necessary to include them in your stub unless you need to change them.
-    * `admin_key`: The admin user key for the Riak CS cluster.
-    * `admin_secret`: The admin user secret for the Riak CS cluster.
-    * `ssl_enabled`: Determines the scheme used by the broker to communicate with riak-cs and the scheme returned in the binding credentials. Defaults to true (`https`).
-    * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from the Riak cluster. Defaults to false.
-    * `register_route`: defaults to true. Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at `riakcs.DOMAIN` (where DOMAIN is the value of the `domain` property above). Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node.
-
-      When this property is set to false, nodes will not register a route. This is useful when deploying `cf-riak-cs-release` without Cloud Foundry. NOTE: the Riak CS service broker does not yet support `register_route: false`. __When setting `register_route` to false, you must set the instance count of the `cf-riak-cs-broker`, `acceptance-tests`, `broker-registrar`, and `broker-deregistrar` jobs to 0. Also you should omit the `domain` property and all the `cf` properties below.__
-
-  * `cf`: These properties provide information the Riak CS service needs to know about your Cloud Foundry deployment.
-    * `api_url`: the CloudController API URL (same thing you use to target using the `cf` CLI).  It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-    * `admin_username`: a CloudFoundry admin username. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-    * `admin_password`: a CloudFoundry admin password. It's used by a BOSH errand to register the newly deployed broker with CloudController (see below for invocation).
-    * `apps_domain`: the CloudFoundry App Domain. It's used by a BOSH errand to run acceptance tests for this release (see below for invocation).
-    * `skip_ssl_validation`: Determines whether or not the service broker should accept self-signed SSL certs from Cloud Foundry when running BOSH errands. Defaults to false.
-
-  * `syslog_aggregator`:
-    * `address`: IP address for syslog aggregator
-    * `port`: TCP port of syslog aggregator
-    * `transport`: Transport to be used when forwarding logs. Valid values are tcp, udp, or relp. Defaults to tcp.
-    * `all`: Determines whether syslog data for all processes should be forwarded or only configured jobs. Defaults to false.
+You can find your director_uuid by running `bosh status`.
 
 ## Register the Service Broker<a name="register_broker"></a>
 

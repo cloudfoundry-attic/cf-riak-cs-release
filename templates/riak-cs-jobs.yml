@@ -30,7 +30,7 @@ jobs:
       register_route: ~
     nats: (( meta.nats ))
     external_riakcs_host: (( meta.external_riakcs_host ))
-    syslog_aggregator: (( meta.syslog_aggregator ))
+    syslog_aggregator: (( meta.syslog_aggregator || nil ))
 
 - name: stanchion
   template: stanchion
@@ -96,7 +96,7 @@ jobs:
     external_riakcs_host: (( meta.external_riakcs_host ))
     external_broker_host: (( meta.external_broker_host ))
     nats: (( meta.nats ))
-    syslog_aggregator: (( meta.syslog_aggregator ))
+    syslog_aggregator: (( meta.syslog_aggregator || nil ))
 
 - name: broker-registrar
   lifecycle: errand
@@ -152,9 +152,9 @@ jobs:
       admin_password: (( meta.cf.admin_password ))
       apps_domain: (( meta.cf.apps_domain ))
       api_url: (( meta.cf.api_url ))
-      skip_ssl_validation: (( meta.cf.skip_ssl_validation ))
+      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
     riak_cs:
-      ssl_enabled: (( meta.riak_cs.ssl_enabled ))
+      ssl_enabled: (( meta.riak_cs.ssl_enabled || nil ))
       register_route: ~
     catalog:
       services: (( jobs.[2].properties.catalog.services ))

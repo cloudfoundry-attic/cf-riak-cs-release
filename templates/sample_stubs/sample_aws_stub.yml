@@ -1,0 +1,34 @@
+director_uuid: YOUR-DIRECTOR-GUID
+networks:
+- name: riak-cs-network
+  subnets:
+  - name: riak-cs-subnet
+    cloud_properties:
+      subnet: YOUR-AWS-SERVICES-SUBNET-ID
+resource_pools:
+  - name: riak-pool
+    cloud_properties:
+      availability_zone: YOUR-PRIMARY-AZ-NAME
+  - name: broker-pool
+    cloud_properties:
+      availability_zone: YOUR-PRIMARY-AZ-NAME
+meta:
+ domain: YOUR-CF-SYSTEM-DOMAIN
+ nats:
+   machines:
+   - IP-OF-NATS-SERVER
+   user: NATS-USERNAME
+   password: NATS-PASSWORD
+   port: 4222
+ cf:
+   api_url: https://api.YOUR-CF-SYSTEM-DOMAIN
+   apps_domain: YOUR-CF-APP-DOMAIN
+   admin_username: CF-ADMIN-USERNAME
+   admin_password: CF-ADMIN-PASSWORD
+ broker:
+   name: BROKER-NAME
+   username: USERNAME
+   password: PASSWORD
+ riak_cs:
+   admin_key: ADMIN-KEY
+   admin_secret: ADMIN-SECRET
