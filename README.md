@@ -4,6 +4,10 @@ A BOSH release of an S3-compatible object store for Cloud Foundry using [Riak CS
 
 This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMMcClain/riak-release).
 
+## Release Notes
+
+[Release Notes](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes)
+
 ## Deployment
 
 ### Prerequisites
