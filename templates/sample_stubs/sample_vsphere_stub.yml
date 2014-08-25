@@ -1,10 +1,10 @@
 ---
-director_uuid: YOUR-DIRECTOR-GUID
+director_uuid: YOUR_DIRECTOR_GUID
 networks:
 - name: riak-cs-network
   subnets:
   - cloud_properties:
-      name: YOUR-VSPHERE-NETWORK-NAME
+      name: YOUR_VSPHERE_NETWORK_NAME
     dns:
       - 8.8.8.8
     gateway: 10.0.0.1
@@ -20,22 +20,24 @@ networks:
       - 10.0.0.104
       - 10.0.0.105
 meta:
-  domain: YOUR-CF-SYSTEM-DOMAIN
+  domain: YOUR_CF_SYSTEM_DOMAIN
   nats:
     machines:
       - 10.0.0.15   # IP of nats server
-    user: NATS-USERNAME
-    password: NATS-PASSWORD
+    user: nats
+    password: YOUR_CF_NATS_PASSWORD
     port: 4222
   cf:
-    api_url: https://api.YOUR-CF-SYSTEM-DOMAIN
-    apps_domain: YOUR-CF-APP-DOMAIN
-    admin_username: CF-ADMIN-USERNAME
-    admin_password: CF-ADMIN-PASSWORD
+    api_url: https://api.YOUR_CF_SYSTEM_DOMAIN
+    apps_domain: YOUR_CF_APP_DOMAIN
+    admin_username: YOUR_CF_ADMIN_USERNAME
+    admin_password: YOUR_CF_ADMIN_PASSWORD
   broker:
-    name: BROKER-NAME
-    username: USERNAME
-    password: PASSWORD
+    name: p-riakcs
+    # credentials cloud controller will use to authenticate with the broker
+    username: BROKER_USERNAME #eg. cc
+    password: BROKER_PASSWORD
   riak_cs:
-    admin_key: ADMIN-KEY
-    admin_secret: ADMIN-SECRET
+    # credentials for Riak CS admin user
+    admin_key: ADMIN_KEY
+    admin_secret: ADMIN_SECRET
