@@ -55,7 +55,7 @@ Binaries for linux_amd64, linux_386, and darwin_amd64 are provided in the [bin](
           admin_key: admin-key # configure for access_key in .s3cfg
           admin_secret: admin-secret # configure for secret_key in .s3cfg
 
-For more instructions on using `s3cmd` with this release, see [Clients](/docs/clients.md#s3cmd).
+For more instructions on using `s3cmd` with this release, see [Clients for Riak CS](/docs/clients.md#s3cmd).
 
 Run `riak_backup` without any arguments to see its usage.
 
