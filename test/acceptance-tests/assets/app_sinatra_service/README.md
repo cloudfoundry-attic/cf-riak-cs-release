@@ -10,8 +10,7 @@ Install the app by pushing it to your Cloud Foundry and binding with the Riak CS
 
 Example:
 
-    $ tar -xvf riakcs-example-app.tgz
-    $ cd riakcs-example-app
+    $ cd app_sinatra_service
     $ cf push riakcs-example-app -c 'bundle exec ruby main.rb -p $PORT'
     $ cf create-service p-riakcs developer mybucket
     $ cf bind-service riakcs-example-app mybucket
