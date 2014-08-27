@@ -233,9 +233,9 @@ $ cf delete-service-broker p-riakcs
 
 ## Using the Riak CS service
 
-See [Clients for Riak CS](blob/master/docs/clients.md) for a list of clients that have been validated to work with the service.
+See [Clients for Riak CS](/docs/clients.md) for a list of clients that have been validated to work with the service.
 
-[The included test application](tree/master/test/acceptance-tests/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
+[The included test application](/test/acceptance-tests/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
 
 ## Limitations
 
