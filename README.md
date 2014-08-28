@@ -8,6 +8,13 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 [Release Notes](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes)
 
+## Getting the code
+
+There are multiple branches, representing code in different stages of development.
+- master is the latest and greatest (untested) code - the bleeding-edge. Use at your own risk.
+- release-candidate has passed both automated and manual acceptance. This branch should be suitable for most use cases.
+- Final releases are tagged with the version number e.g. v5.
+
 ## Deployment
 
 ### Prerequisites
