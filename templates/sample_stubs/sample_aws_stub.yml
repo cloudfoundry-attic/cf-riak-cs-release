@@ -1,10 +1,23 @@
 director_uuid: YOUR_DIRECTOR_GUID
+# This example uses a 10.10.126.0/20 subnet.  Adjust to match what you actually have.
 networks:
-- name: riak-cs-network
-  subnets:
-  - name: riak-cs-subnet
-    cloud_properties:
-      subnet: YOUR_AWS_SERVICES_SUBNET_ID
+  - name: riak-cs-network
+    type: manual
+    subnets:
+    - name: riak-cs-subnet
+      range: 10.10.128.0/20
+      reserved:
+        - 10.10.128.2 - 10.10.131.255
+        - 10.10.133.1 - 10.10.143.254
+      static:
+        - 10.10.132.1 - 10.10.132.100
+      gateway: 10.10.128.1
+      dns:
+        - 10.10.0.2
+      cloud_properties:
+        security_groups:
+        - cf
+        subnet: YOUR_AWS_SERVICES_SUBNET_ID
 resource_pools:
   - name: riak-pool
     cloud_properties:

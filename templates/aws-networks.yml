@@ -3,15 +3,11 @@ networks:
   type: manual
   subnets:
   - name: riak-cs-subnet
-    range: 10.10.32.0/20
-    reserved:
-      - 10.10.32.2 - 10.10.35.255
-      - 10.10.37.1 - 10.10.47.254
-    static:
-      - 10.10.36.1 - 10.10.36.100
-    gateway: 10.10.32.1
-    dns:
-      - 10.10.0.2
+    range: ((merge))
+    reserved: ((merge))
+    static: ((merge))
+    gateway: ((merge))
+    dns: ((merge))
     cloud_properties:
       security_groups:
       - cf

@@ -7,7 +7,7 @@ resource_pools:
     name: bosh-aws-xen-ubuntu-trusty-go_agent
     version: (( merge || 2682 ))
   cloud_properties:
-    instance_type: m1.medium
+    instance_type: m3.large
     availability_zone: (( merge ))
 - name: broker-pool
   network: riak-cs-network
@@ -16,6 +16,6 @@ resource_pools:
     name: bosh-aws-xen-ubuntu-trusty-go_agent
     version: (( merge || 2682 ))
   cloud_properties:
-    instance_type: m1.small
+    instance_type: m3.large
     availability_zone: (( merge ))
 
