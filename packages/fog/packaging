@@ -1,0 +1,4 @@
+FOG_VERSION=1.23.0
+
+
+/var/vcap/packages/ruby/bin/gem install fog/fog-${FOG_VERSION}.gem --no-ri --no-rdoc

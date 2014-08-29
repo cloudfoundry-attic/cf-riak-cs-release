@@ -8,6 +8,8 @@ packages:
 - common
 - route-registrar
 - syslog_aggregator
+- ruby
+- fog
 
 templates:
   riak_ctl.erb: bin/riak_ctl
@@ -23,6 +25,8 @@ templates:
   route_registrar_ctl.erb: bin/route_registrar_ctl
 
   syslog_forwarder.conf.erb: config/syslog_forwarder.conf
+
+  seed_buckets.rb.erb: bin/seed_buckets.rb
 
 properties:
 
@@ -80,3 +84,7 @@ properties:
   syslog_aggregator.transport:
     description: 'Transport to be used when forwarding logs (tcp|udp|relp).'
     default: 'tcp'
+
+  seeded_buckets:
+    default: []
+    description: 'List of buckets to create on the riak node'

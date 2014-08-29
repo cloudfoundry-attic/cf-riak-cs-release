@@ -52,7 +52,11 @@ case $1 in
 
     # Start riak-cs
     /var/vcap/packages/riak-cs/rel/bin/riak-cs start
+
+    sleep 2
+
     pgrep -f 'beam.*riak-cs' > $PIDFILE
+    /var/vcap/packages/ruby/bin/ruby /var/packages/riak-cs/bin/seed_bucket.rb >> $LOG_DIR/bucket_seeder.log
     ;;
 
   stop)

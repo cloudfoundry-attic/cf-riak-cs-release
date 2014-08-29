@@ -1,0 +1,17 @@
+require 'fog'
+
+client = Fog::Storage.new(
+  provider: 'AWS',
+  path_style: true,
+  host: "<%= spec.networks.send(p('riak.network')).ip %>",
+  port: 8080,
+  scheme: 'http',
+  aws_access_key_id: "<%= p('riak_cs.admin_key')%>",
+  aws_secret_access_key:  "<%= p('riak_cs.admin_secret')%>")
+
+<% p('seeded_buckets').each do |bucket| %>
+client.directories.create(
+  :key    => "<%= bucket['name'] %>"
+)
+<% end %>
+
