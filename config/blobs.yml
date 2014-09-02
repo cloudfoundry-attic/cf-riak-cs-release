@@ -59,3 +59,7 @@ ruby/ruby-2.0.0-p481.tar.gz:
   object_id: 83e98807-ab09-45d4-b612-db29ea12c2a8
   sha: dded7b7349d59feb83d4f774b2ddec23eeab7978
   size: 13586757
+fog/fog-1.23.0.gem:
+  object_id: 23f75d78-7a0d-46fe-9f4a-fba64faa897c
+  sha: b90bd3c555a81c2a936edffab32917ee727751a8
+  size: 1720320
