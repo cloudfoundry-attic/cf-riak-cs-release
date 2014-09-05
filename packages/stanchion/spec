@@ -4,4 +4,4 @@ dependencies:
 - erlang
 - git
 files:
-- stanchion/stanchion-1.4.3.tar.gz
+- stanchion/stanchion-1.5.0.tar.gz

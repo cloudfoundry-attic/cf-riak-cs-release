@@ -3,4 +3,4 @@ name: riak-cs
 dependencies:
 - riak
 files:
-- riak-cs/riak-cs-1.4.4.tar.gz
+- riak-cs/riak-cs-1.5.0.tar.gz
