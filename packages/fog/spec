@@ -1,6 +1,0 @@
----
-name: fog
-dependencies:
-  - ruby
-files:
-  - fog/fog-1.23.0.gem

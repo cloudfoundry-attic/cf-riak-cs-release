@@ -1,0 +1,6 @@
+---
+name: bucket_seeder
+dependencies:
+- ruby
+files:
+  - bucket_seeder/**/*
