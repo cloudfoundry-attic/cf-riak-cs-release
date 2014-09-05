@@ -70,7 +70,13 @@ case $1 in
       # wait for riak_kv to be available before creating an admin user
       /var/vcap/packages/riak/rel/bin/riak-admin wait-for-service riak_kv riak@$IP_ADDR
 
-      /var/vcap/packages/erlang/bin/escript $JOB_DIR/bin/create_cs_user.escript &> $LOG_DIR/create_user.log
+      /var/vcap/packages/erlang/bin/escript $JOB_DIR/bin/create_cs_user.escript \
+        admin \
+        <%= properties.riak_cs.admin_key %> \
+        <%= properties.riak_cs.admin_secret %> \
+        1391105120 &>> $LOG_DIR/create_user.log
+
+      /var/vcap/jobs/riak-cs/bin/seed_buckets.sh
     fi
     ;;
 

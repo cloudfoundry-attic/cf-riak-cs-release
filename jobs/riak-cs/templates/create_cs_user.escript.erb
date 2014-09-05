@@ -5,10 +5,6 @@
 -define(USERS_BUCKET, <<"moss.users">>).
 -define(RIAK_IP, "<%= properties.riak.seed_node %>").
 -define(RIAK_PORT, 8087).
--define(ADMIN_KEY, "<%= properties.riak_cs.admin_key %>").
--define(ADMIN_SECRET, "<%= properties.riak_cs.admin_secret %>").
--define(ADMIN_NAME, "admin").
--define(ADMIN_ID, "1391105120").
 
 -record(rcs_user_v2, {
           name :: string(),
@@ -20,15 +16,16 @@
           buckets=[] :: [cs_bucket()],
           status=enabled :: enabled | disabled}).
 
-main(_) ->
+main(Args) ->
+    [Name, Key, Secret, Id] = Args,
     {ok, Pid} = riakc_pb_socket:start(?RIAK_IP, ?RIAK_PORT),
-    UserRecord = #rcs_user_v2{name=?ADMIN_NAME,
-                              display_name=?ADMIN_NAME,
-                              key_id=?ADMIN_KEY,
-                              key_secret=?ADMIN_SECRET,
-                              canonical_id=?ADMIN_ID},
-    UserObj = riakc_obj:new(?USERS_BUCKET, list_to_binary(?ADMIN_KEY), term_to_binary(UserRecord)),
+    UserRecord = #rcs_user_v2{name=Name,
+                              display_name=Name,
+                              key_id=Key,
+                              key_secret=Secret,
+                              canonical_id=Id},
+    UserObj = riakc_obj:new(?USERS_BUCKET, list_to_binary(Key), term_to_binary(UserRecord)),
     Result = riakc_pb_socket:put(Pid, UserObj),
     riakc_pb_socket:stop(Pid),
-    io:format("Updating user record for ~p~n", [?ADMIN_NAME]),
+    io:format("Updating user record for ~p~n", [Name]),
     io:format("Result: ~p~n", [Result]).

@@ -1,0 +1,17 @@
+set -e
+set -x
+
+PACKAGE_DIR=/var/vcap/packages
+LOG_FILE=/var/vcap/sys/log/riak/bucket_seeder.log
+
+cd $PACKAGE_DIR/bucket_seeder
+
+<% p('riak_cs.seeded_buckets').each do |bucket| %>
+
+$PACKAGE_DIR/ruby/bin/bundle exec $PACKAGE_DIR/ruby/bin/ruby $PACKAGE_DIR/bucket_seeder/create_bucket.rb \
+  <%= bucket['name'] %> \
+  <%= spec.networks.send(p('riak.network')).ip %> \
+  <%= p('riak_cs.admin_key')%> \
+  <%= p('riak_cs.admin_secret')%> \
+  &>> $LOG_FILE
+<% end %>
