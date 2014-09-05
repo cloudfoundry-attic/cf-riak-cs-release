@@ -1,4 +1,6 @@
 <% if_p("syslog_aggregator.address", "syslog_aggregator.port", "syslog_aggregator.transport") do |address, port, transport| %>
+    $PrivDropToUser vcap
+    $PrivDropToGroup vcap
     $ModLoad imuxsock                       # local message reception (rsyslog uses a datagram socket)
     $MaxMessageSize 4k                      # default is 2k
     $WorkDirectory /var/vcap/sys/rsyslog/buffered  # where messages should be buffered on disk
@@ -22,19 +24,17 @@
     property(name="timestamp" dateFormat="rfc3339")
     constant(value=" <%= ip.strip %> ")
     property(name="programname")
-    constant(value=" [job=")
-    property(name="programname")
-    constant(value=" index=<%= spec.index.to_i %>] ")
+    constant(value=" [job=<%= name %> index=<%= spec.index.to_i %>] ")
     property(name="msg")
     }
 
     <% if transport == "relp" %>
         $ModLoad omrelp
-        :programname, startswith, "vcap." :omrelp:<%= address %>:<%= port %>;RiakLogTemplate
+        *.* :omrelp:<%= address %>:<%= port %>;RiakLogTemplate
     <% elsif transport == "udp" %>
-        :programname, startswith, "vcap." @<%= address %>:<%= port %>;RiakLogTemplate
+        *.* @<%= address %>:<%= port %>;RiakLogTemplate
     <% elsif transport == "tcp" %>
-        :programname, startswith, "vcap." @@<%= address %>:<%= port %>;RiakLogTemplate
+        *.* @@<%= address %>:<%= port %>;RiakLogTemplate
     <% else %>
         #only RELP, UDP, and TCP are supported
     <% end %>
@@ -46,18 +46,6 @@
 
     # Prevent them from reaching anywhere else
     :programname, startswith, "vcap." ~
-
-    <% if properties.syslog_aggregator.all %>
-        <% if transport == "relp" %>
-            *.*  :omrelp:<%= address %>:<%= port %>
-        <% elsif transport == "udp" %>
-            *.*  @<%= address %>:<%= port %>
-        <% elsif transport == "tcp" %>
-            *.*  @@<%= address %>:<%= port %>
-        <% else %>
-            #only RELP, UDP, and TCP are supported
-        <% end %>
-    <% end %>
 
 <% end.else do %>
     # Prevent them from reaching anywhere else
