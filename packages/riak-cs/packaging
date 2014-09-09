@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # - /var/vcap/packages/riak-cs/rel/bin/riak-cs
-echo "Beginning"
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 set +x
@@ -10,25 +9,11 @@ RIAK_CS_VERSION=1.5.0
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
 
-echo "##################################### riak-cs contents"
-ls riak-cs/
-echo "##################################"
-
 tar xf riak-cs/riak-cs-${RIAK_CS_VERSION}.tar.gz
 
 # Compile riak-cs
 cd riak-cs-${RIAK_CS_VERSION}
-echo "############################ Inside the tarball"
-ls
-echo "########################"
-
-echo "##################### Inside /var/vcap/data/compile/riak-cs/riak-cs-1.5.0/src"
-ls /var/vcap/data/compile/riak-cs/riak-cs-1.5.0/src
-echo "#####################"
-#sleep 600
 make rel
-
-echo "After making"
 
 # output is in rel/riak-cs
 cp -prv rel/riak-cs ${BOSH_INSTALL_TARGET}/rel
