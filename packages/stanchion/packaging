@@ -6,7 +6,7 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 set +x
 
-STANCHION_VERSION=1.4.3
+STANCHION_VERSION=1.5.0
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
 
