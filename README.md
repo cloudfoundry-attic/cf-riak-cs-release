@@ -13,7 +13,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 There are multiple branches, representing code in different stages of development.
 - master is the latest and greatest (untested) code - the bleeding-edge. Use at your own risk.
 - release-candidate has passed both automated and manual acceptance. This branch should be suitable for most use cases.
-- Final releases are tagged with the version number e.g. v5.
+- Final releases are tagged with the version number e.g. v6.
 
 ## Deployment
 
@@ -45,14 +45,14 @@ You can use a pre-built final release or build a release from HEAD. Final releas
   ```
   $ cd ~/workspace/cf-riak-cs-release
   $ ./update
-  $ git checkout v5
+  $ git checkout v6
   $ git submodule update --recursive
   ```
 
 1. Run the upload command, referencing one of the config files in the `releases` directory.
 
   ```
-  $ bosh upload release releases/cf-riak-cs-5.yml
+  $ bosh upload release releases/cf-riak-cs-6.yml
   ```
 
 #### Create a BOSH Release from HEAD and Upload:
