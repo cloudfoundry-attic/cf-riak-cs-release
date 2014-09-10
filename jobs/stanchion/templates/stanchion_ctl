@@ -13,6 +13,8 @@
 # Clear logs:
 # jobs/stanchion/templates/stanchion_ctl clearlogs
 
+set -e
+
 RUN_DIR=/var/vcap/sys/run/stanchion
 LOG_DIR=/var/vcap/sys/log/stanchion
 STORE=/var/vcap/store/stanchion
@@ -35,13 +37,18 @@ case $1 in
     cp /var/vcap/jobs/stanchion/config/app.config /var/vcap/packages/stanchion/rel/etc/app.config
 
     # Update vm.args with current IP address
+    set +e
     IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/stanchion/rel/etc/vm.args
     sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/stanchion/rel/etc/app.config
+    set -e
 
     # Start stanchion
     /var/vcap/packages/stanchion/rel/bin/stanchion start
+
+    set +e
     ps -A | grep beam | sed -e 's/^[ \t]*//' | awk '{split($0,a,/ /); print a[1]}' > $PIDFILE
+    set -e
     ;;
 
   stop)
