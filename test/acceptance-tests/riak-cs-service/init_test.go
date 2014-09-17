@@ -7,18 +7,21 @@ import (
 	"github.com/onsi/gomega/gexec"
 
 	"../helpers"
+	context_setup "github.com/cloudfoundry-incubator/cf-test-helpers/services/context_setup"
 	"testing"
 )
 
 func TestServices(t *testing.T) {
-	helpers.SetupEnvironment(helpers.NewContext(IntegrationConfig))
+	context_setup.TimeoutScale = RiakCSIntegrationConfig.TimeoutScale
+
+	context_setup.SetupEnvironment(context_setup.NewContext(RiakCSIntegrationConfig.IntegrationConfig, "RiakCSATS"))
 
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Riak CS Services Suite")
 }
 
 func AppUri(appname string) string {
-	return IntegrationConfig.RiakCsScheme + appname + "." + IntegrationConfig.AppsDomain
+	return RiakCSIntegrationConfig.RiakCsScheme + appname + "." + RiakCSIntegrationConfig.AppsDomain
 }
 
 func Curling(args ...string) func() *gexec.Session {
@@ -28,14 +31,14 @@ func Curling(args ...string) func() *gexec.Session {
 }
 
 func ServiceName() string {
-	return IntegrationConfig.ServiceName
+	return RiakCSIntegrationConfig.ServiceName
 }
 
 func PlanName() string {
-	return IntegrationConfig.PlanName
+	return RiakCSIntegrationConfig.PlanName
 }
 
-var IntegrationConfig = helpers.LoadConfig()
+var RiakCSIntegrationConfig = helpers.LoadConfig()
 
 var AppName = ""
 

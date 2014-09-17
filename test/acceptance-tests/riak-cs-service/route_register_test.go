@@ -13,7 +13,7 @@ import (
 var _ = Describe("Riak CS Nodes Register a Route", func() {
 
 	It("Allows users to access the riak-cs service using external url instead of IP of single machine after register the route", func() {
-		endpointURL := IntegrationConfig.RiakCsScheme + IntegrationConfig.RiakCsHost + "/riak-cs/ping"
+		endpointURL := RiakCSIntegrationConfig.RiakCsScheme + RiakCSIntegrationConfig.RiakCsHost + "/riak-cs/ping"
 
 		var session *gexec.Session
 		session = runner.Curl("-k", endpointURL)
@@ -25,7 +25,7 @@ var _ = Describe("Riak CS Nodes Register a Route", func() {
 var _ = Describe("Riak Broker Registers a Route", func() {
 
 	It("Allows users to access the riak-cs broker using a url", func() {
-		endpointURL := "http://" + IntegrationConfig.BrokerHost + "/v2/catalog"
+		endpointURL := "http://" + RiakCSIntegrationConfig.BrokerHost + "/v2/catalog"
 
 		var session *gexec.Session
 		session = runner.Curl("-k", "-s", "-w", "%{http_code}", endpointURL, "-o", "/dev/null")

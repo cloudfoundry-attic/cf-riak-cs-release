@@ -18,12 +18,12 @@ var _ = Describe("Specs", func() {
 
 	newSpec := func(text string, flag types.FlagType) *Spec {
 		subject := leafnodes.NewItNode(text, func() {}, flag, codelocation.New(0), 0, nil, 0)
-		return New(subject, []*containernode.ContainerNode{})
+		return New(subject, []*containernode.ContainerNode{}, false)
 	}
 
 	newMeasureSpec := func(text string, flag types.FlagType) *Spec {
 		subject := leafnodes.NewMeasureNode(text, func(Benchmarker) {}, flag, codelocation.New(0), 0, nil, 0)
-		return New(subject, []*containernode.ContainerNode{})
+		return New(subject, []*containernode.ContainerNode{}, false)
 	}
 
 	newSpecs := func(args ...interface{}) *Specs {
@@ -108,6 +108,17 @@ var _ = Describe("Specs", func() {
 		})
 	})
 
+	Describe("with no programmatic focus", func() {
+		BeforeEach(func() {
+			specs = newSpecs("A1", noneFlag, "A2", noneFlag, "B1", noneFlag, "B2", pendingFlag)
+			specs.ApplyFocus("", "", "")
+		})
+
+		It("should not report as having programmatic specs", func() {
+			Ω(specs.HasProgrammaticFocus()).Should(BeFalse())
+		})
+	})
+
 	Describe("Applying focus/skip", func() {
 		var description, focusString, skipString string
 
@@ -126,6 +137,10 @@ var _ = Describe("Specs", func() {
 				Ω(skippedTexts(specs)).Should(Equal([]string{"A2", "B2"}))
 				Ω(pendingTexts(specs)).Should(BeEmpty())
 			})
+
+			It("should report as having programmatic specs", func() {
+				Ω(specs.HasProgrammaticFocus()).Should(BeTrue())
+			})
 		})
 
 		Context("with a focus regexp", func() {
@@ -137,6 +152,10 @@ var _ = Describe("Specs", func() {
 				Ω(willRunTexts(specs)).Should(Equal([]string{"A1", "A2"}))
 				Ω(skippedTexts(specs)).Should(Equal([]string{"B1", "B2"}))
 				Ω(pendingTexts(specs)).Should(BeEmpty())
+			})
+
+			It("should not report as having programmatic specs", func() {
+				Ω(specs.HasProgrammaticFocus()).Should(BeFalse())
 			})
 		})
 
@@ -188,6 +207,10 @@ var _ = Describe("Specs", func() {
 				Ω(skippedTexts(specs)).Should(Equal([]string{"A1", "A2"}))
 				Ω(pendingTexts(specs)).Should(Equal([]string{"B2"}))
 			})
+
+			It("should not report as having programmatic specs", func() {
+				Ω(specs.HasProgrammaticFocus()).Should(BeFalse())
+			})
 		})
 
 		Context("with both a focus and a skip regexp", func() {
@@ -200,6 +223,10 @@ var _ = Describe("Specs", func() {
 				Ω(willRunTexts(specs)).Should(Equal([]string{"A1"}))
 				Ω(skippedTexts(specs)).Should(Equal([]string{"A2", "B1", "B2"}))
 				Ω(pendingTexts(specs)).Should(BeEmpty())
+			})
+
+			It("should not report as having programmatic specs", func() {
+				Ω(specs.HasProgrammaticFocus()).Should(BeFalse())
 			})
 		})
 	})
@@ -274,6 +301,5 @@ var _ = Describe("Specs", func() {
 				Ω(specsNode3.NumberOfOriginalSpecs()).Should(Equal(2))
 			})
 		})
-
 	})
 })

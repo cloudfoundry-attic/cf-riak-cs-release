@@ -3,26 +3,21 @@ package helpers
 import (
 	"encoding/json"
 	"os"
+
+	. "github.com/cloudfoundry-incubator/cf-test-helpers/services/context_setup"
 )
 
-type IntegrationConfig struct {
-	AppsDomain        string `json:"apps_domain"`
-	ApiEndpoint       string `json:"api"`
+type RiakCSIntegrationConfig struct {
+	IntegrationConfig
 
 	RiakCsHost				string `json:"riak_cs_host"`
 	RiakCsScheme      string `json:"riak_cs_scheme"`
-
-	AdminUser         string `json:"admin_user"`
-	AdminPassword     string `json:"admin_password"`
-
 	ServiceName				string `json:"service_name"`
 	PlanName					string `json:"plan_name"`
-
-	SkipSSLValidation bool `json:"skip_ssl_validation"`
 	BrokerHost				string `json:"broker_host"`
 }
 
-func LoadConfig() (config IntegrationConfig) {
+func LoadConfig() (config RiakCSIntegrationConfig) {
 	path := os.Getenv("CONFIG")
 	if path == "" {
 		panic("Must set $CONFIG to point to an integration config .json file.")
@@ -31,11 +26,7 @@ func LoadConfig() (config IntegrationConfig) {
 	return LoadPath(path)
 }
 
-func LoadPath(path string) (config IntegrationConfig) {
-	config = IntegrationConfig{
-		SkipSSLValidation: false,
-	}
-
+func LoadPath(path string) (config RiakCSIntegrationConfig) {
 	configFile, err := os.Open(path)
 	if err != nil {
 		panic(err)
@@ -73,6 +64,10 @@ func LoadPath(path string) (config IntegrationConfig) {
 
 	if config.RiakCsHost == "" {
 		panic("missing configuration 'riak_cs_host'")
+	}
+
+	if config.TimeoutScale <= 0 {
+		config.TimeoutScale = 1
 	}
 
 	return
