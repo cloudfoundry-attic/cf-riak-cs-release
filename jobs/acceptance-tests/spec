@@ -17,6 +17,7 @@ properties:
     description: 'Shared domain for pushed apps'
   cf.skip_ssl_validation:
     description: 'Whether to add --skip-ssl-validation for cf cli'
+    default: false
 
   riak_cs.ssl_enabled:
     description: 'Determines the scheme (http or https) used by the broker to communicate with riak-cs and the scheme returned in the binding credentials'
