@@ -10,6 +10,7 @@ packages:
 - syslog_aggregator
 - ruby
 - bucket_seeder
+- riakcs_ctrl
 
 templates:
   riak_ctl.erb: bin/riak_ctl

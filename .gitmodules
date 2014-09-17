@@ -14,3 +14,6 @@
 [submodule "src/broker-registrar"]
 	path = src/broker-registrar
 	url = https://github.com/pivotal-cf/broker-registrar.git
+[submodule "src/riakcs_ctrl/src/github.com/cloudfoundry-incubator/riakcs_ctrl"]
+	path = src/riakcs_ctrl/src/github.com/cloudfoundry-incubator/riakcs_ctrl
+	url = https://github.com/cloudfoundry-incubator/riakcs_ctrl.git

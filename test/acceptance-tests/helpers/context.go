@@ -3,6 +3,7 @@ package helpers
 import (
 	"fmt"
 	"time"
+	"encoding/json"
 
 	ginkgoconfig "github.com/onsi/ginkgo/config"
 	. "github.com/onsi/ginkgo"
@@ -17,6 +18,9 @@ type ConfiguredContext struct {
 	organizationName string
 	spaceName        string
 
+	quotaDefinitionName string
+	quotaDefinitionGUID string
+
 	regularUserUsername string
 	regularUserPassword string
 
@@ -30,6 +34,8 @@ func NewContext(config IntegrationConfig) *ConfiguredContext {
 	return &ConfiguredContext{
 		config: config,
 
+		quotaDefinitionName: fmt.Sprintf("RiakATS-QUOTA-%d-%s", node, timeTag),
+
 		organizationName: fmt.Sprintf("RiakATS-ORG-%d-%s", node, timeTag),
 		spaceName:        fmt.Sprintf("RiakATS-SPACE-%d-%s", node, timeTag),
 
@@ -40,17 +46,49 @@ func NewContext(config IntegrationConfig) *ConfiguredContext {
 	}
 }
 
+type quotaDefinition struct {
+	Name string `json:"name"`
+
+	NonBasicServicesAllowed bool `json:"non_basic_services_allowed"`
+
+	TotalServices int `json:"total_services"`
+	TotalRoutes   int `json:"total_routes"`
+
+	MemoryLimit int `json:"memory_limit"`
+}
+
 func (context *ConfiguredContext) Setup() {
 	cf.AsUser(context.AdminUserContext(), func() {
+		channel := cf.Cf("create-user", context.regularUserUsername, context.regularUserPassword)
+		select {
+		case <- channel.Out.Detect("OK"):
+		case <- channel.Out.Detect("scime_resource_already_exists"):
+		case <- time.After(10 * time.Second):
+			Fail("failed to create user")
+		}
 
-			channel := cf.Cf("create-user", context.regularUserUsername, context.regularUserPassword)
-			select {
-			case <- channel.Out.Detect("OK"):
-			case <- channel.Out.Detect("scime_resource_already_exists"):
-			case <- time.After(10 * time.Second):
-				Fail("failed to create user")
-			}
+		definition := quotaDefinition{
+			Name: context.quotaDefinitionName,
+
+			TotalServices: 100,
+			TotalRoutes:   1000,
+
+			MemoryLimit: 10240,
+
+			NonBasicServicesAllowed: true,
+		}
+
+		definitionPayload, err := json.Marshal(definition)
+		Expect(err).ToNot(HaveOccurred())
+
+		var response cf.GenericResource
+
+		cf.ApiRequest("POST", "/v2/quota_definitions", &response, string(definitionPayload))
+
+		context.quotaDefinitionGUID = response.Metadata.Guid
+
 		Eventually(cf.Cf("create-org", context.organizationName), 60*time.Second).Should(Exit(0))
+		Eventually(cf.Cf("set-quota", context.organizationName, definition.Name), 60*time.Second).Should(Exit(0))
 	})
 }
 

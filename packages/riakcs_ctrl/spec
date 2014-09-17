@@ -1,0 +1,6 @@
+---
+name: riakcs_ctrl
+dependencies:
+  - golang
+files:
+  - riakcs_ctrl/**/*

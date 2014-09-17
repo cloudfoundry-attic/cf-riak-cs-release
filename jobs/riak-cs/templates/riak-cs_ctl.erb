@@ -18,15 +18,26 @@ set -e # exit immediately if a simple command exits with a non-zero status
 
 RUN_DIR=/var/vcap/sys/run/riak-cs
 LOG_DIR=/var/vcap/sys/log/riak-cs
+LOG_FILE=$LOG_DIR/riakcs_ctrl.log
 STORE=/var/vcap/store/riak-cs
 PIDFILE=$RUN_DIR/riak-cs.pid
 JOB_DIR=/var/vcap/jobs/riak-cs
 
+PACKAGE_DIR=/var/vcap/packages/riakcs_ctrl
+EXECUTABLE_NAME=riakcs_ctrl-executable
+
+VM_ARGS_FILE=/var/vcap/packages/riak-cs/rel/etc/vm.args
+APP_CONFIG_FILE=/var/vcap/packages/riak-cs/rel/etc/app.config
+RIAK_CS_EXECUTABLE=/var/vcap/packages/riak-cs/rel/bin/riak-cs
+
+# TODO: Do we need ruby on the path
 export PATH=/var/vcap/packages/ruby/bin:$PATH
 export HOME=/var/vcap
 
 COMMAND=${COMMAND:-/var/vcap/packages/riak-cs/rel/bin/riak-cs start}
 HOME=${HOME:-/home/vcap}
+
+source /var/vcap/packages/common/utils.sh
 
 case $1 in
 
@@ -44,18 +55,20 @@ case $1 in
     # Set the max open file limit
     ulimit -n 65536
 
-    # Update vm.args with current IP address
-    IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
+    cd $PACKAGE_DIR
 
-    sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/vm.args
-    sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/riak-cs/rel/etc/app.config
+    IP_ADDR=<%= spec.networks.send(p('riak.network')).ip %>
 
-    # Start riak-cs
-    /var/vcap/packages/riak-cs/rel/bin/riak-cs start
 
-    sleep 2
+    $PACKAGE_DIR/$EXECUTABLE_NAME \
+        -vmArgsFile=$VM_ARGS_FILE \
+        -appConfigFile=$APP_CONFIG_FILE \
+        -riakCsExecutable=$RIAK_CS_EXECUTABLE \
+        -riakCsPidFile=$PIDFILE \
+        -ip=$IP_ADDR \
+    >> $LOG_FILE 2>> $LOG_FILE
 
-    pgrep -f 'beam.*riak-cs' > $PIDFILE
+
     ;;
 
   stop)

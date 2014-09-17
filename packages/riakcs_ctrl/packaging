@@ -1,0 +1,12 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+#compile
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export PATH=$GOROOT/bin:$PATH
+
+export GOPATH=$PWD/riakcs_ctrl
+
+go install github.com/cloudfoundry-incubator/riakcs_ctrl
+
+cp riakcs_ctrl/bin/riakcs_ctrl $BOSH_INSTALL_TARGET/riakcs_ctrl-executable
