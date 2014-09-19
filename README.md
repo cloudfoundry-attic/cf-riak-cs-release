@@ -6,7 +6,7 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 ## Release Notes
 
-[Release Notes](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes)
+The release notes can be found [here](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes).
 
 ## Getting the code
 
