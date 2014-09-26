@@ -36,7 +36,7 @@ There are multiple branches, representing code in different stages of developmen
 
 ### Upload Release<a name="upload_release"></a>
 
-You can use a pre-built final release or build a release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, these are created manually and infrequently. To be sure you're deploying the latest code, build a release yourself.
+You can use a pre-built final BOSH release or build a BOSH release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, we create them manually and infrequently. To be sure you're deploying the latest code, build a BOSH release yourself.
 
 #### Upload a pre-built final BOSH release
 
