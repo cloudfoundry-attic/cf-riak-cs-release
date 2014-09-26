@@ -36,7 +36,7 @@ There are multiple branches, representing code in different stages of developmen
 
 ### Upload Release<a name="upload_release"></a>
 
-You can use a pre-built final BOSH release or build a BOSH release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, we create them manually and infrequently. To be sure you're deploying the latest code, build a BOSH release yourself.
+You can use a pre-built final BOSH release or build a BOSH release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, we create them manually and infrequently. To be sure you're deploying the latest code, build a BOSH release yourself. See [Release Notes](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes) for release dates and changes in the final releases
 
 #### Upload a pre-built final BOSH release
 
