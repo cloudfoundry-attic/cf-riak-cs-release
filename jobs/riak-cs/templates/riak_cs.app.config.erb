@@ -135,8 +135,7 @@
               %% for an object after it has been deleted.
               %% This leeway time is set to give the delete
               %% indication time to propogate to all replicas.
-              %% 86400 is 24-hours.
-              {leeway_seconds, 86400},
+              {leeway_seconds, 60},
 
               %% How often the garbage collection daemon
               %% waits in-between gc batches.
