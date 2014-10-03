@@ -13,7 +13,7 @@ jobs:
   networks:
   - name: riak-cs-network
     static_ips: (( static_ips(1, 2, 3) ))
-  persistent_disk: 4096
+  persistent_disk: 10240
   properties:
     stanchion:
       ip: (( jobs.[1].networks.[0].static_ips.[0] ))
