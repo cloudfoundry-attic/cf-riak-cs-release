@@ -10,11 +10,10 @@ Install the app by pushing it to your Cloud Foundry and binding with the Riak CS
 
 Example:
 
-    $ cd app_sinatra_service
-    $ cf push riakcs-example-app -c 'bundle exec ruby main.rb -p $PORT'
+    $ cf push riaktest --no-start
     $ cf create-service p-riakcs developer mybucket
-    $ cf bind-service riakcs-example-app mybucket
-    $ cf restart riakcs-example-app
+    $ cf bind-service riaktest mybucket
+    $ cf restart riaktest
 
 ### Endpoints
 
@@ -22,7 +21,7 @@ Example:
 
 Stores the key:value pair in the Riak CS bucket. Example:
 
-    $ curl -X POST riakcs-example-app.my-cloud-foundry.com/service/blobstore/mybucket/foo -d 'bar'
+    $ curl -X POST riaktest.my-cloud-foundry.com/service/blobstore/mybucket/foo -d 'bar'
     success
 
 
@@ -30,18 +29,18 @@ Stores the key:value pair in the Riak CS bucket. Example:
 
 Returns the value stored in the Riak CS bucket for a specified key. Example:
 
-    $ curl -X GET riakcs-example-app.my-cloud-foundry.com/service/blobstore/mybucket/foo
+    $ curl -X GET riaktest.my-cloud-foundry.com/service/blobstore/mybucket/foo
     bar
 
 #### DELETE /:key
 
 Deletes the bucket. Example:
 
-    $ curl -X DELETE riakcs-example-app.my-cloud-foundry.com/service/blobstore/mybucket
+    $ curl -X DELETE riaktest.my-cloud-foundry.com/service/blobstore/mybucket
     success
 
 Once you've deleted your bucket, you should unbind and delete the service instance, as these are references in Cloud Foundry to an instance which no longer exists.
 
-    $ cf unbind-service riakcs-example-app mybucket
+    $ cf unbind-service riaktest mybucket
     $ cf delete-service mybucket
-    $ cf restart riakcs-example-app
+    $ cf restart riaktest
