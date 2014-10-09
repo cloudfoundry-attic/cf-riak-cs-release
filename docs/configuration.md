@@ -9,6 +9,12 @@ Currently, we configure these fields in `riak_cs.app.config.erb` under 'Garbage 
 
 - **leeway_seconds** (Default: 60 seconds) How long a file needs to have been deleted for RiakCS to attempt to garbage collect it
 - **gc_interval** (Default: 900 seconds) How often RiakCS runs garbage collection, which notifies Riak of deletions
+- **gc_paginated_indexes** (Default: true) If set to true, the GC daemon will use paginated 2i queries when searching for eligible keys to delete.
+- **gc_batch_size** (Default: 1000) Size of each page when gc_paginated_indexes is set to true
+- **gc_max_workers** (Default: 5) Maximum number of concurrent GC workers
+
+
+
 
 Additional information on configuring RiakCS can be found [here](http://docs.basho.com/riakcs/latest/cookbooks/configuration/Configuring-Riak-CS/#Garbage-Collection-Settings)
 
