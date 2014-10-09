@@ -140,7 +140,7 @@
               %% How often the garbage collection daemon
               %% waits in-between gc batches.
               %% 900 is 15-minutes.
-              {gc_interval, 900},
+              {gc_interval, 300},
 
               %% How long a move to the garbage
               %% collection to do list can remain
@@ -151,6 +151,21 @@
               %% Set this to false if you're running
               %% Riak nodes prior to version 1.4.0.
               {gc_paginated_indexes, true},
+
+
+              %% Used when gc_paginated_indexes are set to true
+              %% Represents size of pages in results of paginated index queries
+              %% GC Daemon brings these batches to its workers for delete processing
+              {gc_batch_size, 10},
+
+              %% Total number of GC workers
+              {gc_max_workers, 5},
+              
+              %% Not well-documented, number of blocks to delete concurrently by workers
+              %% It is not clear how this interacts with gc_max_workers above -
+              %% We believe one worker handles one block
+              %%{delete_concurrency, 1},
+
 
               %% If your load balancer adds 'X-Forwarded-For' header
               %% and it is reliable (able to gaurantee it is not added
