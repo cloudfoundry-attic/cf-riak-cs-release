@@ -2,6 +2,7 @@
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 meta:
+  environment: cf-warden
   cf:
     admin_username: admin
     admin_password: admin
