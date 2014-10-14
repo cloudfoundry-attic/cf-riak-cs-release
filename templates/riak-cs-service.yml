@@ -1,4 +1,7 @@
-name: cf-riak-cs
+meta:
+  environment: ~
+
+name: (( meta.environment "-riak-cs" ))
 director_uuid: (( merge ))
 
 resource_pools: (( merge ))
