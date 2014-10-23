@@ -18,6 +18,7 @@ make rel
 
 # output is in rel/riak
 cp -prv rel/riak ${BOSH_INSTALL_TARGET}/rel
+echo "+zdbbl 32768" >> ${BOSH_INSTALL_TARGET}/rel/etc/vm.args
 
 # create a symlinked dir that has no version number for libraries directly accessed by the job
 ln -s ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb-* ${BOSH_INSTALL_TARGET}/rel/lib/eleveldb
