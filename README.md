@@ -181,8 +181,8 @@ $ bosh run errand acceptance-tests
 ### Manually
 
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
-2. `cd` into `cf-riak-cs-release/test/acceptance-tests/`
-3. Update `cf-riak-cs-release/test/acceptance-tests/integration_config.json`
+2. `cd` into `cf-riak-cs-release/src/acceptance-tests/`
+3. Update `cf-riak-cs-release/src/acceptance-tests/integration_config.json`
 
    The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
 installation. Replace credentials and URLs as appropriate for your environment.
@@ -242,7 +242,7 @@ $ cf delete-service-broker p-riakcs
 
 See [Clients for Riak CS](docs/clients.md) for a list of clients that have been validated to work with the service.
 
-[The included test application](test/acceptance-tests/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
+[The included test application](src/acceptance-tests/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
 
 ## Limitations
 
