@@ -27,12 +27,12 @@ PIDFILE=$RUN_DIR/riak.pid
 export PATH=/var/vcap/packages/ruby/bin:$PATH
 export HOME=/var/vcap
 
-COMMAND=${COMMAND:-/var/vcap/packages/riak/rel/bin/riak start}
-HOME=${HOME:-/home/vcap}
-
 case $1 in
 
   start)
+
+    set +e
+
     echo 0 >> /proc/sys/vm/swappiness
     echo 8388608 >> /proc/sys/net/core/wmem_default
     echo 8388608 >> /proc/sys/net/core/rmem_default
@@ -43,6 +43,8 @@ case $1 in
     echo 40000 >> /proc/sys/net/ipv4/tcp_max_syn_backlog
     echo 15 >> /proc/sys/net/ipv4/tcp_fin_timeout
     echo 1 >> /proc/sys/net/ipv4/tcp_tw_reuse
+
+    set -e
 
     mkdir -p $RUN_DIR
     mkdir -p $LOG_DIR

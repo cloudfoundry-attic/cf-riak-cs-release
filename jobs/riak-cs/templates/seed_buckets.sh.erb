@@ -2,8 +2,10 @@ set -e
 set -x
 
 PACKAGE_DIR=/var/vcap/packages
-LOG_FILE=/var/vcap/sys/log/riak/bucket_seeder.log
+LOG_DIR=/var/vcap/sys/log/riak
+LOG_FILE=$LOG_FILE/bucket_seeder.log
 
+mkdir -p $LOG_DIR
 cd $PACKAGE_DIR/bucket_seeder
 
 <% p('riak_cs.seeded_buckets').each do |bucket| %>

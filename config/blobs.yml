@@ -31,10 +31,6 @@ ruby/bundler-1.3.5.gem:
   object_id: 690bf086-9e22-4eae-ad54-a3ea71614c6d
   sha: 2cad3052a59b83f1f616e8202f5c714e46bd8523
   size: 268800
-ruby/ruby-2.0.0-p353.tar.gz:
-  object_id: c15a780a-176b-433b-9ca1-cdbc09014bb7
-  sha: 7f2c8b8f5682aabc1114f44d36d314c6c37c11b8
-  size: 13572794
 ruby/rubygems-2.1.11.tgz:
   object_id: 5d54f9b1-44d2-46ba-9593-5eada6ae6c7c
   sha: ca3033432cae28deb7ced79cda271cb292b70e59
@@ -43,10 +39,6 @@ python/Python-2.7.8.tgz:
   object_id: 005c3244-e15a-4bb4-9be1-4b8a2db1e65e
   sha: 511960dd78451a06c9df76509635aeec05b2051a
   size: 14846119
-ruby/ruby-2.0.0-p481.tar.gz:
-  object_id: 83e98807-ab09-45d4-b612-db29ea12c2a8
-  sha: dded7b7349d59feb83d4f774b2ddec23eeab7978
-  size: 13586757
 fog/fog-1.23.0.gem:
   object_id: 23f75d78-7a0d-46fe-9f4a-fba64faa897c
   sha: b90bd3c555a81c2a936edffab32917ee727751a8
@@ -63,3 +55,7 @@ stanchion/stanchion-1.5.0.tar.gz:
   object_id: df330e63-ce5e-409f-8de7-ed35b540c03c
   sha: 74622d2302330480c8b429b9ed4ac013e3f0ee07
   size: 3181301
+ruby/ruby-2.1.4.tar.gz:
+  object_id: a4184c31-d447-4849-9600-b55fce34673d
+  sha: 29e9cfdd9e989b7621d7696ef3f970262a08dbc3
+  size: 15127418
