@@ -1,5 +1,3 @@
 source "https://rubygems.org"
 
-ruby '2.1.4'
-
 gem 'fog', git: 'https://github.com/cf-blobstore-eng/fog', branch: 'development'
