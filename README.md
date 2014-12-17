@@ -8,12 +8,19 @@ This project is based on [BrianMMcClain/riak-release](https://github.com/BrianMM
 
 The release notes can be found [here](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes).
 
-## Getting the code
+## <a id='branches'></a>Getting the code
 
-There are multiple branches, representing code in different stages of development.
-- master is the latest and greatest (untested) code - the bleeding-edge. Use at your own risk.
-- release-candidate has passed both automated and manual acceptance. This branch should be suitable for most use cases.
-- Final releases are tagged with the version number e.g. v6.
+Final releases are designed for public use, and are tagged with a version number of the form "v<N>".
+
+The [**develop**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/develop) branch is where we do active development. Although we endeavor to keep the [**develop**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/develop) branch stable, we do not guarantee that any given commit will deploy cleanly.
+
+The [**release-candidate**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/release-candidate) branch has passed all of our unit, integration, smoke, & acceptance tests, but has not been used in a final release yet. This branch should be fairly stable.
+
+The [**master**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/master) branch points to the most recent stable final release.
+
+At semi-regular intervals a final release is created from the [**release-candidate**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/release-candidate) branch. This final release is tagged and pushed to the [**master**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/master) branch.
+
+Pushing to any branch other than [**develop**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/develop) will create problems for the CI pipeline, which relies on fast forward merges. To recover from this condition follow the instructions [here](https://github.com/cloudfoundry/cf-release/blob/master/docs/fix_commit_to_master.md).
 
 ## Deployment
 
