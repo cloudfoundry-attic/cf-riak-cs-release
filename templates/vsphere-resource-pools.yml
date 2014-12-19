@@ -2,7 +2,6 @@ jobs: (( merge ))
 resource_pools:
 - name: riak-pool
   network: riak-cs-network
-  size: (( auto ))
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: (( merge || "2719.3" ))
@@ -12,7 +11,6 @@ resource_pools:
     cpu: 2
 - name: broker-pool
   network: riak-cs-network
-  size: (( auto ))
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: (( merge || "2719.3" ))
