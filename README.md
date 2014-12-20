@@ -43,31 +43,39 @@ Pushing to any branch other than [**develop**](https://github.com/cloudfoundry/c
 
 ### Upload Release<a name="upload_release"></a>
 
-You can use a pre-built final BOSH release or build a BOSH release from HEAD. Final releases contain pre-compiled packages, making deployment much faster. However, we create them manually and infrequently. To be sure you're deploying the latest code, build a BOSH release yourself. See [Release Notes](https://github.com/cloudfoundry/cf-riak-cs-release/wiki/Release-Notes) for release dates and changes in the final releases
+You can use a pre-built final release or build a dev release from any of the branches described in <a href="#branches">Getting the Code</a>. 
+
+Final releases are stable releases created periodically for completed features. They also contain pre-compiled packages, which makes deployment much faster. To deploy the latest final release, simply check out the **master** branch. This will contain the latest final release and accompanying materials to generate a manifest. If you would like to deploy an earlier final release, use `git checkout <tag>` to obtain both the release and corresponding manifest generation materials. It's important that the manifest generation materials are consistent with the release.
+
+If you'd like to deploy the latest code, build a release yourself from the **develop** branch.
 
 #### Upload a pre-built final BOSH release
 
-1. Check out the tag for the desired version. This is necessary for generating a manifest that matches the code you're deploying.
+Run the upload command, referencing the latest config file in the `releases` directory. 
 
   ```
   $ cd ~/workspace/cf-riak-cs-release
+  $ git checkout master
   $ ./update
-  $ git checkout v6
-  $ git submodule update --recursive
+  $ bosh upload release releases/cf-riak-cs-<N>.yml
   ```
 
-1. Run the upload command, referencing one of the config files in the `releases` directory.
-
-  ```
-  $ bosh upload release releases/cf-riak-cs-6.yml
-  ```
-
-#### Create a BOSH Release from HEAD and Upload:
-
-1. Build a BOSH development release from HEAD
+If deploying an **older** final release than the latest, check out the tag for the desired version; this is necessary for generating a manifest that matches the code you're deploying.
 
   ```
   $ cd ~/workspace/cf-riak-cs-release
+  $ git checkout v<N>
+  $ ./update
+  $ bosh upload release releases/cf-riak-cs-<N>.yml
+  ```
+
+#### Create and upload a BOSH Release:
+
+1. Checkout one of the branches described in <a href="#branches">Getting the Code</a>. Build a BOSH development release. 
+
+  ```
+  $ cd ~/workspace/cf-riak-cs-release
+  $ git checkout release-candidate
   $ ./update
   $ bosh create release
   ```
