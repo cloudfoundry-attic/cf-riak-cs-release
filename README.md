@@ -94,11 +94,11 @@ If deploying an **older** final release than the latest, check out the tag for t
 
 1. Run the script [`bosh-lite/make_manifest`](bosh-lite/make_manifest) to generate your manifest for bosh-lite. This script uses a stub provided for you, `bosh-lite/stub.yml`.
 
-```
-    $ ./bosh-lite/make_manifest
-```
+  ```
+  $ ./bosh-lite/make_manifest
+  ```
 
-The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings.
+  The manifest will be written to `bosh-lite/manifests/cf-riak-cs-manifest.yml`, which can be modified to change deployment settings.
 
 1. The `make_manifest` script will set the deployment to `bosh-lite/manifests/cf-riak-cs-manifest.yml` for you, so to deploy you only need to run:
   ```
