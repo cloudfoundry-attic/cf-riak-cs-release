@@ -170,11 +170,11 @@ Note: the broker-registrar errand will fail if the broker has already been regis
 
 ## Running Acceptance Tests
 
-To run the Riak CS Release Acceptance tests, you will need:
+To run the Riak CS acceptance tests you will need:
 - a running CF instance
 - credentials for a CF Admin user
 - a deployed Riak CS Release with the broker registered and the plan made public
-- an environment variable `$CONFIG` which points to a `.json` file that contains the application domain
+- a security group granting access to the service for applications
 
 ### Using BOSH errands
 
@@ -195,16 +195,16 @@ $ bosh run errand acceptance-tests
 
 ### Manually
 
+To run the acceptance tests manually you will also need an environment variable `$CONFIG` which points to a `.json` file that contains the application domain.
+
 1. Install `go` by following the directions found [here](http://golang.org/doc/install)
 2. `cd` into `cf-riak-cs-release/src/acceptance-tests/`
 3. Update `cf-riak-cs-release/src/acceptance-tests/integration_config.json`
 
-   The following script will configure these prerequisites for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
-installation. Replace credentials and URLs as appropriate for your environment.
+   The following commands provide a shortcut to configuring `integration_config.json` with values for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
+deployment. Copy and paste this into your terminal, then open the resulting `integration_config.json` in an editor to replace values as appropriate for your environment.
 
     ```bash
-    #! /bin/bash
-
     cat > integration_config.json <<EOF
     {
       "api":                 "api.10.244.0.34.xip.io",
@@ -229,6 +229,31 @@ installation. Replace credentials and URLs as appropriate for your environment.
   ```
   $ ./bin/test
   ```
+
+## Security Groups
+
+Since [cf-release](https://github.com/cloudfoundry/cf-release) v175, applications by default cannot to connect to IP addresses on the private network. This may prevents applications from connecting to the Riak CS service. As applications reach the Riak CS service through the router tier in cf-release, create a new security group for the IP configured for the load balancer balancing traffic across your cf-release routers. By default this will be the HAProxy job in cf-release.
+
+1. Add the rule to a file in the following json format; multiple rules are supported.
+
+  ```
+  [
+      {
+        "destination": "10.244.0.34",
+        "protocol": "all"
+      }
+  ]
+  ```
+- Create a security group from the rule file.
+  <pre class="terminal">
+  $ cf create-security-group p-riakcs rule.json
+  </pre>
+- Enable the rule for all apps
+  <pre class="terminal">
+  $ cf bind-running-security-group p-riakcs
+  </pre>
+
+Changes are only applied to new application containers; in order for an existing app to receive security group changes it must be restarted.
 
 ## De-registering the broker
 
