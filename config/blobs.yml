@@ -11,10 +11,6 @@ ruby/yaml-0.1.5.tar.gz:
   object_id: c47ce236-6e27-45ed-90fd-79605fca276b
   sha: 8b78cb9f759c7d80db8a7328c0ebecfe34fde737
   size: 504897
-golang/go1.2.1.linux-amd64.tar.gz:
-  object_id: ecb931a3-499e-4548-96f0-5d1a2fded749
-  sha: 7605f577ff6ac2d608a3a4e829b255ae2ebc8dcf
-  size: 56123695
 cli/cf-darwin-amd64.tgz:
   object_id: 4f40aabf-d3b5-4504-87f0-18365c73d0d3
   sha: 19df87677b92129f01e339e1f8f043831b6168d3
@@ -59,3 +55,7 @@ ruby/ruby-2.1.5.tar.gz:
   object_id: f73818d5-be70-4db2-859c-d0c6502d2f12
   sha: 9c0a238bd7839a4b51871641945a3da90997b8c2
   size: 15127433
+golang/go1.4.linux-amd64.tar.gz:
+  object_id: cb950712-e51b-4d84-a3df-fe235a159b29
+  sha: cd82abcb0734f82f7cf2d576c9528cebdafac4c6
+  size: 63289725
