@@ -216,6 +216,7 @@ deployment. Copy and paste this into your terminal, then open the resulting `int
       "service_name":        "p-riakcs",
       "plan_name":           "developer",
       "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io",
+      "timeout_scale":       1.0,
       "skip_ssl_validation": true
     }
     EOF
@@ -223,6 +224,8 @@ deployment. Copy and paste this into your terminal, then open the resulting `int
     ```
 
     Note: `skip_ssl_validation` requires CLI v6.0.2 or newer.
+    
+    All timeouts in the test suite can be scaled proportionally by changing the timeout_scale factor.
 
 4. Run  the tests
 
