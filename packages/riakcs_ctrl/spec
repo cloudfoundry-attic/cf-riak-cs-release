@@ -3,4 +3,8 @@ name: riakcs_ctrl
 dependencies:
   - golang
 files:
-  - github.com/cloudfoundry-incubator/riakcs_ctrl/**/*
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/*.go # gosub
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/os_helper/*.go # gosub
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/os_helper/fakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/riakcs_start_manager/*.go # gosub
