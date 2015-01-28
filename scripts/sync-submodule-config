@@ -8,7 +8,9 @@ go install github.com/vito/gosub
 {
   gosub list \
     -app github.com/cloudfoundry-incubator/riakcs-acceptance-tests/... \
+    -test github.com/cloudfoundry-incubator/riakcs-acceptance-tests/... \
     -app github.com/cloudfoundry-incubator/riakcs_ctrl/... \
+    -test github.com/cloudfoundry-incubator/riakcs_ctrl/... \
 
   # exclude these otherwise `gosub sync` will delete them
   echo github.com/cloudfoundry-incubator/route-registrar # uses Godeps
