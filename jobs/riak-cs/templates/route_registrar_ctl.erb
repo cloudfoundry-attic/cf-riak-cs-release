@@ -31,7 +31,7 @@ start)
 
   cd /var/vcap/packages/route-registrar
 
-  /var/vcap/packages/route-registrar/route-registrar \
+  /var/vcap/packages/route-registrar/bin/route-registrar \
   >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 
   pgrep -f 'route-registrar'> $PIDFILE

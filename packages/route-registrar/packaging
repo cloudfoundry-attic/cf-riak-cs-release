@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
-set -e # exit immediately if a simple command exits with a non-zero status
-set -u # report the usage of uninitialized variables
-set +x
+set -e
+set -u
 
-#compile
+mkdir -p ${BOSH_INSTALL_TARGET}/src
+cp -a . ${BOSH_INSTALL_TARGET}/src
+export GOPATH=$BOSH_INSTALL_TARGET
+export REPO=$GOPATH/src/github.com/cloudfoundry-incubator/route-registrar
+export GOPATH=$GOPATH:$REPO/Godeps/_workspace
+
 export GOROOT=$(readlink -nf /var/vcap/packages/golang)
-export PATH=/var/vcap/packages/git/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
-REPO=route-registrar/src/github.com/cloudfoundry-incubator/route-registrar
-
-export GOPATH=$PWD/$REPO/Godeps/_workspace:$PWD/route-registrar
 
 go install github.com/cloudfoundry-incubator/route-registrar
 
-cp route-registrar/bin/route-registrar $BOSH_INSTALL_TARGET/route-registrar
+# Unfortunately route-registrar hardcodes the path to
+# this script, see https://www.pivotaltracker.com/story/show/87137664
 cp $REPO/healthchecker/check_node_validity.sh $BOSH_INSTALL_TARGET/check_node_validity.sh
-chmod +rx $BOSH_INSTALL_TARGET/check_node_validity.sh
+
+# clean up source artifacts
+rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg
