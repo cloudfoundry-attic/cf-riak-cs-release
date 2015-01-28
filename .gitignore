@@ -26,3 +26,7 @@ Vagrantfile
 scripts/riak-backup/pkg
 releases/**/*.tgz
 blobs
+bin/
+pkg/
+src/github.com/vito/gosub/
+src/github.com/codegangsta/cli/

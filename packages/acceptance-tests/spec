@@ -5,3 +5,7 @@ dependencies:
   - cli
 files:
   - github.com/cloudfoundry-incubator/riakcs-acceptance-tests/**/*
+  - github.com/cloudfoundry-incubator/cf-test-helpers/**/*
+  - github.com/onsi/ginkgo/**/*
+  - github.com/onsi/gomega/**/*
+  - github.com/nu7hatch/gouuid/**/*

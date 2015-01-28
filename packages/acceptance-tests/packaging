@@ -1,4 +1,20 @@
-set -e # exit immediately if a simple command exits with a non-zero status
-set -u # report the usage of uninitialized variables
+set -e
+set -u
 
-rsync -a github.com/cloudfoundry-incubator/riakcs-acceptance-tests/* ${BOSH_INSTALL_TARGET}
+mkdir -p ${BOSH_INSTALL_TARGET}/src
+cp -a . ${BOSH_INSTALL_TARGET}/src
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=$BOSH_INSTALL_TARGET
+export PATH=$GOPATH/bin:$PATH
+
+go install github.com/onsi/ginkgo/ginkgo
+
+suite_path=${BOSH_INSTALL_TARGET}/src/github.com/cloudfoundry-incubator/riakcs-acceptance-tests/riak-cs-service
+
+ginkgo build $suite_path # ginkgo doesn't currently support -o for outputPath like go test
+mv ${suite_path}/riak-cs-service.test ${BOSH_INSTALL_TARGET}/bin/riak-cs-service.test
+
+# clean up source artifacts
+rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg

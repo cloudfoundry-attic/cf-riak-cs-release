@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e -x
+
+go get github.com/vito/gosub
+go install github.com/vito/gosub
+
+{
+  gosub list \
+    -app github.com/cloudfoundry-incubator/riakcs-acceptance-tests/... \
+    -app github.com/cloudfoundry-incubator/riakcs_ctrl/... \
+
+  # exclude these otherwise `gosub sync` will delete them
+  echo github.com/cloudfoundry-incubator/route-registrar # uses Godeps
+  echo broker-registrar # Ruby project
+  echo cf-riak-cs-broker # Ruby project
+} | xargs gosub sync
