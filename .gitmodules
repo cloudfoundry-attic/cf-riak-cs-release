@@ -17,3 +17,6 @@
 [submodule "src/riakcs_ctrl/src/github.com/cloudfoundry-incubator/riakcs_ctrl"]
 	path = src/riakcs_ctrl/src/github.com/cloudfoundry-incubator/riakcs_ctrl
 	url = https://github.com/cloudfoundry-incubator/riakcs_ctrl.git
+[submodule "src/github.com/cloudfoundry-incubator/riakcs-acceptance-tests"]
+	path = src/github.com/cloudfoundry-incubator/riakcs-acceptance-tests
+	url = https://github.com/cloudfoundry-incubator/riakcs-acceptance-tests.git
