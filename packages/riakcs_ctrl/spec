@@ -3,4 +3,4 @@ name: riakcs_ctrl
 dependencies:
   - golang
 files:
-  - riakcs_ctrl/**/*
+  - github.com/cloudfoundry-incubator/riakcs_ctrl/**/*
