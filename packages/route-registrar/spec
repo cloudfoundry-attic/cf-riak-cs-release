@@ -3,6 +3,7 @@ name: route-registrar
 dependencies:
 - golang
 files:
+  - github.com/cloudfoundry-incubator/route-registrar/healthchecker/check_node_validity.sh
   - github.com/cloudfoundry-incubator/route-registrar/*.go # gosub
   - github.com/cloudfoundry-incubator/route-registrar/config/*.go # gosub
   - github.com/cloudfoundry-incubator/route-registrar/healthchecker/*.go # gosub
