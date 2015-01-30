@@ -22,6 +22,30 @@ At semi-regular intervals a final release is created from the [**release-candida
 
 Pushing to any branch other than [**develop**](https://github.com/cloudfoundry/cf-riak-cs-release/tree/develop) will create problems for the CI pipeline, which relies on fast forward merges. To recover from this condition follow the instructions [here](https://github.com/cloudfoundry/cf-release/blob/master/docs/fix_commit_to_master.md).
 
+## Development
+
+This BOSH release doubles as a `$GOPATH`. It will automatically be set up for
+you if you have [direnv](http://direnv.net) installed.
+
+    # fetch release repo
+    mkdir -p ~/workspace
+    cd ~/workspace
+    git clone https://github.com/cloudfoundry-incubator/cf-riak-cs-release.git
+    cd cf-riak-cs-release/
+
+    # switch to develop branch (not master!)
+    git checkout develop
+
+    # automate $GOPATH and $PATH setup
+    direnv allow
+
+    # initialize and sync submodules
+    ./update
+
+If you do not wish to use direnv, you can simply `source` the `.envrc` file in the root
+of the release repo.  You may manually need to update your `$GOPATH` and `$PATH` variables
+as you switch in and out of the directory.
+
 ## Deployment
 
 ### Prerequisites
