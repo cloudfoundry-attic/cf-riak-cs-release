@@ -185,7 +185,7 @@ Note: the broker-registrar errand will fail if the broker has already been regis
 
   `BROKER_USERNAME` and `BROKER_PASSWORD` are the credentials Cloud Foundry will use to authenticate when making API calls to the service broker. Use the values for manifest properties `properties.broker.username` and `properties.broker.password`.
 
-  `URL` specifies where the Cloud Controller will access the MySQL broker. Use the value of the manifest property `properties.broker.host`.
+  `URL` specifies where the Cloud Controller will access the Riak CS broker. Use the value of the manifest property `properties.broker.host`.
 
   For more information, see [Managing Service Brokers](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
 
