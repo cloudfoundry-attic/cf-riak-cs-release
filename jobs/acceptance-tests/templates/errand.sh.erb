@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 <% if p('riak_cs.register_route') %>
 
@@ -18,6 +19,7 @@ cat > integration_config.json <<EOF
   "service_name":        "<%= p('catalog.services').first['name'] %>",
   "plan_name":           "<%= p('catalog.services').first['plans'].first['name'] %>",
   "broker_host":         "<%= p('broker.host') %>",
+  "timeout_scale":       <%= p('timeout_scale') %>,
 EOF
 
 # don't expose passwords

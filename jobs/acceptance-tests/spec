@@ -33,3 +33,6 @@ properties:
     description: 'Host used for registering the broker'
   external_riakcs_host:
     description: 'Host used for registering the riak nodes'
+  timeout_scale:
+    description: 'Scaling multiplier used to determine command timeouts'
+    default: 1
