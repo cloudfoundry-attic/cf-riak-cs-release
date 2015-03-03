@@ -39,7 +39,7 @@ export PATH=/var/vcap/packages/cli/bin:$GOPATH/bin:$GOROOT/bin:$PWD/bin:$PATH
 CONFIG=$PWD/integration_config.json \
 CF_COLOR=false \
 CF_VERBOSE_OUTPUT=true \
-ginkgo -v -slowSpecThreshold=300 "$@" $GOPATH/bin/riak-cs-service.test
+ginkgo -r -p -v -keepGoing -randomizeSuites -randomizeAllSpecs -trace -slowSpecThreshold=300 "$@" $GOPATH/bin/riak-cs-service.test
 
 <% else %>
 echo "The route registration process is disabled because properties.riak_cs.register_route is set to false"
