@@ -1,0 +1,261 @@
+compilation:
+  cloud_properties:
+    availability_zone: us-east-1d
+    instance_type: m3.large
+  network: riak-cs-network
+  reuse_compilation_vms: true
+  workers: 2
+director_uuid: 3e43be96-a9da-4e9d-b8fd-973ee9a2c7bd
+jobs:
+- instances: 3
+  name: riak-cs
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - 10.10.132.2
+    - 10.10.132.3
+    - 10.10.132.4
+  persistent_disk: 10240
+  properties:
+    external_riakcs_host: p-riakcs.dijon.cf-app.com
+    nats:
+      machines:
+      - 10.10.80.11
+      password: 4VtHVxJb8Y
+      port: 4222
+      user: nats
+    riak:
+      firewall_enabled: true
+      ips:
+      - 10.10.132.2
+      - 10.10.132.3
+      - 10.10.132.4
+      network: riak-cs-network
+      seed_node: 10.10.132.2
+    riak_cs:
+      admin_key: admin-key
+      admin_secret: admin-secret
+      ips:
+      - 10.10.132.2
+      - 10.10.132.3
+      - 10.10.132.4
+      port: null
+      register_route: null
+    stanchion:
+      ip: 10.10.132.1
+    syslog_aggregator: null
+  resource_pool: riak-pool
+  template: riak-cs
+- instances: 1
+  name: stanchion
+  networks:
+  - name: riak-cs-network
+    static_ips:
+    - 10.10.132.1
+  persistent_disk: 4096
+  properties:
+    riak:
+      seed_node: 10.10.132.2
+    riak_cs:
+      admin_key: admin-key
+      admin_secret: admin-secret
+  resource_pool: riak-pool
+  template: stanchion
+- instances: 1
+  name: cf-riak-cs-broker
+  networks:
+  - name: riak-cs-network
+  properties:
+    broker:
+      host: p-riakcs-broker.dijon.cf-app.com
+      name: p-riakcs
+      network: riak-cs-network
+      password: broker-password
+      port: null
+      username: broker-user
+    catalog:
+      services:
+      - bindable: true
+        description: An S3-compatible object store based on Riak CS
+        id: 33d2eeb0-0236-4c83-b494-da3faeb5b2e8
+        metadata:
+          displayName: Riak CS for Pivotal CF
+          documentationUrl: http://docs.pivotal.io/p-riakcs/
+          imageUrl: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAypJREFUeNrsm72O00AQgPes9A68AAeiv0gUdCQCCujMCxA30J3OoqM5OTSUGNFROS9AXNCCEjoKJF/NCUIBJdg9UpgN45PP5//1XtYejzRyoii7O59nZ/9m9zabDaMsA+kVPD+awIPrCHQIOi74ywo0APVBl39fvl7KbN+eDA8Ao014GGi4LlhcyEGAegDDVRYAGL0PDwvUbMDoPBgcggMw1koAAMO5Wzug00vuvnMOHEAEIoVogsbzN77egfEM61xjGy7XA9DdPdADRYL5CY85dbqFVsN4AyO0KsYzbIuPbZMHACqw4bGQGOREhLdpgW1svgtAwe6O+nqtAAndwWzMA1pm/DZAYpvFAaBLtcn4OARbqAtgUFm0fLr/CLqDVxkADnW+ogGv6uxxlDVE5nUBrwPGR6ODVykGYN8pPc4f33/IgDAb37ipKoSDrBmjljG3t1j3xEbbCj3A6Yjrp3UFJxcABr4p665M0cZMD7BY98XKA2ASAGCmAsBtLJ0AAB1tveABBqMjRhqACSEAk3MAcOtaJwRAR5vPPIDS2z/nBRGAEUEAW5ujk6Fh06V/fHrI7lxvZm3w6fspu/v2zfbz/pWr7PGt22z17SvoqUixwziAsSzMvPEikoR4DQAc33vAXsBnQQDjOABpEr25usJXmTJFY8SlB9AD6AH0AHoA7H9aCjVZxQEEBAEEcQA+QQB+HMCSIIDlGQBMRQsJGR9G6Xdakgilt58E4BEC4F0AgEmIIRH3d6MvyeUw/+GoydpkL2driBv/kgTgNAXA//WzufGqwbJY4nxwkHhbPPGQZ2AKnw8+e/9ORfefJxMl0tYCVkdjQchSzj4HKX02wASJV1Vr+PDkUGUAdlpe8SAjcDl4flYqS+THn9/Cm59VhddZQU64TWk/5G2KRimxhSdG8y+ft6qw6xuV9wMwWJgd6PtmXhK1VjCG8xnTrMXGz/JyBLmUyhVuYapsNOQVenCpLTEsaN4140sDiEGYtcTtS8euyjdGMH/YZerlE4QY8CqtaslfmRG6NYbpp/YOvSHEGZ5TtwDy1+b6i5P91VnJt8dJXp5uk/wTYAAYLEbR+lwY3QAAAABJRU5ErkJggg==
+          longDescription: Provisioning a service instance creates a Riak CS bucket.
+            Binding applications to the instance creates unique credentials for each
+            application to access the bucket.
+          providerDisplayName: Pivotal Software
+          supportUrl: https://support.pivotal.io
+        name: p-riakcs
+        plans:
+        - description: Shared Riak CS cluster, private buckets, no storage quota
+          id: 946ce484-376b-41b4-8c4e-4bc830676115
+          metadata:
+            bullets:
+            - Not for production use
+            - Shared Riak CS cluster
+            - Buckets are private
+            - No storage quota
+            costs:
+            - amount:
+                usd: 0
+              unit: MONTH
+            displayName: Developer
+          name: developer
+        tags:
+        - riak-cs
+        - s3
+    external_broker_host: p-riakcs-broker.dijon.cf-app.com
+    external_riakcs_host: p-riakcs.dijon.cf-app.com
+    nats:
+      machines:
+      - 10.10.80.11
+      password: 4VtHVxJb8Y
+      port: 4222
+      user: nats
+    riak_cs:
+      admin_key: admin-key
+      admin_secret: admin-secret
+    syslog_aggregator: null
+  resource_pool: broker-pool
+  template: cf-riak-cs-broker
+- instances: 1
+  lifecycle: errand
+  name: broker-registrar
+  networks:
+  - name: riak-cs-network
+  properties:
+    broker:
+      host: p-riakcs-broker.dijon.cf-app.com
+      name: p-riakcs
+      password: broker-password
+      port: null
+      register_route: null
+      username: broker-user
+    cf:
+      admin_password: upwax20]ates
+      admin_username: services
+      api_url: https://api.dijon.cf-app.com
+  resource_pool: broker-pool
+  template: broker-registrar
+- instances: 1
+  lifecycle: errand
+  name: broker-deregistrar
+  networks:
+  - name: riak-cs-network
+  properties:
+    broker:
+      host: p-riakcs-broker.dijon.cf-app.com
+      name: p-riakcs
+      password: broker-password
+      port: null
+      username: broker-user
+    cf:
+      admin_password: upwax20]ates
+      admin_username: services
+      api_url: https://api.dijon.cf-app.com
+    riak_cs:
+      register_route: null
+  resource_pool: broker-pool
+  template: broker-deregistrar
+- instances: 1
+  lifecycle: errand
+  name: acceptance-tests
+  networks:
+  - name: riak-cs-network
+  properties:
+    broker:
+      host: p-riakcs-broker.dijon.cf-app.com
+    catalog:
+      services:
+      - bindable: true
+        description: An S3-compatible object store based on Riak CS
+        id: 33d2eeb0-0236-4c83-b494-da3faeb5b2e8
+        metadata:
+          displayName: Riak CS for Pivotal CF
+          documentationUrl: http://docs.pivotal.io/p-riakcs/
+          imageUrl: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAypJREFUeNrsm72O00AQgPes9A68AAeiv0gUdCQCCujMCxA30J3OoqM5OTSUGNFROS9AXNCCEjoKJF/NCUIBJdg9UpgN45PP5//1XtYejzRyoii7O59nZ/9m9zabDaMsA+kVPD+awIPrCHQIOi74ywo0APVBl39fvl7KbN+eDA8Ao014GGi4LlhcyEGAegDDVRYAGL0PDwvUbMDoPBgcggMw1koAAMO5Wzug00vuvnMOHEAEIoVogsbzN77egfEM61xjGy7XA9DdPdADRYL5CY85dbqFVsN4AyO0KsYzbIuPbZMHACqw4bGQGOREhLdpgW1svgtAwe6O+nqtAAndwWzMA1pm/DZAYpvFAaBLtcn4OARbqAtgUFm0fLr/CLqDVxkADnW+ogGv6uxxlDVE5nUBrwPGR6ODVykGYN8pPc4f33/IgDAb37ipKoSDrBmjljG3t1j3xEbbCj3A6Yjrp3UFJxcABr4p665M0cZMD7BY98XKA2ASAGCmAsBtLJ0AAB1tveABBqMjRhqACSEAk3MAcOtaJwRAR5vPPIDS2z/nBRGAEUEAW5ujk6Fh06V/fHrI7lxvZm3w6fspu/v2zfbz/pWr7PGt22z17SvoqUixwziAsSzMvPEikoR4DQAc33vAXsBnQQDjOABpEr25usJXmTJFY8SlB9AD6AH0AHoA7H9aCjVZxQEEBAEEcQA+QQB+HMCSIIDlGQBMRQsJGR9G6Xdakgilt58E4BEC4F0AgEmIIRH3d6MvyeUw/+GoydpkL2driBv/kgTgNAXA//WzufGqwbJY4nxwkHhbPPGQZ2AKnw8+e/9ORfefJxMl0tYCVkdjQchSzj4HKX02wASJV1Vr+PDkUGUAdlpe8SAjcDl4flYqS+THn9/Cm59VhddZQU64TWk/5G2KRimxhSdG8y+ft6qw6xuV9wMwWJgd6PtmXhK1VjCG8xnTrMXGz/JyBLmUyhVuYapsNOQVenCpLTEsaN4140sDiEGYtcTtS8euyjdGMH/YZerlE4QY8CqtaslfmRG6NYbpp/YOvSHEGZ5TtwDy1+b6i5P91VnJt8dJXp5uk/wTYAAYLEbR+lwY3QAAAABJRU5ErkJggg==
+          longDescription: Provisioning a service instance creates a Riak CS bucket.
+            Binding applications to the instance creates unique credentials for each
+            application to access the bucket.
+          providerDisplayName: Pivotal Software
+          supportUrl: https://support.pivotal.io
+        name: p-riakcs
+        plans:
+        - description: Shared Riak CS cluster, private buckets, no storage quota
+          id: 946ce484-376b-41b4-8c4e-4bc830676115
+          metadata:
+            bullets:
+            - Not for production use
+            - Shared Riak CS cluster
+            - Buckets are private
+            - No storage quota
+            costs:
+            - amount:
+                usd: 0
+              unit: MONTH
+            displayName: Developer
+          name: developer
+        tags:
+        - riak-cs
+        - s3
+    cf:
+      admin_password: upwax20]ates
+      admin_username: services
+      api_url: https://api.dijon.cf-app.com
+      apps_domain: dijon-app.cf-app.com
+      skip_ssl_validation: null
+    external_riakcs_host: p-riakcs.dijon.cf-app.com
+    riak_cs:
+      register_route: null
+      ssl_enabled: null
+  resource_pool: broker-pool
+  template: acceptance-tests
+meta:
+  environment: cf-dijon
+name: cf-dijon-riak-cs
+networks:
+- name: riak-cs-network
+  subnets:
+  - cloud_properties:
+      security_groups:
+      - cf
+      subnet: subnet-a8f0e780
+    dns:
+    - 10.10.0.2
+    gateway: 10.10.128.1
+    name: riak-cs-subnet
+    range: 10.10.128.0/20
+    reserved:
+    - 10.10.128.2 - 10.10.131.255
+    - 10.10.133.1 - 10.10.143.254
+    static:
+    - 10.10.132.1 - 10.10.132.100
+  type: manual
+releases:
+- name: cf-riak-cs
+  version: latest
+resource_pools:
+- cloud_properties:
+    availability_zone: us-east-1d
+    instance_type: m3.large
+  name: riak-pool
+  network: riak-cs-network
+  stemcell:
+    name: bosh-aws-xen-ubuntu-trusty-go_agent
+    version: "2719.3"
+- cloud_properties:
+    availability_zone: us-east-1d
+    instance_type: m3.large
+  name: broker-pool
+  network: riak-cs-network
+  stemcell:
+    name: bosh-aws-xen-ubuntu-trusty-go_agent
+    version: "2719.3"
+update:
+  canaries: 1
+  canary_watch_time: 30000-240000
+  max_in_flight: 3
+  update_watch_time: 30000-600000
+

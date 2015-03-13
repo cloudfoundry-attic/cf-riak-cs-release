@@ -3,16 +3,16 @@ resource_pools:
 - name: riak-pool
   network: riak-cs-network
   stemcell:
-    name: bosh-aws-xen-ubuntu-trusty-go_agent
-    version: (( merge || "2719.3" ))
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: (( merge || "2859" ))
   cloud_properties:
     instance_type: m3.large
     availability_zone: (( merge ))
 - name: broker-pool
   network: riak-cs-network
   stemcell:
-    name: bosh-aws-xen-ubuntu-trusty-go_agent
-    version: (( merge || "2719.3" ))
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: (( merge || "2859" ))
   cloud_properties:
     instance_type: m3.large
     availability_zone: (( merge ))
