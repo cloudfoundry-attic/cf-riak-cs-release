@@ -67,7 +67,7 @@ as you switch in and out of the directory.
 
 ### Upload Release<a name="upload_release"></a>
 
-You can use a pre-built final release or build a dev release from any of the branches described in <a href="#branches">Getting the Code</a>. 
+You can use a pre-built final release or build a dev release from any of the branches described in <a href="#branches">Getting the Code</a>.
 
 Final releases are stable releases created periodically for completed features. They also contain pre-compiled packages, which makes deployment much faster. To deploy the latest final release, simply check out the **master** branch. This will contain the latest final release and accompanying materials to generate a manifest. If you would like to deploy an earlier final release, use `git checkout <tag>` to obtain both the release and corresponding manifest generation materials. It's important that the manifest generation materials are consistent with the release.
 
@@ -75,7 +75,7 @@ If you'd like to deploy the latest code, build a release yourself from the **dev
 
 #### Upload a pre-built final BOSH release
 
-Run the upload command, referencing the latest config file in the `releases` directory. 
+Run the upload command, referencing the latest config file in the `releases` directory.
 
   ```
   $ cd ~/workspace/cf-riak-cs-release
@@ -95,7 +95,7 @@ If deploying an **older** final release than the latest, check out the tag for t
 
 #### Create and upload a BOSH Release:
 
-1. Checkout one of the branches described in <a href="#branches">Getting the Code</a>. Build a BOSH development release. 
+1. Checkout one of the branches described in <a href="#branches">Getting the Code</a>. Build a BOSH development release.
 
   ```
   $ cd ~/workspace/cf-riak-cs-release
@@ -167,7 +167,7 @@ You can find your director_uuid by running `bosh status`.
 
 ## Register the Service Broker<a name="register_broker"></a>
 
-### Using BOSH errands
+### BOSH errand
 
 BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells.
   ```
@@ -192,70 +192,9 @@ Note: the broker-registrar errand will fail if the broker has already been regis
 1. Then [make the service plan public](http://docs.cloudfoundry.org/services/managing-service-brokers.html#make-plans-public).
 
 
-## Running Acceptance Tests
+## Acceptance Tests
 
-To run the Riak CS acceptance tests you will need:
-- a running CF instance
-- credentials for a CF Admin user
-- a deployed Riak CS Release with the broker registered and the plan made public
-- a security group granting access to the service for applications
-
-### Using BOSH errands
-
-BOSH errands were introduced in version 2366 of the BOSH CLI, BOSH Director, and stemcells.
-
-The following properties must be included in the manifest (most will be there by default):
-- cf.api_url:
-- cf.admin_username:
-- cf.admin_password:
-- cf.apps_domain:
-- cf.skip_ssl_validation:
-- broker.host:
-- external_riakcs_host:
-
-```
-$ bosh run errand acceptance-tests
-```
-
-### Manually
-
-To run the acceptance tests manually you will also need an environment variable `$CONFIG` which points to a `.json` file that contains the application domain.
-
-1. Install `go` by following the directions found [here](http://golang.org/doc/install)
-2. `cd` into `cf-riak-cs-release/src/acceptance-tests/`
-3. Update `cf-riak-cs-release/src/acceptance-tests/integration_config.json`
-
-   The following commands provide a shortcut to configuring `integration_config.json` with values for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
-deployment. Copy and paste this into your terminal, then open the resulting `integration_config.json` in an editor to replace values as appropriate for your environment.
-
-    ```bash
-    cat > integration_config.json <<EOF
-    {
-      "api":                 "api.10.244.0.34.xip.io",
-      "admin_user":          "admin",
-      "admin_password":      "admin",
-      "apps_domain":         "10.244.0.34.xip.io",
-      "riak_cs_host":        "p-riakcs.10.244.0.34.xip.io",
-      "riak_cs_scheme" :     "https://",
-      "service_name":        "p-riakcs",
-      "plan_name":           "developer",
-      "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io",
-      "timeout_scale":       1.0,
-      "skip_ssl_validation": true
-    }
-    EOF
-    export CONFIG=$PWD/integration_config.json
-    ```
-
-    Note: `skip_ssl_validation` requires CLI v6.0.2 or newer.
-    
-    All timeouts in the test suite can be scaled proportionally by changing the timeout_scale factor.
-
-4. Run  the tests
-
-  ```
-  $ ./bin/test
-  ```
+To run the Riak CS acceptance tests, see the [acceptance tests docs](docs/acceptance-tests.md).
 
 ## Security Groups
 
