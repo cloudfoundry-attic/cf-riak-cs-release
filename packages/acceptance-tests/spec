@@ -4,10 +4,10 @@ dependencies:
   - golang
   - cli
 files:
-  - github.com/cloudfoundry-incubator/riakcs-acceptance-tests/assets/**/*
+  - github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/assets/**/*
   - github.com/onsi/ginkgo/ginkgo/*.go # gosub
-  - github.com/cloudfoundry-incubator/riakcs-acceptance-tests/helpers/*.go # gosub
-  - github.com/cloudfoundry-incubator/riakcs-acceptance-tests/riak-cs-service/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/helpers/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/riak-cs-service/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-test-helpers/cf/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-test-helpers/generator/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-test-helpers/runner/*.go # gosub

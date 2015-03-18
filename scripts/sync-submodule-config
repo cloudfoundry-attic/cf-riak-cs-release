@@ -7,7 +7,7 @@ go install github.com/vito/gosub
 
 {
   gosub list \
-    -test github.com/cloudfoundry-incubator/riakcs-acceptance-tests/... \
+    -test github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/... \
     -app github.com/cloudfoundry-incubator/riakcs_ctrl/... \
     -test github.com/cloudfoundry-incubator/riakcs_ctrl/... \
 

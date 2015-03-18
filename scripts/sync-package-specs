@@ -38,7 +38,7 @@ GOPATH=$GOPATH/src/github.com/cloudfoundry-incubator/route-registrar/Godeps/_wor
 sync_package route-registrar -app github.com/cloudfoundry-incubator/route-registrar/... &
 
 sync_package acceptance-tests \
-    -test github.com/cloudfoundry-incubator/riakcs-acceptance-tests/... \
+    -test github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/... \
     -app github.com/onsi/ginkgo/ginkgo &
 
 wait

@@ -31,7 +31,7 @@ Instructions:
 1. Change to the acceptance-tests directory:
 
     ```
-    $ cd cf-riak-cs-release/src/github.com/cloudfoundry-incubator/riakcs-acceptance-tests/
+    $ cd cf-riak-cs-release/src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/
     ```
 
 1. Install [Ginkgo](http://onsi.github.io/ginkgo/):

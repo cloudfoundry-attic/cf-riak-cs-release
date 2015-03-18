@@ -11,7 +11,7 @@ export PATH=$GOPATH/bin:$PATH
 
 go install github.com/onsi/ginkgo/ginkgo
 
-acceptance_tests_src=${BOSH_INSTALL_TARGET}/src/github.com/cloudfoundry-incubator/riakcs-acceptance-tests
+acceptance_tests_src=${BOSH_INSTALL_TARGET}/src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests
 
 mv ${acceptance_tests_src}/assets ${BOSH_INSTALL_TARGET}
 
