@@ -11,11 +11,11 @@ files:
   - github.com/cloudfoundry-incubator/cf-test-helpers/cf/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-test-helpers/generator/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-test-helpers/runner/*.go # gosub
-  - github.com/cloudfoundry-incubator/cf-test-helpers/services/context_setup/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf-test-helpers/services/*.go # gosub
   - github.com/onsi/ginkgo/*.go # gosub
-  - github.com/onsi/gomega/*.go # gosub
-  - github.com/onsi/gomega/gexec/*.go # gosub
   - github.com/onsi/ginkgo/config/*.go # gosub
+  - github.com/onsi/ginkgo/reporters/*.go # gosub
+  - github.com/onsi/gomega/*.go # gosub
   - github.com/onsi/ginkgo/ginkgo/convert/*.go # gosub
   - github.com/onsi/ginkgo/ginkgo/interrupthandler/*.go # gosub
   - github.com/onsi/ginkgo/ginkgo/nodot/*.go # gosub
@@ -23,7 +23,6 @@ files:
   - github.com/onsi/ginkgo/ginkgo/testsuite/*.go # gosub
   - github.com/onsi/ginkgo/ginkgo/watch/*.go # gosub
   - github.com/onsi/ginkgo/internal/remote/*.go # gosub
-  - github.com/onsi/ginkgo/reporters/*.go # gosub
   - github.com/onsi/ginkgo/reporters/stenographer/*.go # gosub
   - github.com/onsi/ginkgo/types/*.go # gosub
   - github.com/onsi/ginkgo/internal/codelocation/*.go # gosub
@@ -37,6 +36,7 @@ files:
   - github.com/onsi/ginkgo/internal/writer/*.go # gosub
   - github.com/onsi/gomega/format/*.go # gosub
   - github.com/onsi/gomega/gbytes/*.go # gosub
+  - github.com/onsi/gomega/gexec/*.go # gosub
   - github.com/onsi/gomega/internal/assertion/*.go # gosub
   - github.com/onsi/gomega/internal/asyncassertion/*.go # gosub
   - github.com/onsi/gomega/internal/testingtsupport/*.go # gosub
