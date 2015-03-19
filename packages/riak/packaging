@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# - /var/vcap/packages/riak/rel/bin/riak
+set +eux
 
-set -e # exit immediately if a simple command exits with a non-zero status
-set -u # report the usage of uninitialized variables
-set +x
-
-RIAK_VERSION=1.4.10
+RIAK_VERSION=1.4.12
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
 

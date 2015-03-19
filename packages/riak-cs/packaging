@@ -2,7 +2,7 @@
 
 set -eux
 
-RIAK_CS_VERSION=1.5.0
+RIAK_CS_VERSION=1.5.4
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/erlang/bin:$PATH
 
