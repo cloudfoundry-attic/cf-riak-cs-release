@@ -30,7 +30,7 @@ you if you have [direnv](http://direnv.net) installed.
     # fetch release repo
     mkdir -p ~/workspace
     cd ~/workspace
-    git clone https://github.com/cloudfoundry-incubator/cf-riak-cs-release.git
+    git clone https://github.com/cloudfoundry/cf-riak-cs-release.git
     cd cf-riak-cs-release/
 
     # switch to develop branch (not master!)
