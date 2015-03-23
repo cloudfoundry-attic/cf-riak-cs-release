@@ -4,4 +4,4 @@ dependencies:
 - erlang
 - git
 files: 
-- riak/riak-1.4.12.tar.gz
+- riak/riak-1.4.10.tar.gz

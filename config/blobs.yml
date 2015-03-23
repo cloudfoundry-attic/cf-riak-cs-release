@@ -31,6 +31,14 @@ fog/fog-1.23.0.gem:
   object_id: 23f75d78-7a0d-46fe-9f4a-fba64faa897c
   sha: b90bd3c555a81c2a936edffab32917ee727751a8
   size: 1720320
+riak/riak-1.4.10.tar.gz:
+  object_id: 472dc4fb-6453-4798-af27-3266d152dfb8
+  sha: ff55a50ea3d8555217b447bc405251dbd333ed46
+  size: 13815356
+riak-cs/riak-cs-1.5.0.tar.gz:
+  object_id: f2148671-9991-4df2-b48b-572ac25dbf7d
+  sha: dde8dc3e5a1f8bf9d1bbdf162f70354c0599fe56
+  size: 8576222
 stanchion/stanchion-1.5.0.tar.gz:
   object_id: df330e63-ce5e-409f-8de7-ed35b540c03c
   sha: 74622d2302330480c8b429b9ed4ac013e3f0ee07
@@ -47,11 +55,3 @@ cli/cf-linux-amd64-6.10.0.tgz:
   object_id: a1566022-2307-4004-a21b-53ba3f2b7765
   sha: f845800310e4b702a39a2f1191e3d71862630103
   size: 4803309
-riak/riak-1.4.12.tar.gz:
-  object_id: 45c29623-9069-4ce0-b81f-8319a5aace81
-  sha: 65a80c24744513b3001e8879914a1d04c8df14dd
-  size: 13821609
-riak-cs/riak-cs-1.5.4.tar.gz:
-  object_id: 731f4e4b-fb3b-4b2f-a794-823c789d54bf
-  sha: 5c2320c75ccb07f95fa37301c2b3817191dfed24
-  size: 8633935
