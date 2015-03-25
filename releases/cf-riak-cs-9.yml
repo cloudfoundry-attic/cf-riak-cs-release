@@ -1,0 +1,131 @@
+---
+packages:
+- name: stanchion
+  version: e312ed6a9cc5d80f0465f60163957d2fded0e2a8
+  sha1: ad28534fa8622e59d80bf248cd4aaa348f03702e
+  fingerprint: e312ed6a9cc5d80f0465f60163957d2fded0e2a8
+  dependencies:
+  - erlang
+  - git
+- name: common
+  version: ba480a46c4b2aa9484fb24ed01a8649453573e6f
+  sha1: c9b3ac6c79c82a0a82aac5022d217dd51cc2c614
+  fingerprint: ba480a46c4b2aa9484fb24ed01a8649453573e6f
+  dependencies: []
+- name: ruby
+  version: ff79c965224b4160c1526bd704b3b21e4ad7c362
+  sha1: 13223612135f13e8729610442ff7881dd2fb67c9
+  fingerprint: ff79c965224b4160c1526bd704b3b21e4ad7c362
+  dependencies: []
+- name: syslog_aggregator
+  version: 29e843000a1d4c089023a030bc789eef1273ec51
+  sha1: e962ecfa145f575d1d2ec139c825a7dfd4952930
+  fingerprint: 29e843000a1d4c089023a030bc789eef1273ec51
+  dependencies: []
+- name: route-registrar
+  version: c5242a9658caa9c1c93f2511f6c26164cf62c7ca
+  sha1: 3cdce2d10f185d14cc9b01e9f739af86925691b6
+  fingerprint: c5242a9658caa9c1c93f2511f6c26164cf62c7ca
+  dependencies:
+  - golang
+- name: riak
+  version: 7cde66004269a3163338d3d475d27953248ae6bc
+  sha1: 353ab62c7515a4da644b6b8f8b87130b229ab875
+  fingerprint: 7cde66004269a3163338d3d475d27953248ae6bc
+  dependencies:
+  - erlang
+  - git
+- name: broker-registrar
+  version: 46213225d775263932e072a461e524baf0994967
+  sha1: 6e3d422553b77d6a2ef1365406d552ba611e0cfe
+  fingerprint: 46213225d775263932e072a461e524baf0994967
+  dependencies:
+  - ruby
+- name: riak-cs
+  version: 0d695d58a51890c3b5b89c9f25bfe2708af0376c
+  sha1: 0d85a45956f41d32fe7ddf3d4494b268d7a47745
+  fingerprint: 0d695d58a51890c3b5b89c9f25bfe2708af0376c
+  dependencies:
+  - riak
+  - erlang
+- name: golang
+  version: f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+  sha1: 5ed6c28e00657ff9996ef0f8712a51e1fd2ca22d
+  fingerprint: f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+  dependencies: []
+- name: python
+  version: 995c5f1e4acd34ac847b0c8bc4a0aa60b8484b13
+  sha1: 86522d10357f9b1c906cb2896a6a1e908a3cbeaa
+  fingerprint: 995c5f1e4acd34ac847b0c8bc4a0aa60b8484b13
+  dependencies: []
+- name: git
+  version: 08664a6fda7c85f7ea35e636ff5028c6b764a295
+  sha1: 5eacce5765ac07c0fdc9b07cc23d42de1503accc
+  fingerprint: 08664a6fda7c85f7ea35e636ff5028c6b764a295
+  dependencies:
+  - python
+- name: cf-riak-cs-broker
+  version: 65c7a9ed4f96418a5c676d7187bd2969799d3b88
+  sha1: ab415439ae77d19cb0c8607cd3a536e6283314d7
+  fingerprint: 65c7a9ed4f96418a5c676d7187bd2969799d3b88
+  dependencies:
+  - git
+  - ruby
+- name: riakcs_ctrl
+  version: c49b23a6dbf28c79a4952cfc104a65cd052d0cf7
+  sha1: ed63c351c67dd431cbbc9d917dd91da644d4991a
+  fingerprint: c49b23a6dbf28c79a4952cfc104a65cd052d0cf7
+  dependencies:
+  - golang
+- name: erlang
+  version: a098675a4bcf187e911ee315e12dce15278d98c0
+  sha1: 90679b358ff44d396f39c164e122a3cdad910141
+  fingerprint: a098675a4bcf187e911ee315e12dce15278d98c0
+  dependencies: []
+- name: bucket_seeder
+  version: 9b3aeabd7e1bc2561206c116b19dc718aaf75d12
+  sha1: 0c36764d4d5d0f17f9d3f795edee880a51b9cd2b
+  fingerprint: 9b3aeabd7e1bc2561206c116b19dc718aaf75d12
+  dependencies:
+  - ruby
+- name: acceptance-tests
+  version: 864aec498d74f1b85fb06eb628bc55881aa856ce
+  sha1: 8b3f1426ecab52607884cd58db4120f6937cedc6
+  fingerprint: 864aec498d74f1b85fb06eb628bc55881aa856ce
+  dependencies:
+  - golang
+  - cli
+- name: cli
+  version: 9986d820893c8fd30a31fd0678ef32f1137811f5
+  sha1: 9aa1603e765660f782d0203486fa9b21222e715e
+  fingerprint: 9986d820893c8fd30a31fd0678ef32f1137811f5
+  dependencies: []
+jobs:
+- name: stanchion
+  version: 16378327a5cf38f47070f4184c1f39fde257608e
+  fingerprint: 16378327a5cf38f47070f4184c1f39fde257608e
+  sha1: 43114d075956ed00654599a99ca305470f8649f8
+- name: broker-registrar
+  version: a4f8b35bacb6cf38ed711dabedf40ed21f78cf52
+  fingerprint: a4f8b35bacb6cf38ed711dabedf40ed21f78cf52
+  sha1: 9f498763fc5acb6e6e67dd76ab6e64ff3d7d2c61
+- name: riak-cs
+  version: 7eba102e6cd5de68a831c415a425c1a0d1ec869c
+  fingerprint: 7eba102e6cd5de68a831c415a425c1a0d1ec869c
+  sha1: 160074c719a2d9d952b5097216b2b5f377133fcb
+- name: cf-riak-cs-broker
+  version: 72ca1b9968df78005133f1014858eac9a6854833
+  fingerprint: 72ca1b9968df78005133f1014858eac9a6854833
+  sha1: 3c3d4dc7010144c6203330a61676cbcb63a4d790
+- name: acceptance-tests
+  version: ec91f5f3c4476d28eb233283b6b449b5f2ac707f
+  fingerprint: ec91f5f3c4476d28eb233283b6b449b5f2ac707f
+  sha1: a1d0c0ba2464bc66c597033a009a154d7758bad4
+- name: broker-deregistrar
+  version: 764e2bd9eac80e451ef0e52ad66cbfc4257af7fc
+  fingerprint: 764e2bd9eac80e451ef0e52ad66cbfc4257af7fc
+  sha1: 3ebb8fbae197d86dbf2e60cdbc9f136c36bf4830
+commit_hash: d522ba47
+uncommitted_changes: true
+name: cf-riak-cs
+version: '9'
