@@ -8,6 +8,11 @@ check process riak-cs
   with pidfile /var/vcap/sys/run/riak-cs/riak-cs.pid
   start program "/var/vcap/jobs/riak-cs/bin/riak-cs_ctl start"
   stop program "/var/vcap/jobs/riak-cs/bin/riak-cs_ctl stop"
+  if failed 
+    host localhost port 8080 and 
+          send "GET / HTTP/1.1\r\nHost: localhost\riak-cs\ping\r\n\r\n"
+          expect "HTTP/[0-9\.]{3} 200.*"
+    then restart
   group vcap
 
 <% if properties.riak_cs.register_route %>
