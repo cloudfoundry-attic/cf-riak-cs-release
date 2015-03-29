@@ -7,7 +7,10 @@ JOB_NAME=route-registrar
 JOB_DIR=/var/vcap/jobs/route-registrar
 RUN_DIR=/var/vcap/sys/run/route-registrar
 LOG_DIR=/var/vcap/sys/log/route-registrar
+
 PIDFILE=$RUN_DIR/route_registrar.pid
+CONFIG_FILE=/var/vcap/jobs/riak-cs/config/registrar_settings.yml
+
 source /var/vcap/packages/common/utils.sh
 
 export HOME=/var/vcap
@@ -20,21 +23,16 @@ start)
   mkdir -p $JOB_DIR
   mkdir -p $LOG_DIR
 
-  #Copy the config file to right folder
-  cp /var/vcap/jobs/riak-cs/config/registrar_settings.yml /var/vcap/packages/route-registrar/registrar_settings.yml
-
   # Update registrar_settings.yml with current IP address
   IP_ADDR=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}' | tail -1`
-  sed -i "s/127.0.0.1/$IP_ADDR/" /var/vcap/packages/route-registrar/registrar_settings.yml
+  sed -i "s/127.0.0.1/$IP_ADDR/" $CONFIG_FILE
 
   pid_guard $PIDFILE $JOB_NAME
 
-  cd /var/vcap/packages/route-registrar
-
   /var/vcap/packages/route-registrar/bin/route-registrar \
+  -pidfile=$PIDFILE \
+  -configFile=$CONFIG_FILE \
   >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
-
-  pgrep -f 'route-registrar'> $PIDFILE
 ;;
 
 stop)
@@ -42,7 +40,8 @@ stop)
 ;;
 
 *)
-echo "Usage: route_registrar_ctl {start|stop}" ;;
+  echo "Usage: route_registrar_ctl {start|stop}"
+;;
 
 esac
 exit 0
