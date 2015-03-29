@@ -10,6 +10,7 @@ LOG_DIR=/var/vcap/sys/log/route-registrar
 
 PIDFILE=$RUN_DIR/route_registrar.pid
 CONFIG_FILE=/var/vcap/jobs/riak-cs/config/registrar_settings.yml
+NODE_VALIDITY_SCRIPT_PATH=/var/vcap/packages/route-registrar/check_node_validity.sh
 
 source /var/vcap/packages/common/utils.sh
 
@@ -32,6 +33,7 @@ start)
   /var/vcap/packages/route-registrar/bin/route-registrar \
   -pidfile=$PIDFILE \
   -configFile=$CONFIG_FILE \
+  -scriptPath=$NODE_VALIDITY_SCRIPT_PATH \
   >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 ;;
 
