@@ -1,6 +1,6 @@
 #Clients for Riak CS
 
-As Riak CS is API-compliant with Amazon S3, any Amazon s3 client should allow you to communicate with your Riak CS instance. Here are a few we have validated to work with Riak CS for Pivotal CF.
+As Riak CS is API-compliant with Amazon S3, any Amazon s3 client should allow you to communicate with your Riak CS instance. Here are a few we have validated to work with Riak CS for Pivotal Cloud Foundry.
 
 - [s3curl](#s3curl) - Perl script that wraps curl (Apache2 license)
 - [s3cmd](#s3cmd) - Command line S3 client written in Python (GPLv2 license)
