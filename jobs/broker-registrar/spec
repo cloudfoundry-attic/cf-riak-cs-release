@@ -1,17 +1,20 @@
 ---
 name: broker-registrar
 packages:
-- ruby
-- broker-registrar
+- cli
 templates:
   errand.sh.erb: bin/run
 properties:
   cf.api_url:
     description: 'Full URL of Cloud Foundry API'
+  cf.skip_ssl_validation:
+    description: 'Skip SSL validation when connecting to Cloud Foundry API'
+    default: false
   cf.admin_username:
     description: 'Username of the admin user'
   cf.admin_password:
     description: 'Password of the admin user'
+
   broker.name:
     description: 'Name of the service broker'
   broker.host:
@@ -23,6 +26,7 @@ properties:
     description: 'Basic Auth username for the service broker'
   broker.password:
     description: 'Basic Auth password for the service broker'
+
   riak_cs.register_route:
     description: 'Whether the riak cluster registers a route with the cloudfoundry router'
     default: true

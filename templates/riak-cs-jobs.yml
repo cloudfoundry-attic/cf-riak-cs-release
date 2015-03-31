@@ -110,6 +110,7 @@ jobs:
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
       api_url: (( meta.cf.api_url ))
+      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
     broker:
       name: (( meta.broker.name ))
       host: (( meta.external_broker_host ))
@@ -130,6 +131,7 @@ jobs:
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
       api_url: (( meta.cf.api_url ))
+      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
     broker:
       name: (( meta.broker.name ))
       host: (( meta.external_broker_host ))

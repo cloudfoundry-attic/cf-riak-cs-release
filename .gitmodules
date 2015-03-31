@@ -9,9 +9,6 @@
 	path = packages/ruby
 	url = https://github.com/cloudfoundry/ruby-package 
 	branch = 2.0.0
-[submodule "src/broker-registrar"]
-	path = src/broker-registrar
-	url = https://github.com/pivotal-cf/broker-registrar
 [submodule "src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests"]
 	path = src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests
 	url = https://github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests
