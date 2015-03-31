@@ -248,7 +248,7 @@ $ cf delete-service-broker p-riakcs
 
 See [Clients for Riak CS](docs/clients.md) for a list of clients that have been validated to work with the service.
 
-[The included test application](src/acceptance-tests/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
+[The included test application](http://github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/tree/master/assets/app_sinatra_service), written in Ruby and using the Fog library, is an example of how to use the service with an application.
 
 ## Limitations
 
