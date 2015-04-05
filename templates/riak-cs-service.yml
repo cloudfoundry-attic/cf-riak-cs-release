@@ -10,7 +10,7 @@ jobs: (( merge ))
 
 releases:
 - name: cf-riak-cs
-  version: latest
+  version: (( merge || "latest" ))
 
 compilation:
   workers: 2
