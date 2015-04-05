@@ -16,6 +16,6 @@ DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/tmp/stub-with-uuid.yml
 
-$RIAKCS_RELEASE_DIR/generate_deployment_manifest warden bosh-lite/tmp/stub-with-uuid.yml > bosh-lite/manifests/cf-riak-cs-manifest.yml
+$RIAKCS_RELEASE_DIR/generate_deployment_manifest warden bosh-lite/tmp/stub-with-uuid.yml "$@" > bosh-lite/manifests/cf-riak-cs-manifest.yml
 bosh deployment bosh-lite/manifests/cf-riak-cs-manifest.yml
 

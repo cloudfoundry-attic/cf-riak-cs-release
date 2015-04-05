@@ -4,6 +4,7 @@ director_uuid: PLACEHOLDER-DIRECTOR-UUID
 meta:
   environment: cf-warden
   cf:
+    <<: (( merge || nil ))
     admin_username: admin
     admin_password: admin
     api_url: https://api.10.244.0.34.xip.io

@@ -15,6 +15,7 @@ jobs:
     static_ips: (( static_ips(1, 2, 3) ))
   persistent_disk: 10240
   properties:
+    <<: (( merge || nil ))
     stanchion:
       ip: (( jobs.[1].networks.[0].static_ips.[0] ))
     riak:
@@ -42,6 +43,7 @@ jobs:
     static_ips: (( static_ips(0) ))
   persistent_disk: 4096
   properties:
+    <<: (( merge || nil ))
     riak:
       seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
     riak_cs:
@@ -55,6 +57,7 @@ jobs:
   networks:
   - name: riak-cs-network
   properties:
+    <<: (( merge || nil ))
     broker:
       port: ~
       network: (( jobs.[2].networks.[0].name ))
@@ -107,7 +110,9 @@ jobs:
   networks:
   - name: riak-cs-network
   properties:
+    <<: (( merge || nil ))
     cf:
+      <<: (( merge || nil ))
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
       api_url: (( meta.cf.api_url ))
@@ -128,7 +133,9 @@ jobs:
   networks:
   - name: riak-cs-network
   properties:
+    <<: (( merge || nil ))
     cf:
+      <<: (( merge || nil ))
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
       api_url: (( meta.cf.api_url ))
@@ -150,7 +157,9 @@ jobs:
   networks:
   - name: riak-cs-network
   properties:
+    <<: (( merge || nil ))
     cf:
+      <<: (( merge || nil ))
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
       apps_domain: (( meta.cf.apps_domain ))
