@@ -1,21 +1,50 @@
 #!/bin/bash
 
-BOSH_RELEASES_DIR=${BOSH_RELEASES_DIR:-~/workspace}
-RIAKCS_RELEASE_DIR=${RIAKCS_RELEASE_DIR:-$BOSH_RELEASES_DIR/cf-riak-cs-release}
+set -eu
 
-if [[ ! -d $RIAKCS_RELEASE_DIR ]]; then
-  echo "Cannot find cf-riak-cs-release at $RIAKCS_RELEASE_DIR; override with \$RIAKCS_RELEASE_DIR variable"
-  exit 1
+MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# This script expects to live one directory below the release directory.
+RELEASE_DIR=$( cd ${MY_DIR}/.. && pwd )
+
+# And that the release directory lives one directory below the workspace directory.
+WORKSPACE_DIR="$( cd ${RELEASE_DIR}/.. && pwd )"
+
+OK_COLOR='\033[1;32m'
+ACTION_COLOR='\033[1;33m'
+INFO_COLOR='\033[1;36m'
+NO_COLOR='\033[0m'
+
+mkdir -p ${RELEASE_DIR}/bosh-lite/tmp
+mkdir -p ${RELEASE_DIR}/bosh-lite/manifest
+
+cp \
+  ${RELEASE_DIR}/bosh-lite/stub.yml \
+  ${RELEASE_DIR}/bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml
+
+DIRECTOR_IP=${DIRECTOR_IP:-192.168.50.4}
+API_ADDRESS=${API_ADDRESS:-10.244.0.34}
+
+# If a file exists with an api-address, use that instead
+if [ -f ${WORKSPACE_DIR}/api-address ]; then
+  API_ADDRESS=$( cat ${WORKSPACE_DIR}/api-address )
+  echo -e "WARNING: Found API address file at ${INFO_COLOR}${WORKSPACE_DIR}/api-address${NO_COLOR}
+    - using ${INFO_COLOR}${API_ADDRESS}${NO_COLOR} instead of ${INFO_COLOR}${DIRECTOR_IP}${NO_COLOR} for director IP
+    - and ${INFO_COLOR}${API_ADDRESS}.xip.io${NO_COLOR} instead of ${INFO_COLOR}10.244.0.34.xip.io${NO_COLOR} for API address"
+  DIRECTOR_IP=${API_ADDRESS}
 fi
 
-cd $RIAKCS_RELEASE_DIR
-mkdir -p bosh-lite/tmp
-mkdir -p bosh-lite/manifests
-cp bosh-lite/stub.yml bosh-lite/tmp/stub-with-uuid.yml
+bosh -n target ${DIRECTOR_IP}
+bosh login admin admin
 DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
-perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/tmp/stub-with-uuid.yml
 
-$RIAKCS_RELEASE_DIR/generate_deployment_manifest warden bosh-lite/tmp/stub-with-uuid.yml "$@" > bosh-lite/manifests/cf-riak-cs-manifest.yml
+perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml
+perl -pi -e "s/10.244.0.34.xip.io/${API_ADDRESS}.xip.io/g" bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml
+
+${RELEASE_DIR}/generate_deployment_manifest \
+  warden \
+  ${RELEASE_DIR}/bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml \
+  "$@" > ${RELEASE_DIR}/bosh-lite/manifests/cf-riak-cs-manifest.yml
+
 bosh deployment bosh-lite/manifests/cf-riak-cs-manifest.yml
-

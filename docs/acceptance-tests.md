@@ -16,7 +16,7 @@ The acceptance-tests deployment job properties must be specified in the deployme
 
 To run the acceptance tests via bosh errand:
 
-```
+```bash
 $ bosh run errand acceptance-tests
 ```
 
@@ -30,37 +30,24 @@ Instructions:
 1. Export the environment variable `$GOPATH` set to the `cf-riak-cs-release` directory to manage Golang dependencies. For more information, see [here](https://github.com/cloudfoundry/cf-riak-cs-release/tree/release-candidate#development).
 1. Change to the acceptance-tests directory:
 
-    ```
-    $ cd cf-riak-cs-release/src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/
-    ```
+  ```bash
+  $ cd cf-riak-cs-release/src/github.com/cloudfoundry-incubator/cf-riak-cs-acceptance-tests/
+  ```
 
 1. Install [Ginkgo](http://onsi.github.io/ginkgo/):
 
-    ```
-    $ go get github.com/onsi/ginkgo/ginkgo
-    ```
+  ```bash
+  $ go get github.com/onsi/ginkgo/ginkgo
+  ```
 
-1. Configure the tests by creating `integration_config.json` and setting the environment variable `$CONFIG` to point to it. The following commands provide a shortcut to configuring `integration_config.json` with values for a [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
-deployment. Copy and paste this into your terminal, then open the resulting `integration_config.json` in an editor to replace values as appropriate for your environment.
+1. Configure the tests.
+  Create a config file and set the environment variable `$CONFIG` to point to it. For bosh-lite, this can easily be achieved by executing the following command and following the instructions on screen:
 
   ```bash
-  cat > integration_config.json <<EOF
-  {
-    "api":                 "api.10.244.0.34.xip.io",
-    "admin_user":          "admin",
-    "admin_password":      "admin",
-    "apps_domain":         "10.244.0.34.xip.io",
-    "riak_cs_host":        "p-riakcs.10.244.0.34.xip.io",
-    "riak_cs_scheme" :     "https://",
-    "service_name":        "p-riakcs",
-    "plan_name":           "developer",
-    "broker_host":         "p-riakcs-broker.10.244.0.34.xip.io",
-    "timeout_scale":       1.0,
-    "skip_ssl_validation": true
-  }
-  EOF
-  export CONFIG=$PWD/integration_config.json
+  $ ~/workspace/cf-riak-cs-release/bosh-lite/create_integration_test_config
   ```
+
+  Open the resulting file in an editor to replace values as appropriate for your environment.
 
   When `skip_ssl_validation: true`, commands run by the tests will accept self-signed certificates from Cloud Foundry. This option requires v6.0.2 or newer of the CLI.
 
@@ -68,6 +55,6 @@ deployment. Copy and paste this into your terminal, then open the resulting `int
 
 4. Run  the tests
 
-  ```
+  ```bash
   $ ./bin/test
   ```
