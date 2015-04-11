@@ -1,4 +1,4 @@
-jobs: (( merge ))
+---
 resource_pools:
 - name: riak-pool
   network: riak-cs-network
