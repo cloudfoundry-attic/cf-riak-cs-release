@@ -7,7 +7,7 @@ resource_pools:
   network: riak-cs-network
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
-    version: (( merge || "2859" ))
+    version: latest
   cloud_properties:
     instance_type: m3.large
     availability_zone: (( properties.template_only.aws.availability_zone ))
@@ -15,7 +15,7 @@ resource_pools:
   network: riak-cs-network
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
-    version: (( merge || "2859" ))
+    version: latest
   cloud_properties:
     instance_type: m3.large
     availability_zone: (( properties.template_only.aws.availability_zone ))
