@@ -14,7 +14,7 @@ releases:
 
 compilation:
   workers: 2
-  network: riak-cs-network
+  network: riak-cs1
   reuse_compilation_vms: true
   cloud_properties: (( resource_pools.[0].cloud_properties ))
 

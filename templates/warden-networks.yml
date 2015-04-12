@@ -1,5 +1,5 @@
 networks:
-- name: riak-cs-network
+- name: riak-cs1
   subnets:
   - range: 10.244.3.0/30
     reserved:

@@ -4,7 +4,7 @@ properties:
 
 resource_pools:
 - name: riak-pool
-  network: riak-cs-network
+  network: riak-cs1
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest
@@ -12,7 +12,7 @@ resource_pools:
     instance_type: m3.large
     availability_zone: (( properties.template_only.aws.availability_zone ))
 - name: broker-pool
-  network: riak-cs-network
+  network: riak-cs1
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest

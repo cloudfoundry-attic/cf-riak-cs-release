@@ -1,8 +1,8 @@
 networks:
-- name: riak-cs-network
+- name: riak-cs1
   type: manual
   subnets:
-  - name: riak-cs-subnet
+  - name: default_unused
     range: ((merge))
     reserved: ((merge))
     static: ((merge))

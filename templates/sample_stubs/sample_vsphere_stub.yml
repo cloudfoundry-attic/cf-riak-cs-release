@@ -1,7 +1,7 @@
 ---
 director_uuid: YOUR_DIRECTOR_GUID
 networks:
-- name: riak-cs-network
+- name: riak-cs1
   subnets:
   - cloud_properties:
       name: YOUR_VSPHERE_NETWORK_NAME

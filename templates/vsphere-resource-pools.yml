@@ -1,7 +1,7 @@
 ---
 resource_pools:
 - name: riak-pool
-  network: riak-cs-network
+  network: riak-cs1
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: (( merge || "2859" ))
@@ -10,7 +10,7 @@ resource_pools:
     disk: 10240
     cpu: 2
 - name: broker-pool
-  network: riak-cs-network
+  network: riak-cs1
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: (( merge || "2859" ))

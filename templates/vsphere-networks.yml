@@ -1,5 +1,5 @@
 networks:
-- name: riak-cs-network
+- name: riak-cs1
   subnets:
   - range: (( merge ))
     gateway: (( merge ))

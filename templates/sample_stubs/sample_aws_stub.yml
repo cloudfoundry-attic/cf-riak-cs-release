@@ -1,7 +1,7 @@
 director_uuid: YOUR_DIRECTOR_GUID
 # This example uses a 10.10.126.0/20 subnet.  Adjust to match what you actually have.
 networks:
-  - name: riak-cs-network
+  - name: riak-cs1
     type: manual
     subnets:
     - name: riak-cs-subnet

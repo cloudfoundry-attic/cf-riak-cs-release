@@ -11,7 +11,7 @@ jobs:
   instances: 3
   resource_pool: riak-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
     static_ips: (( static_ips(1, 2, 3) ))
   persistent_disk: 10240
   properties:
@@ -39,7 +39,7 @@ jobs:
   instances: 1
   resource_pool: riak-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
     static_ips: (( static_ips(0) ))
   persistent_disk: 4096
   properties:
@@ -55,7 +55,7 @@ jobs:
   instances: 1
   resource_pool: broker-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
   properties:
     <<: (( merge || nil ))
     broker:
@@ -108,7 +108,7 @@ jobs:
   instances: 1
   resource_pool: broker-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
   properties:
     <<: (( merge || nil ))
     cf:
@@ -131,7 +131,7 @@ jobs:
   instances: 1
   resource_pool: broker-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
   properties:
     <<: (( merge || nil ))
     cf:
@@ -155,7 +155,7 @@ jobs:
   instances: 1
   resource_pool: broker-pool
   networks:
-  - name: riak-cs-network
+  - name: riak-cs1
   properties:
     <<: (( merge || nil ))
     cf:
