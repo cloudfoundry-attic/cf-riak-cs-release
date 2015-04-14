@@ -5,6 +5,10 @@ meta:
   external_riakcs_host: (( "p-riakcs." domain ))
   <<: (( merge || nil ))
 
+properties:
+  <<: (( merge || nil ))
+  app_domains: (( merge ))
+
 jobs:
 - name: riak-cs
   template: riak-cs
@@ -162,7 +166,7 @@ jobs:
       <<: (( merge || nil ))
       admin_username: (( meta.cf.admin_username ))
       admin_password: (( meta.cf.admin_password ))
-      apps_domain: (( meta.cf.apps_domain ))
+      apps_domain: (( .properties.app_domains.[0] ))
       api_url: (( meta.cf.api_url ))
       skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
     riak_cs:
