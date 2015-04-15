@@ -10,9 +10,6 @@ properties:
     password: nats
     port: 4222
   app_domains: (( merge || ["10.244.0.34.xip.io"] ))
-
-meta:
-  environment: cf-warden
   cf:
     <<: (( merge || nil ))
     admin_username: admin
@@ -28,4 +25,7 @@ meta:
     admin_secret: admin-secret
     ssl_enabled: true
     skip_ssl_validation: true
+
+meta:
+  environment: cf-warden
   syslog_aggregator: ~

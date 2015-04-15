@@ -1,15 +1,26 @@
 ---
 networks: (( merge ))
 
-meta:
-  external_broker_host: (( "p-riakcs-broker." .properties.domain ))
-  external_riakcs_host: (( "p-riakcs." .properties.domain ))
-  <<: (( merge || nil ))
-
 properties:
   app_domains: (( merge ))
   domain: (( merge ))
-  nats: (( merge ))
+  nats:
+    user: (( merge ))
+    password: (( merge ))
+    port: (( merge ))
+    machines: (( merge ))
+  broker:
+    name: p-riakcs
+    username: (( merge ))
+    password: (( merge ))
+  riak_cs:
+    admin_key: (( merge ))
+    admin_secret: (( merge ))
+  external_broker_host: (( "p-riakcs-broker." .properties.domain ))
+  external_riakcs_host: (( "p-riakcs." .properties.domain ))
+  seeded_buckets: (( merge || nil ))
+  cf:
+    <<: (( merge || nil ))
 
 jobs:
 - name: riak-cs
@@ -31,14 +42,14 @@ jobs:
       firewall_enabled: (( merge ))
     riak_cs:
       ips:  (( jobs.[0].networks.[0].static_ips ))
-      admin_key: (( meta.riak_cs.admin_key ))
-      admin_secret: (( meta.riak_cs.admin_secret ))
-      seeded_buckets: (( meta.riak_cs.seeded_buckets || nil ))
+      admin_key: (( .properties.riak_cs.admin_key ))
+      admin_secret: (( .properties.riak_cs.admin_secret ))
+      seeded_buckets: (( .properties.riak_cs.seeded_buckets || nil ))
       port: ~
       register_route: ~
     nats: (( .properties.nats ))
-    external_riakcs_host: (( meta.external_riakcs_host ))
-    syslog_aggregator: (( meta.syslog_aggregator || nil ))
+    external_riakcs_host: (( .properties.external_riakcs_host ))
+    syslog_aggregator: (( .properties.syslog_aggregator || nil ))
 
 - name: stanchion
   template: stanchion
@@ -53,8 +64,8 @@ jobs:
     riak:
       seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
     riak_cs:
-      admin_key: (( meta.riak_cs.admin_key ))
-      admin_secret: (( meta.riak_cs.admin_secret ))
+      admin_key: (( .properties.riak_cs.admin_key ))
+      admin_secret: (( .properties.riak_cs.admin_secret ))
 
 - name: cf-riak-cs-broker
   template: cf-riak-cs-broker
@@ -67,10 +78,10 @@ jobs:
     broker:
       port: ~
       network: (( jobs.[2].networks.[0].name ))
-      name: (( meta.broker.name ))
-      host: (( meta.external_broker_host ))
-      username: (( meta.broker.username ))
-      password: (( meta.broker.password ))
+      name: (( .properties.broker.name ))
+      host: (( .properties.external_broker_host ))
+      username: (( .properties.broker.username ))
+      password: (( .properties.broker.password ))
     catalog:
       services:
       - bindable: true
@@ -102,11 +113,14 @@ jobs:
         tags:
         - riak-cs
         - s3
-    riak_cs: (( meta.riak_cs ))
-    external_riakcs_host: (( meta.external_riakcs_host ))
-    external_broker_host: (( meta.external_broker_host ))
+    riak_cs:
+      <<: (( merge || nil ))
+      admin_key: (( .properties.riak_cs.admin_key ))
+      admin_secret: (( .properties.riak_cs.admin_key ))
+    external_riakcs_host: (( .properties.external_riakcs_host ))
+    external_broker_host: (( .properties.external_broker_host ))
     nats: (( .properties.nats ))
-    syslog_aggregator: (( meta.syslog_aggregator || nil ))
+    syslog_aggregator: (( .properties.syslog_aggregator || nil ))
 
 - name: broker-registrar
   lifecycle: errand
@@ -119,16 +133,16 @@ jobs:
     <<: (( merge || nil ))
     cf:
       <<: (( merge || nil ))
-      admin_username: (( meta.cf.admin_username ))
-      admin_password: (( meta.cf.admin_password ))
-      api_url: (( meta.cf.api_url ))
-      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
+      admin_username: (( .properties.cf.admin_username ))
+      admin_password: (( .properties.cf.admin_password ))
+      api_url: (( .properties.cf.api_url ))
+      skip_ssl_validation: (( .properties.cf.skip_ssl_validation || nil ))
     broker:
-      name: (( meta.broker.name ))
-      host: (( meta.external_broker_host ))
+      name: (( .properties.broker.name ))
+      host: (( .properties.external_broker_host ))
       port: ~
-      username: (( meta.broker.username ))
-      password: (( meta.broker.password ))
+      username: (( .properties.broker.username ))
+      password: (( .properties.broker.password ))
       register_route: ~
 
 - name: broker-deregistrar
@@ -142,16 +156,16 @@ jobs:
     <<: (( merge || nil ))
     cf:
       <<: (( merge || nil ))
-      admin_username: (( meta.cf.admin_username ))
-      admin_password: (( meta.cf.admin_password ))
-      api_url: (( meta.cf.api_url ))
-      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
+      admin_username: (( .properties.cf.admin_username ))
+      admin_password: (( .properties.cf.admin_password ))
+      api_url: (( .properties.cf.api_url ))
+      skip_ssl_validation: (( .properties.cf.skip_ssl_validation || nil ))
     broker:
-      name: (( meta.broker.name ))
-      host: (( meta.external_broker_host ))
+      name: (( .properties.broker.name ))
+      host: (( .properties.external_broker_host ))
       port: ~
-      username: (( meta.broker.username ))
-      password: (( meta.broker.password ))
+      username: (( .properties.broker.username ))
+      password: (( .properties.broker.password ))
     riak_cs:
       register_route: ~
 
@@ -166,16 +180,16 @@ jobs:
     <<: (( merge || nil ))
     cf:
       <<: (( merge || nil ))
-      admin_username: (( meta.cf.admin_username ))
-      admin_password: (( meta.cf.admin_password ))
+      admin_username: (( .properties.cf.admin_username ))
+      admin_password: (( .properties.cf.admin_password ))
       apps_domain: (( .properties.app_domains.[0] ))
-      api_url: (( meta.cf.api_url ))
-      skip_ssl_validation: (( meta.cf.skip_ssl_validation || nil ))
+      api_url: (( .properties.cf.api_url ))
+      skip_ssl_validation: (( .properties.cf.skip_ssl_validation || nil ))
     riak_cs:
-      ssl_enabled: (( meta.riak_cs.ssl_enabled || nil ))
+      ssl_enabled: (( jobs.riak_cs.properties.ssl_enabled || nil ))
       register_route: ~
     catalog:
-      services: (( jobs.[2].properties.catalog.services ))
+      services: (( jobs.cf-riak-cs-broker.properties.catalog.services ))
     broker:
-      host: (( meta.external_broker_host ))
-    external_riakcs_host: (( meta.external_riakcs_host ))
+      host: (( .properties.external_broker_host ))
+    external_riakcs_host: (( .properties.external_riakcs_host ))
