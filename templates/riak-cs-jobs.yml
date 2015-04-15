@@ -1,3 +1,4 @@
+---
 networks: (( merge ))
 
 meta:
@@ -6,9 +7,9 @@ meta:
   <<: (( merge || nil ))
 
 properties:
-  <<: (( merge || nil ))
   app_domains: (( merge ))
   domain: (( merge ))
+  nats: (( merge ))
 
 jobs:
 - name: riak-cs
@@ -35,7 +36,7 @@ jobs:
       seeded_buckets: (( meta.riak_cs.seeded_buckets || nil ))
       port: ~
       register_route: ~
-    nats: (( meta.nats ))
+    nats: (( .properties.nats ))
     external_riakcs_host: (( meta.external_riakcs_host ))
     syslog_aggregator: (( meta.syslog_aggregator || nil ))
 
@@ -104,7 +105,7 @@ jobs:
     riak_cs: (( meta.riak_cs ))
     external_riakcs_host: (( meta.external_riakcs_host ))
     external_broker_host: (( meta.external_broker_host ))
-    nats: (( meta.nats ))
+    nats: (( .properties.nats ))
     syslog_aggregator: (( meta.syslog_aggregator || nil ))
 
 - name: broker-registrar
