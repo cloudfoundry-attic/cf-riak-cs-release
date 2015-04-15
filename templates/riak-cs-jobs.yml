@@ -119,7 +119,7 @@ jobs:
     riak_cs:
       <<: (( merge || nil ))
       admin_key: (( .properties.riak_cs.admin_key ))
-      admin_secret: (( .properties.riak_cs.admin_key ))
+      admin_secret: (( .properties.riak_cs.admin_secret ))
     external_riakcs_host: (( .properties.external_riakcs_host ))
     external_broker_host: (( .properties.external_broker_host ))
     nats: (( .properties.nats ))
