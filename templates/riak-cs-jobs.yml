@@ -1,13 +1,14 @@
 networks: (( merge ))
 
 meta:
-  external_broker_host: (( "p-riakcs-broker." domain ))
-  external_riakcs_host: (( "p-riakcs." domain ))
+  external_broker_host: (( "p-riakcs-broker." .properties.domain ))
+  external_riakcs_host: (( "p-riakcs." .properties.domain ))
   <<: (( merge || nil ))
 
 properties:
   <<: (( merge || nil ))
   app_domains: (( merge ))
+  domain: (( merge ))
 
 jobs:
 - name: riak-cs
