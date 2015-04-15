@@ -20,7 +20,10 @@ properties:
   external_riakcs_host: (( "p-riakcs." .properties.domain ))
   seeded_buckets: (( merge || nil ))
   cf:
-    <<: (( merge || nil ))
+    admin_username: (( merge ))
+    admin_password: (( merge ))
+    api_url: (( "https://api." .properties.domain ))
+    skip_ssl_validation: (( merge || nil ))
 
 jobs:
 - name: riak-cs
