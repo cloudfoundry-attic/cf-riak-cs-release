@@ -19,8 +19,14 @@ networks:
       - 10.0.0.103
       - 10.0.0.104
       - 10.0.0.105
+
 meta:
+  environment: ENVIRONMENT
+
+properties:
   domain: YOUR_CF_SYSTEM_DOMAIN
+  app_domains:
+  - YOUR_CF_APP_DOMAIN
   nats:
     machines:
       - 10.0.0.15   # IP of nats server
@@ -29,7 +35,6 @@ meta:
     port: 4222
   cf:
     api_url: https://api.YOUR_CF_SYSTEM_DOMAIN
-    apps_domain: YOUR_CF_APP_DOMAIN
     admin_username: YOUR_CF_ADMIN_USERNAME
     admin_password: YOUR_CF_ADMIN_PASSWORD
   broker:

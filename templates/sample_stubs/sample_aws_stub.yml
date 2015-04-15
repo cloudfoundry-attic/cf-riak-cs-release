@@ -4,7 +4,7 @@ networks:
   - name: riak-cs1
     type: manual
     subnets:
-    - name: riak-cs-subnet
+    - name: default_unused
       range: 10.10.128.0/20
       reserved:
         - 10.10.128.2 - 10.10.131.255
@@ -25,25 +25,33 @@ resource_pools:
   - name: broker-pool
     cloud_properties:
       availability_zone: YOUR_PRIMARY_AZ_NAME
+
+properties:
+  domain: YOUR_CF_SYSTEM_DOMAIN
+  app_domains:
+  - YOUR_CF_APP_DOMAIN
+
+  nats:
+    machines:
+    - IP_OF_NATS_SERVER
+    user: nats
+    password: YOUR_CF_NATS_PASSWORD
+    port: 4222
+  cf:
+    api_url: https://api.YOUR_CF_SYSTEM_DOMAIN
+    admin_username: YOUR_CF_ADMIN_USERNAME
+    admin_password: YOUR_CF_ADMIN_PASSWORD
+  broker:
+    name: p-riakcs
+    # credentials used by cloud controller to authenticate with the broker
+    username: BROKER_USERNAME
+    password: BROKER_PASSWORD
+  riak_cs:
+    # credentials for Riak CS admin user
+    admin_key: ADMIN-KEY
+    admin_secret: ADMIN-SECRET
+  template_only:
+    aws.availability_zone: SOME_AZ
+
 meta:
- domain: YOUR_CF_SYSTEM_DOMAIN
- nats:
-   machines:
-   - IP_OF_NATS_SERVER
-   user: nats
-   password: YOUR_CF_NATS_PASSWORD
-   port: 4222
- cf:
-   api_url: https://api.YOUR_CF_SYSTEM_DOMAIN
-   apps_domain: YOUR_CF_APP_DOMAIN
-   admin_username: YOUR_CF_ADMIN_USERNAME
-   admin_password: YOUR_CF_ADMIN_PASSWORD
- broker:
-   name: p-riakcs
-   # credentials used by cloud controller to authenticate with the broker
-   username: BROKER_USERNAME
-   password: BROKER_PASSWORD
- riak_cs:
-   # credentials for Riak CS admin user
-   admin_key: ADMIN-KEY
-   admin_secret: ADMIN-SECRET
+  environment: ENVIRONMENT
