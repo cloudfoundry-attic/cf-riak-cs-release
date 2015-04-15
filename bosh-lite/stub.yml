@@ -1,6 +1,16 @@
 ---
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
+properties:
+  domain: 10.244.0.34.xip.io
+  nats:
+    machines:
+    - 10.244.0.6
+    user: nats
+    password: nats
+    port: 4222
+  app_domains: (( merge || ["10.244.0.34.xip.io"] ))
+
 meta:
   environment: cf-warden
   cf:
@@ -8,13 +18,11 @@ meta:
     admin_username: admin
     admin_password: admin
     api_url: https://api.10.244.0.34.xip.io
-    apps_domain: 10.244.0.34.xip.io
     skip_ssl_validation: true
   broker:
     name: p-riakcs
     username: admin
     password: admin
-  domain: 10.244.0.34.xip.io
   riak_cs:
     admin_key: admin-key
     admin_secret: admin-secret
