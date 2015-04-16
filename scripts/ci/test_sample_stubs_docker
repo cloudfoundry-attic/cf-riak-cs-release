@@ -7,9 +7,9 @@ MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # This script assumes that it lives two directories below the release directory.
 RELEASE_DIR="$( cd ${MY_DIR}/../.. && pwd )"
 
-export GOPATH=/workspace/cf-riak-cs-release/
+export GOPATH=${RELEASE_DIR}
 export PATH=$GOPATH/bin:$PATH
 
-go get github.com/onsi/ginkgo/ginkgo
+go get github.com/cloudfoundry-incubator/spiff
 
-${RELEASE_DIR}/scripts/test_submodules "$@"
+${RELEASE_DIR}/scripts/test_sample_stubs "$@"

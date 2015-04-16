@@ -1,6 +1,13 @@
 #!/bin/bash
 
+set -eux
+
+MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# This script assumes that it lives one directory below the release directory.
+RELEASE_DIR="$( cd ${MY_DIR}/.. && pwd )"
+
 go install github.com/onsi/ginkgo/ginkgo
 
 ginkgo -r -p -race \
-        src/github.com/cloudfoundry-incubator/riakcs_ctrl
+        ${RELEASE_DIR}/src/github.com/cloudfoundry-incubator/riakcs_ctrl

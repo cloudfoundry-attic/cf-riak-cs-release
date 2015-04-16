@@ -32,3 +32,4 @@ bin/
 pkg/
 src/github.com/vito/gosub/
 src/github.com/codegangsta/cli/
+src/github.com/cloudfoundry-incubator/spiff/
