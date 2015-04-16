@@ -50,6 +50,7 @@ jobs:
       seeded_buckets: (( .properties.riak_cs.seeded_buckets || nil ))
       port: ~
       register_route: ~
+      ssl_enabled: ~
     nats: (( .properties.nats ))
     external_riakcs_host: (( .properties.external_riakcs_host ))
     syslog_aggregator: (( .properties.syslog_aggregator || nil ))
