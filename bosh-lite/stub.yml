@@ -20,9 +20,6 @@ properties:
     name: p-riakcs
     username: admin
     password: admin
-    riak_cs:
-      ssl_enabled: true
-      skip_ssl_validation: true
   riak_cs:
     admin_key: admin-key
     admin_secret: admin-secret
