@@ -32,7 +32,7 @@ start)
 
   /var/vcap/packages/route-registrar/bin/route-registrar \
   -pidfile=$PIDFILE \
-  -configFile=$CONFIG_FILE \
+  -configPath=$CONFIG_FILE \
   -scriptPath=$NODE_VALIDITY_SCRIPT_PATH \
   >>$LOG_DIR/route-registrar.stdout.log 2>>$LOG_DIR/route-registrar.stderr.log&
 ;;
