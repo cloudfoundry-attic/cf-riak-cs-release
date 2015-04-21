@@ -25,6 +25,7 @@ JOB_DIR=/var/vcap/jobs/riak-cs
 
 PACKAGE_DIR=/var/vcap/packages/riakcs_ctrl
 
+CONFIG_FILE=$RUN_DIR/riakcs_ctrl_config.yml
 VM_ARGS_FILE=/var/vcap/packages/riak-cs/rel/etc/vm.args
 APP_CONFIG_FILE=/var/vcap/packages/riak-cs/rel/etc/app.config
 RIAK_CS_EXECUTABLE=/var/vcap/packages/riak-cs/rel/bin/riak-cs
@@ -58,15 +59,18 @@ case $1 in
 
     IP_ADDR=<%= spec.networks.send(p('riak.network')).ip %>
 
+    tee $CONFIG_FILE <<EOF
+---
+VmArgsFileLocation: $VM_ARGS_FILE
+AppConfigFileLocation: $APP_CONFIG_FILE
+RiakCsExecutableLocation: $RIAK_CS_EXECUTABLE
+RiakCsPidFileLocation: $PIDFILE
+IP: $IP_ADDR
+EOF
 
     $PACKAGE_DIR/bin/riakcs_ctrl \
-        -vmArgsFile=$VM_ARGS_FILE \
-        -appConfigFile=$APP_CONFIG_FILE \
-        -riakCsExecutable=$RIAK_CS_EXECUTABLE \
-        -riakCsPidFile=$PIDFILE \
-        -ip=$IP_ADDR \
+      -configPath=$CONFIG_FILE \
     >> $LOG_FILE 2>> $LOG_FILE
-
 
     ;;
 
