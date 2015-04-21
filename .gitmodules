@@ -37,3 +37,14 @@
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
 	branch = master
+[submodule "src/github.com/pivotal-cf-experimental/service-config"]
+	path = src/github.com/pivotal-cf-experimental/service-config
+	url = https://github.com/pivotal-cf-experimental/service-config
+	branch = master
+[submodule "src/github.com/fraenkel/candiedyaml"]
+	path = src/github.com/fraenkel/candiedyaml
+	url = https://github.com/fraenkel/candiedyaml
+	branch = master
+[submodule "src/github.com/imdario/mergo"]
+	path = src/github.com/imdario/mergo
+	url = https://github.com/imdario/mergo
