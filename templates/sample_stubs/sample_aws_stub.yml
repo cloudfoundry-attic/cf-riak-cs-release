@@ -51,7 +51,8 @@ properties:
     admin_key: ADMIN-KEY
     admin_secret: ADMIN-SECRET
   template_only:
-    aws.availability_zone: SOME_AZ
+    aws:
+      availability_zone: SOME_AZ
 
 meta:
   environment: ENVIRONMENT

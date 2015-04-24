@@ -1,3 +1,8 @@
+---
+compilation:
+  cloud_properties:
+    name: random
+
 jobs: (( merge ))
 resource_pools:
 - name: riak-pool
