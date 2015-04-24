@@ -16,7 +16,7 @@ compilation:
   workers: 2
   network: riak-cs1
   reuse_compilation_vms: true
-  cloud_properties: (( resource_pools.[0].cloud_properties ))
+  cloud_properties: (( merge ))
 
 update:
   canaries: 1
