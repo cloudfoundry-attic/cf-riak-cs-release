@@ -5,7 +5,7 @@ properties:
 compilation:
   cloud_properties:
     instance_type: (( merge || "c4.large" ))
-    availability_zone: (( properties.template_only.aws.availability_zone2 ))
+    availability_zone: (( properties.template_only.aws.availability_zone ))
     ephemeral_disk:
       size: 30000 # in MB
       type: gp2
@@ -18,7 +18,7 @@ resource_pools:
     version: latest
   cloud_properties:
     instance_type: m3.large
-    availability_zone: (( properties.template_only.aws.availability_zone2 ))
+    availability_zone: (( properties.template_only.aws.availability_zone ))
 - name: broker-pool
   network: riak-cs1
   stemcell:
@@ -26,5 +26,5 @@ resource_pools:
     version: latest
   cloud_properties:
     instance_type: m3.large
-    availability_zone: (( properties.template_only.aws.availability_zone2 ))
+    availability_zone: (( properties.template_only.aws.availability_zone ))
 
