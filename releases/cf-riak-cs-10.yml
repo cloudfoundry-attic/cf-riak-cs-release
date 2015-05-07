@@ -1,0 +1,125 @@
+---
+packages:
+- name: bucket_seeder
+  version: 9b3aeabd7e1bc2561206c116b19dc718aaf75d12
+  sha1: 0c36764d4d5d0f17f9d3f795edee880a51b9cd2b
+  fingerprint: 9b3aeabd7e1bc2561206c116b19dc718aaf75d12
+  dependencies:
+  - ruby
+- name: riak-cs
+  version: 0d695d58a51890c3b5b89c9f25bfe2708af0376c
+  sha1: 0d85a45956f41d32fe7ddf3d4494b268d7a47745
+  fingerprint: 0d695d58a51890c3b5b89c9f25bfe2708af0376c
+  dependencies:
+  - riak
+  - erlang
+- name: stanchion
+  version: e312ed6a9cc5d80f0465f60163957d2fded0e2a8
+  sha1: ad28534fa8622e59d80bf248cd4aaa348f03702e
+  fingerprint: e312ed6a9cc5d80f0465f60163957d2fded0e2a8
+  dependencies:
+  - erlang
+  - git
+- name: acceptance-tests
+  version: 864aec498d74f1b85fb06eb628bc55881aa856ce
+  sha1: 8b3f1426ecab52607884cd58db4120f6937cedc6
+  fingerprint: 864aec498d74f1b85fb06eb628bc55881aa856ce
+  dependencies:
+  - golang
+  - cli
+- name: riakcs_ctrl
+  version: 6332366f82072360e2b0b8b3253ceb4c77c9b887
+  sha1: 579b9414622a5526c0953ccda8d2a6cc7337d29a
+  fingerprint: 6332366f82072360e2b0b8b3253ceb4c77c9b887
+  dependencies:
+  - golang
+- name: syslog_aggregator
+  version: 29e843000a1d4c089023a030bc789eef1273ec51
+  sha1: e962ecfa145f575d1d2ec139c825a7dfd4952930
+  fingerprint: 29e843000a1d4c089023a030bc789eef1273ec51
+  dependencies: []
+- name: riak
+  version: 7cde66004269a3163338d3d475d27953248ae6bc
+  sha1: 353ab62c7515a4da644b6b8f8b87130b229ab875
+  fingerprint: 7cde66004269a3163338d3d475d27953248ae6bc
+  dependencies:
+  - erlang
+  - git
+- name: git
+  version: 08664a6fda7c85f7ea35e636ff5028c6b764a295
+  sha1: 5eacce5765ac07c0fdc9b07cc23d42de1503accc
+  fingerprint: 08664a6fda7c85f7ea35e636ff5028c6b764a295
+  dependencies:
+  - python
+- name: cf-riak-cs-broker
+  version: 73da5ef600fcc56f09dcb9095f48d0acdc878b55
+  sha1: 1981d9487b437270a5d4994f0af294739fdf3557
+  fingerprint: 73da5ef600fcc56f09dcb9095f48d0acdc878b55
+  dependencies:
+  - git
+  - ruby
+- name: cli
+  version: 9986d820893c8fd30a31fd0678ef32f1137811f5
+  sha1: 9aa1603e765660f782d0203486fa9b21222e715e
+  fingerprint: 9986d820893c8fd30a31fd0678ef32f1137811f5
+  dependencies: []
+- name: route-registrar
+  version: e1751316bc4c39bc0f24a3f8d5bc2f80613e4dc4
+  sha1: 8c7f772c80bb7f20fb09969f2ebe4aaa1f8b11b9
+  fingerprint: e1751316bc4c39bc0f24a3f8d5bc2f80613e4dc4
+  dependencies:
+  - golang
+- name: ruby
+  version: ff79c965224b4160c1526bd704b3b21e4ad7c362
+  sha1: 13223612135f13e8729610442ff7881dd2fb67c9
+  fingerprint: ff79c965224b4160c1526bd704b3b21e4ad7c362
+  dependencies: []
+- name: common
+  version: ba480a46c4b2aa9484fb24ed01a8649453573e6f
+  sha1: c9b3ac6c79c82a0a82aac5022d217dd51cc2c614
+  fingerprint: ba480a46c4b2aa9484fb24ed01a8649453573e6f
+  dependencies: []
+- name: python
+  version: 995c5f1e4acd34ac847b0c8bc4a0aa60b8484b13
+  sha1: 86522d10357f9b1c906cb2896a6a1e908a3cbeaa
+  fingerprint: 995c5f1e4acd34ac847b0c8bc4a0aa60b8484b13
+  dependencies: []
+- name: erlang
+  version: a098675a4bcf187e911ee315e12dce15278d98c0
+  sha1: 90679b358ff44d396f39c164e122a3cdad910141
+  fingerprint: a098675a4bcf187e911ee315e12dce15278d98c0
+  dependencies: []
+- name: golang
+  version: f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+  sha1: 5ed6c28e00657ff9996ef0f8712a51e1fd2ca22d
+  fingerprint: f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+  dependencies: []
+jobs:
+- name: riak-cs
+  version: bebabeb71c18184cb4f567d9f98866f2ecbb46d5
+  fingerprint: bebabeb71c18184cb4f567d9f98866f2ecbb46d5
+  sha1: bc4b55f7315aee9a0cceb2d7e4a040f22d463b49
+- name: stanchion
+  version: 16378327a5cf38f47070f4184c1f39fde257608e
+  fingerprint: 16378327a5cf38f47070f4184c1f39fde257608e
+  sha1: 43114d075956ed00654599a99ca305470f8649f8
+- name: acceptance-tests
+  version: 2d38c2896892805db5af46691f78ffe381197c69
+  fingerprint: 2d38c2896892805db5af46691f78ffe381197c69
+  sha1: d62a5bb39d4f99b6fde9d839e107577cf2a52ef3
+- name: broker-deregistrar
+  version: 036dae751fc73013148956bb14d14e8d10204dfd
+  fingerprint: 036dae751fc73013148956bb14d14e8d10204dfd
+  sha1: c841dfaf73488e1f4b8c47aefc6f6279d426560c
+- name: broker-registrar
+  version: 2af26df5bba49dd06726b4d5ca196f3ca5a42a29
+  fingerprint: 2af26df5bba49dd06726b4d5ca196f3ca5a42a29
+  sha1: 5bd3e7fe1fe26ab4591de01b2bd122067132d36b
+- name: cf-riak-cs-broker
+  version: 72ca1b9968df78005133f1014858eac9a6854833
+  fingerprint: 72ca1b9968df78005133f1014858eac9a6854833
+  sha1: 3c3d4dc7010144c6203330a61676cbcb63a4d790
+commit_hash: 5e7e46c9
+uncommitted_changes: true
+name: cf-riak-cs
+version: '10'
