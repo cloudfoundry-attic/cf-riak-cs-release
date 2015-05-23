@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set +eux
+set -eux
 
-RIAK_VERSION=1.4.12
+RIAK_VERSION=2.0.5
 export HOME=/var/vcap
 export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
 

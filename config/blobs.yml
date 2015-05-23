@@ -1,8 +1,4 @@
 ---
-erlang/otp_src_R15B01.tar.gz:
-  object_id: ec4d9eb6-e5e9-4c3f-898a-8915b09ed7ab
-  sha: c6e1f2fad965deb3696184c1ee16472bcea2bf22
-  size: 75592537
 git/git-1.8.4.tar.gz:
   object_id: b5ca56c0-0753-4ee3-bc27-efe3361d04f3
   sha: a238f2b527365b896b8ec447b3e5ab5d7b4a2c5a
@@ -31,10 +27,6 @@ fog/fog-1.23.0.gem:
   object_id: 23f75d78-7a0d-46fe-9f4a-fba64faa897c
   sha: b90bd3c555a81c2a936edffab32917ee727751a8
   size: 1720320
-stanchion/stanchion-1.5.0.tar.gz:
-  object_id: df330e63-ce5e-409f-8de7-ed35b540c03c
-  sha: 74622d2302330480c8b429b9ed4ac013e3f0ee07
-  size: 3181301
 ruby/ruby-2.1.5.tar.gz:
   object_id: f73818d5-be70-4db2-859c-d0c6502d2f12
   sha: 9c0a238bd7839a4b51871641945a3da90997b8c2
@@ -47,11 +39,19 @@ cli/cf-linux-amd64-6.10.0.tgz:
   object_id: a1566022-2307-4004-a21b-53ba3f2b7765
   sha: f845800310e4b702a39a2f1191e3d71862630103
   size: 4803309
-riak/riak-1.4.12.tar.gz:
-  object_id: 45c29623-9069-4ce0-b81f-8319a5aace81
-  sha: 65a80c24744513b3001e8879914a1d04c8df14dd
-  size: 13821609
-riak-cs/riak-cs-1.5.4.tar.gz:
-  object_id: 731f4e4b-fb3b-4b2f-a794-823c789d54bf
-  sha: 5c2320c75ccb07f95fa37301c2b3817191dfed24
-  size: 8633935
+riak/riak-2.0.5.tar.gz:
+  object_id: 777fb856-7a7d-40b6-8e76-39f9aceee522
+  sha: 52b2e40120a9bd8a1efe297790296fe133c4d85a
+  size: 17805547
+riak-cs/riak-cs-2.0.0.tar.gz:
+  object_id: b36ded65-b16f-4065-8eb3-a3ac03a9f8de
+  sha: 02c34e8db25551f4cad04119af819333d95d59d0
+  size: 9709182
+stanchion/stanchion-2.0.0.tar.gz:
+  object_id: eaa710cd-2e27-44c0-a5b1-83baa1e4d2f0
+  sha: 6eb785ed6ea4efd0b9ac760183f280fe8390feae
+  size: 4109581
+erlang/otp_src_R16B03-1.tar.gz:
+  object_id: 43715700-1897-4301-a48e-2d30e255a031
+  sha: c2634ea0c078500f1c6a1369f4be59a6d14673e0
+  size: 66253556
