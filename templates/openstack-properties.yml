@@ -1,0 +1,10 @@
+jobs:
+  - name: riak-cs
+    properties:
+      riak:
+        firewall_enabled: true
+#      riak_cs:
+#        cloud: "openstack"
+#        cs_os_root_host: (( merge ))
+#        cs_admin_token: (( merge ))
+#        cs_auth_url: (( merge ))

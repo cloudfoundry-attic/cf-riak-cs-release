@@ -1,0 +1,50 @@
+director_uuid: YOUR_DIRECTOR_GUID
+# This example uses a 10.10.126.0/20 subnet.  Adjust to match what you actually have.
+networks:
+  - name: riak-cs1
+    type: manual
+    subnets:
+    - name: default_subnet
+      range: 10.10.128.0/20
+      reserved:
+        - 10.10.128.2 - 10.10.131.255
+        - 10.10.133.1 - 10.10.143.254
+      static:
+        - 10.10.132.1 - 10.10.132.100
+      gateway: 10.10.128.1
+      dns:
+        - 10.10.0.2
+      cloud_properties:
+        security_groups: YOUR_OPENSTACK_SECURITY_GROUPS
+        net_id: YOUR_OPENSTACK_SERVICES_NETWORK_ID
+  - name: compilation
+    cloud_properties:
+      net_id: YOUR_OPENSTACK_COMPILATION_NETWORK_ID
+
+properties:
+  domain: YOUR_CF_SYSTEM_DOMAIN
+  app_domains:
+  - YOUR_CF_APP_DOMAIN
+
+  nats:
+    machines:
+    - IP_OF_NATS_SERVER
+    user: nats
+    password: YOUR_CF_NATS_PASSWORD
+    port: 4222
+  cf:
+    api_url: https://api.YOUR_CF_SYSTEM_DOMAIN
+    admin_username: YOUR_CF_ADMIN_USERNAME
+    admin_password: YOUR_CF_ADMIN_PASSWORD
+  broker:
+    name: p-riakcs
+    # credentials used by cloud controller to authenticate with the broker
+    username: BROKER_USERNAME
+    password: BROKER_PASSWORD
+  riak_cs:
+    # credentials for Riak CS admin user
+    admin_key: ADMIN-KEY
+    admin_secret: ADMIN-SECRET
+
+meta:
+  environment: ENVIRONMENT

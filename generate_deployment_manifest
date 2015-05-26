@@ -6,8 +6,9 @@ infrastructure=$1
 
 if [ "$infrastructure" != "warden" ] && \
     [ "$infrastructure" != "vsphere" ] && \
-    [ "$infrastructure" != "aws" ]; then
-  echo "usage: ./generate_deployment_manifest <warden|vsphere|aws> [stubs...]"
+    [ "$infrastructure" != "aws" ] && \
+    [ "$infrastructure" != "openstack" ]; then
+  echo "usage: ./generate_deployment_manifest <warden|vsphere|aws|openstack> [stubs...]"
   exit 1
 fi
 
