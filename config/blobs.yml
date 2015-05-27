@@ -55,3 +55,7 @@ erlang/otp_src_R16B03-1.tar.gz:
   object_id: 43715700-1897-4301-a48e-2d30e255a031
   sha: c2634ea0c078500f1c6a1369f4be59a6d14673e0
   size: 66253556
+pam/Linux-PAM-1.2.0.tar.gz:
+  object_id: ac26fa8e-b17e-4540-b485-233dc4c5fe5b
+  sha: 75cd852a1563152527b5eb7012b53b601bb4fcc0
+  size: 10004480

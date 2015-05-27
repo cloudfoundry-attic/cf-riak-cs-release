@@ -4,11 +4,22 @@ set -eux
 
 RIAK_VERSION=2.0.5
 export HOME=/var/vcap
-export PATH=/var/vcap/packages/git/bin:/var/vcap/packages/erlang/bin:$PATH
+export PATH=/var/vcap/packages/erlang/bin:$PATH
+export PATH=/var/vcap/packages/git/bin:$PATH
 
 tar xzf riak/riak-${RIAK_VERSION}.tar.gz
 
-# Compile riak
+# riak expects the PAM headers to reside inside a directory named 'security'
+mkdir -p /var/vcap/packages/pam/include/security
+cp -r /var/vcap/packages/pam/include/*.h /var/vcap/packages/pam/include/security/
+
+# We cannot pass args to the C compiler directly
+# so we use environment variables to point to the headers and shared libraries
+export C_INCLUDE_PATH=/var/vcap/packages/pam/include/
+export LIBRARY_PATH=/var/vcap/packages/pam/lib/
+
+# Maybe LD_LIBRARY_PATH is required at runtime?
+
 cd ${BOSH_COMPILE_TARGET}/riak-${RIAK_VERSION}
 make rel
 

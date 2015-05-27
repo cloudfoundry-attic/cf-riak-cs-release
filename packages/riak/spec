@@ -3,5 +3,6 @@ name: riak
 dependencies:
 - erlang
 - git
+- pam
 files: 
 - riak/riak-2.0.5.tar.gz

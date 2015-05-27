@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eux
+
+PAM_VERSION=1.2.0
+export HOME=/var/vcap
+
+tar xf pam/Linux-PAM-${PAM_VERSION}.tar.gz
+
+(
+  cd ${BOSH_COMPILE_TARGET}/Linux-PAM-${PAM_VERSION}
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make -j 3
+  make install
+)
