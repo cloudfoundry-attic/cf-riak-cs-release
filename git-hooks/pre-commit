@@ -1,14 +1,5 @@
 #!/bin/bash
 
-modified_packages=$(./scripts/sync-package-specs)
-  
-if [ -n "$modified_packages" ]; then
-  echo $'\e[31mthe following package specs are not staged:\e[0m'
-  echo
-  echo "$modified_packages"
-  exit 1
-fi
-
 (git status --porcelain | awk '{print $2}' | xargs ag -l --ignore ./**/*.go '#!/bin' | xargs shellcheck > /dev/null 2>&1)
 if [ $? -ne 0 ]; then
   printf '\nWARNING: Shellcheck (Shell Script lint tool) detected some potential issues in this commit.'
