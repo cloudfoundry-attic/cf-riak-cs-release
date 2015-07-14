@@ -8,7 +8,9 @@ RUN \
             curl \
             git \
             libreadline6 \
-            libreadline6-dev\
+            libreadline6-dev \
+            wget \
+            unzip \
       && \
       apt-get clean
 
@@ -38,10 +40,11 @@ ENV GOPATH /root/go
 ENV PATH $PATH:/usr/local/go/bin:/root/go/bin
 
 # Create GOPATH
-RUN mkdir -p $GOPATH
+RUN mkdir -p $GOPATH && mkdir $GOPATH/bin $GOPATH/pkg $GOPATH/src
 
 # Install spiff
-RUN go get github.com/cloudfoundry-incubator/spiff
+RUN wget -O /tmp/spiff.zip https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip
+RUN unzip /tmp/spiff.zip -d /tmp/ && mv /tmp/spiff $GOPATH/bin/
 
 # Add workspace directory
 RUN mkdir -p /root/workspace && ln -s /root/workspace /workspace
