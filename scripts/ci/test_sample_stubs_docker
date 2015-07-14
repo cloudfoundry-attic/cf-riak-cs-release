@@ -10,6 +10,4 @@ RELEASE_DIR="$( cd ${MY_DIR}/../.. && pwd )"
 export GOPATH=${RELEASE_DIR}
 export PATH=$GOPATH/bin:$PATH
 
-go get github.com/cloudfoundry-incubator/spiff
-
 ${RELEASE_DIR}/scripts/test_sample_stubs "$@"
