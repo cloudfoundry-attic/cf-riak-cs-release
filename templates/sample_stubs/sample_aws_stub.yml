@@ -1,4 +1,11 @@
 director_uuid: YOUR_DIRECTOR_GUID
+
+meta:
+  # Used as a prefix for the deployment name
+  #
+  # e.g. `environment: cf-tabasco` makes a deployment named cf-tabasco-riak-cs
+  environment: REPLACE_WITH_YOUR_ENVIRONMENT_NAME
+
 # This example uses a 10.10.126.0/20 subnet.  Adjust to match what you actually have.
 networks:
   - name: riak-cs1
@@ -53,6 +60,3 @@ properties:
   template_only:
     aws:
       availability_zone: SOME_AZ
-
-meta:
-  environment: ENVIRONMENT
