@@ -66,6 +66,7 @@ as you switch in and out of the directory.
   - [AWS](#aws)
   - [Deployment Manifest Stub Properties](#stub-properties)
 1. [Register the Service Broker](#register_broker)
+1. [Information about a deployed system](#deployed_system)
 
 ### Upload Release<a name="upload_release"></a>
 
@@ -289,3 +290,13 @@ The resulting `tar.gz` file can be found in the `package/` directory.
 TODO - verify where the `git`, and `erlang` tarfiles came from.
 
 [BOSH lite]: https://github.com/cloudfoundry/bosh-lite
+
+## Information about a deployed system<a name="deployed_system"></a>
+
+### Determine installed Riak and Riak-CS versions
+
+SSH onto one of the Riak nodes and run the following commands:
+```
+find /var/vcap/packages/riak/rel/releases/* -type d -printf "Riak Version: %f\n"
+find /var/vcap/packages/riak-cs/rel/releases/* -type d -printf "Riak CS Version: %f\n"
+```
