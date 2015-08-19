@@ -200,7 +200,7 @@ To run the Riak CS acceptance tests, see the [acceptance tests docs](docs/accept
 
 ## Security Groups
 
-Since [cf-release](https://github.com/cloudfoundry/cf-release) v175, applications by default cannot to connect to IP addresses on the private network. This may prevent applications from connecting to the Riak CS service. As applications reach the Riak CS service through the router tier in cf-release, create a new security group for the IP configured for the load balancer balancing traffic across your cf-release routers. By default this will be the HAProxy job in cf-release.
+Since [cf-release](https://github.com/cloudfoundry/cf-release) v175, applications by default cannot to connect to IP addresses on the private network. This may prevents applications from connecting to the Riak CS service. As applications reach the Riak CS service through the router tier in cf-release, create a new security group for the IP configured for the load balancer balancing traffic across your cf-release routers. By default this will be the HAProxy job in cf-release.
 
 1. Add the rule to a file in the following json format; multiple rules are supported.
 
