@@ -11,7 +11,13 @@ PATH=/var/vcap/packages/git/bin:/var/vcap/packages/ruby/bin:$PATH
 
 rsync -a cf-riak-cs-broker/* ${BOSH_INSTALL_TARGET}
 
-(
-  cd ${BOSH_INSTALL_TARGET}
-  bundle install --local --deployment --without development test
-)
+pushd ${BOSH_INSTALL_TARGET}
+
+  # Need to remove the "--no-install" directive which
+  # is saved in the .bundle/config file
+  rm -f .bundle/config
+
+  # See https://www.pivotaltracker.com/n/projects/969486/stories/99155694
+  # for why we specify the explicit location of the bundler binary
+  /var/vcap/packages/ruby/bin/bundle install --local --deployment --without development test
+popd
