@@ -15,14 +15,6 @@ ruby/yaml-0.1.6.tar.gz:
   object_id: 8c07f24e-c7f8-4224-9d79-1a5fcca13b6a
   sha: f3d404e11bec3c4efcddfd14c42d46f1aabe0b5d
   size: 503012
-ruby/bundler-1.3.5.gem:
-  object_id: 690bf086-9e22-4eae-ad54-a3ea71614c6d
-  sha: 2cad3052a59b83f1f616e8202f5c714e46bd8523
-  size: 268800
-ruby/rubygems-2.1.11.tgz:
-  object_id: 5d54f9b1-44d2-46ba-9593-5eada6ae6c7c
-  sha: ca3033432cae28deb7ced79cda271cb292b70e59
-  size: 367166
 python/Python-2.7.8.tgz:
   object_id: 005c3244-e15a-4bb4-9be1-4b8a2db1e65e
   sha: 511960dd78451a06c9df76509635aeec05b2051a
@@ -35,10 +27,6 @@ stanchion/stanchion-1.5.0.tar.gz:
   object_id: df330e63-ce5e-409f-8de7-ed35b540c03c
   sha: 74622d2302330480c8b429b9ed4ac013e3f0ee07
   size: 3181301
-ruby/ruby-2.1.5.tar.gz:
-  object_id: f73818d5-be70-4db2-859c-d0c6502d2f12
-  sha: 9c0a238bd7839a4b51871641945a3da90997b8c2
-  size: 15127433
 golang/go1.4.2.linux-amd64.tar.gz:
   object_id: 3e6ab127-b018-419a-97af-06399144667c
   sha: 5020af94b52b65cc9b6f11d50a67e4bae07b0aff
@@ -55,3 +43,15 @@ riak-cs/riak-cs-1.5.4.tar.gz:
   object_id: 731f4e4b-fb3b-4b2f-a794-823c789d54bf
   sha: 5c2320c75ccb07f95fa37301c2b3817191dfed24
   size: 8633935
+ruby/bundler-1.10.6.gem:
+  object_id: e84d6402-3309-4597-90cb-893931b78ff3
+  sha: 55a37fccd1c0cb5542d468e35d3be46dd0667f73
+  size: 251392
+ruby/ruby-2.2.3.tar.gz:
+  object_id: 9c6cda7a-55e5-449d-bf06-54eb0159571c
+  sha: 0d9e158534cb31e72740138b8f697b57b448e5c3
+  size: 16626772
+ruby/rubygems-2.4.8.tgz:
+  object_id: f95895ae-f32c-4033-b1ec-0e200e316b99
+  sha: 0db6b2f1cdd2267fe19f1f875057c2f2ce9f5696
+  size: 447712
