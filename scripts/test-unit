@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -eux
+
+MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# This script assumes that it lives one directory below the release directory.
+RELEASE_DIR="$( cd $MY_DIR/.. && pwd )"
+
+source ${RELEASE_DIR}/.envrc
+
+# Remove and reinstall the ginkgo binary as it might be from the wrong target architecture
+rm -rf ${RELEASE_DIR}/bin/ginkgo
+go install -v github.com/onsi/ginkgo/ginkgo
+
+echo -e "\nTesting Sample Stubs..."
+${RELEASE_DIR}/scripts/test_sample_stubs "$@"
