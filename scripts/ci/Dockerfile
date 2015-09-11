@@ -47,3 +47,4 @@ RUN unzip /tmp/spiff.zip -d /tmp/ && mv /tmp/spiff $GOPATH/bin/
 
 # Add workspace directory
 RUN mkdir -p /root/workspace && ln -s /root/workspace /workspace
+
