@@ -31,17 +31,23 @@ You have created a service instance, bound it to an application, and have bindin
 }
 ```
 
+You can also get access credentials without binding an app using `cf create-service-key` and `cf service-key`.
+
 ##<a id='aws-cli'></a>aws-cli
 
 See the [AWS CLI](https://aws.amazon.com/cli/) docs for installation instructions.
 
-First, run `aws configure` to add your riak-cs `access_key_id` and `secret_access_key` (the other options can be left as their defaults).
+First, run `aws configure` to add your riak-cs `access_key_id` and `secret_access_key`. The other options can be left as their defaults. Make sure to 
+note your service-instance-id in the credentials, as above.
 
 An example command using the `aws-cli` on a bosh-lite with a cf-riak-cs deployment:
 
 ```
-aws s3 ls --no-verify-ssl --endpoint-url https://p-riakcs.10.244.0.34.xip.io
+$ aws s3 --endpoint-url https://p-riakcs.10.244.0.34.xip.io cp my-local-file s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
+$ aws s3 --endpoint-url https://p-riakcs.10.244.0.34.xip.io ls s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
+2015-09-29 15:57:16   23808604 my-local-file
 ```
+**Note**: If running Cloud Foundry with self-signed SSL certificates, you'll need to provide the `--no-verify-ssl` option to the `aws` command. This will produce some ugly errors, but should function normally.
 
 ##<a id='fog'></a>fog
 
