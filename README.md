@@ -225,7 +225,7 @@ Changes are only applied to new application containers; in order for an existing
 
 ## De-registering the broker
 
-The following commands are destructive and are intended to be run in conjuction with deleting your BOSH deployment.
+The following commands are destructive and are intended to be run in conjunction with deleting your BOSH deployment.
 
 ### Using BOSH errands
 
