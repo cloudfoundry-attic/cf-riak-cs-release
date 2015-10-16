@@ -17,27 +17,20 @@ NO_COLOR='\033[0m'
 CONFIG_LOCATION=${CONFIG_LOCATION:-${RELEASE_DIR}/integration-config.json}
 echo -e "Creating config file at ${INFO_COLOR}${CONFIG_LOCATION}${NO_COLOR}..."
 
-DOMAIN=${DOMAIN:-10.244.0.34}
-
-# If a file exists with an api-address, use that instead
-if [ -f ${WORKSPACE_DIR}/api-address ]; then
-  API_ADDRESS=$( cat ${WORKSPACE_DIR}/api-address )
-  echo -e "WARNING: Found API address file at ${INFO_COLOR}${WORKSPACE_DIR}/api-address${NO_COLOR} - using ${INFO_COLOR}${API_ADDRESS}${NO_COLOR} instead of ${INFO_COLOR}${DOMAIN}${NO_COLOR}"
-  DOMAIN=${API_ADDRESS}
-fi
+DOMAIN=${DOMAIN:-bosh-lite.com}
 
 cat > ${CONFIG_LOCATION} <<EOF
 
 {
-  "api":                 "api.${DOMAIN}.xip.io",
+  "api":                 "api.${DOMAIN}",
   "admin_user":          "admin",
   "admin_password":      "admin",
-  "apps_domain":         "${DOMAIN}.xip.io",
-  "riak_cs_host":        "p-riakcs.${DOMAIN}.xip.io",
+  "apps_domain":         "${DOMAIN}",
+  "riak_cs_host":        "p-riakcs.${DOMAIN}",
   "riak_cs_scheme" :     "https://",
   "service_name":        "p-riakcs",
   "plan_name":           "developer",
-  "broker_host":         "p-riakcs-broker.${DOMAIN}.xip.io",
+  "broker_host":         "p-riakcs-broker.${DOMAIN}",
   "timeout_scale":       1.0,
   "skip_ssl_validation": true
 }

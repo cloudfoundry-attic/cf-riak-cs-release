@@ -43,8 +43,8 @@ note your service-instance-id in the credentials, as above.
 An example command using the `aws-cli` on a bosh-lite with a cf-riak-cs deployment:
 
 ```
-$ aws s3 --endpoint-url https://p-riakcs.10.244.0.34.xip.io cp my-local-file s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
-$ aws s3 --endpoint-url https://p-riakcs.10.244.0.34.xip.io ls s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
+$ aws s3 --endpoint-url https://p-riakcs.bosh-lite.com cp my-local-file s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
+$ aws s3 --endpoint-url https://p-riakcs.bosh-lite.com ls s3://service-instance-e689c062-dee6-45d7-90fe-39e63256915f
 2015-09-29 15:57:16   23808604 my-local-file
 ```
 **Note**: If running Cloud Foundry with self-signed SSL certificates, you'll need to provide the `--no-verify-ssl` option to the `aws` command. This will produce some ugly errors, but should function normally.

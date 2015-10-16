@@ -15,7 +15,7 @@
         "app_guid": "app-guid-0",
         "service_instance_guid": "service-instance-guid-0",
         "credentials": {
-          "uri": "https://SOA8PUCTNVNAA5_GZB62:S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g%3D%3D@p-riakcs.10.244.0.34.xip.io/service-instance-service-instance-guid-0",
+          "uri": "https://SOA8PUCTNVNAA5_GZB62:S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g%3D%3D@p-riakcs.bosh-lite.com/service-instance-service-instance-guid-0",
           "access_key_id": "SOA8PUCTNVNAA5_GZB62",
           "secret_access_key": "S-kZjc6QJNJgUn9GHwB66k-cVUoqs_KXcsjA8g=="
         },

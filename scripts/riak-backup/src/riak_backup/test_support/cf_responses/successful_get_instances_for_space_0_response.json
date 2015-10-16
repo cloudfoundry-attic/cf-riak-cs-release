@@ -5,7 +5,7 @@
     {
       "guid": "app-guid-0",
       "urls": [
-        "asdf.10.244.0.34.xip.io"
+        "asdf.bosh-lite.com"
       ],
       "routes": [
         {
@@ -13,7 +13,7 @@
           "host": "asdf",
           "domain": {
             "guid": "6ee10eed-fcec-4250-a62a-3b9e00f07ac1",
-            "name": "10.244.0.34.xip.io"
+            "name": "bosh-lite.com"
           }
         }
       ],
