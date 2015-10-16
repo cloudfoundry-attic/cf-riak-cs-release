@@ -3,10 +3,6 @@ erlang/otp_src_R15B01.tar.gz:
   object_id: ec4d9eb6-e5e9-4c3f-898a-8915b09ed7ab
   sha: c6e1f2fad965deb3696184c1ee16472bcea2bf22
   size: 75592537
-git/git-1.8.4.tar.gz:
-  object_id: b5ca56c0-0753-4ee3-bc27-efe3361d04f3
-  sha: a238f2b527365b896b8ec447b3e5ab5d7b4a2c5a
-  size: 4657745
 ruby/yaml-0.1.5.tar.gz:
   object_id: c47ce236-6e27-45ed-90fd-79605fca276b
   sha: 8b78cb9f759c7d80db8a7328c0ebecfe34fde737

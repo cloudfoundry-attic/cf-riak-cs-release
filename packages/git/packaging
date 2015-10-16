@@ -1,14 +1,25 @@
 # abort script on any command that exit with a non zero value
 set -e
 
-tar xzf git/git-1.8.4.tar.gz
-
 export HOME=/home/vcap
 cp /var/vcap/packages/python/bin/python /usr/bin/python
 
+# Install autoconf
+tar xzf autoconf/autoconf-2.69.tar.gz
 (
-  cd git-1.8.4
+  cd autoconf-2.69
   ./configure --prefix=${BOSH_INSTALL_TARGET}
-  make -j 3
+  make
+  make install
+)
+
+export PATH=$PATH:${BOSH_INSTALL_TARGET}/bin
+
+tar xzf git/git-2.6.1.tar.gz
+(
+  cd git-2.6.1
+  make configure
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make all
   make install
 )
