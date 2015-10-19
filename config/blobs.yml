@@ -51,3 +51,11 @@ ruby/rubygems-2.4.8.tgz:
   object_id: f95895ae-f32c-4033-b1ec-0e200e316b99
   sha: 0db6b2f1cdd2267fe19f1f875057c2f2ce9f5696
   size: 447712
+autoconf/autoconf-2.69.tar.gz:
+  object_id: a049926c-d3d5-40a3-a717-f688b4314dec
+  sha: 562471cbcb0dd0fa42a76665acf0dbb68479b78a
+  size: 1927468
+git/git-2.6.1.tar.gz:
+  object_id: 30ac6e75-77b3-45d9-b84b-8114295fcb2c
+  sha: c6dc547d35a5f7968f83a701bded37ce223ccfa2
+  size: 5518933
