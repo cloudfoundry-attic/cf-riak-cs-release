@@ -1,0 +1,5 @@
+jobs:
+  - name: riak-cs
+    properties:
+      riak:
+        firewall_enabled: true

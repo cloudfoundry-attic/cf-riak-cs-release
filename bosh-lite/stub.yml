@@ -2,19 +2,19 @@
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
-  domain: 10.244.0.34.xip.io
+  domain: bosh-lite.com
   nats:
     machines:
     - 10.244.0.6
     user: nats
     password: nats
     port: 4222
-  app_domains: (( merge || ["10.244.0.34.xip.io"] ))
+  app_domains: (( merge || ["bosh-lite.com"] ))
   cf:
     <<: (( merge || nil ))
     admin_username: admin
     admin_password: admin
-    api_url: https://api.10.244.0.34.xip.io
+    api_url: https://api.bosh-lite.com
     skip_ssl_validation: true
   broker:
     name: p-riakcs

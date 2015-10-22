@@ -66,6 +66,7 @@ as you switch in and out of the directory.
   - [AWS](#aws)
   - [Deployment Manifest Stub Properties](#stub-properties)
 1. [Register the Service Broker](#register_broker)
+1. [Information about a deployed system](#deployed_system)
 
 ### Upload Release<a name="upload_release"></a>
 
@@ -161,6 +162,21 @@ To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-
   $ bosh deployment cf-riak-cs-aws.yml && bosh deploy
   ```
 
+#### OpenStack<a name="openstack"></a>
+
+1. Create a stub file called cf-riak-cs-openstack-stub.yml by copying and modifying the [sample_openstack_stub.yml](https://github.com/cloudfoundry/cf-riak-cs-release/blob/master/templates/sample_stubs/sample_openstack_stub.yml) in templates/sample_stubs.
+
+1. Generate the manifest:
+  ```
+  $ ./generate_deployment_manifest openstack cf-riak-cs-openstack-stub.yml > cf-riak-cs-openstack.yml
+  ```
+To tweak the deployment settings, you can modify the resulting file `cf-riak-cs-openstack.yml`. Eg you may have different names for resource flavours in your OpenStack deployment or you may need to explicitly specify a static IP for the service broker.
+
+1. To deploy:
+  ```
+  $ bosh deployment cf-riak-cs-openstack.yml && bosh deploy
+  ```
+
 #### Deployment Manifest Properties<a name="stub-properties"></a>
 
 Manifest properties are described in the `spec` file for each job; see [jobs](jobs).
@@ -200,7 +216,7 @@ To run the Riak CS acceptance tests, see the [acceptance tests docs](docs/accept
 
 ## Security Groups
 
-Since [cf-release](https://github.com/cloudfoundry/cf-release) v175, applications by default cannot to connect to IP addresses on the private network. This may prevents applications from connecting to the Riak CS service. As applications reach the Riak CS service through the router tier in cf-release, create a new security group for the IP configured for the load balancer balancing traffic across your cf-release routers. By default this will be the HAProxy job in cf-release.
+Since [cf-release](https://github.com/cloudfoundry/cf-release) v175, applications by default cannot to connect to IP addresses on the private network. This may prevent applications from connecting to the Riak CS service. As applications reach the Riak CS service through the router tier in cf-release, create a new security group for the IP configured for the load balancer balancing traffic across your cf-release routers. By default this will be the HAProxy job in cf-release.
 
 1. Add the rule to a file in the following json format; multiple rules are supported.
 
@@ -225,7 +241,7 @@ Changes are only applied to new application containers; in order for an existing
 
 ## De-registering the broker
 
-The following commands are destructive and are intended to be run in conjuction with deleting your BOSH deployment.
+The following commands are destructive and are intended to be run in conjunction with deleting your BOSH deployment.
 
 ### Using BOSH errands
 
@@ -289,3 +305,13 @@ The resulting `tar.gz` file can be found in the `package/` directory.
 TODO - verify where the `git`, and `erlang` tarfiles came from.
 
 [BOSH lite]: https://github.com/cloudfoundry/bosh-lite
+
+## Information about a deployed system<a name="deployed_system"></a>
+
+### Determine installed Riak and Riak-CS versions
+
+SSH onto one of the Riak nodes and run the following commands:
+```
+find /var/vcap/packages/riak/rel/releases/* -type d -printf "Riak Version: %f\n"
+find /var/vcap/packages/riak-cs/rel/releases/* -type d -printf "Riak CS Version: %f\n"
+```

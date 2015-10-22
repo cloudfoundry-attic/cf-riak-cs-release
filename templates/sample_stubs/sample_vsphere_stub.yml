@@ -1,5 +1,12 @@
 ---
 director_uuid: YOUR_DIRECTOR_GUID
+
+meta:
+  # Used as a prefix for the deployment name
+  #
+  # e.g. `environment: cf-tabasco` makes a deployment named cf-tabasco-riak-cs
+  environment: REPLACE_WITH_YOUR_ENVIRONMENT_NAME
+
 networks:
 - name: riak-cs1
   subnets:
@@ -19,9 +26,6 @@ networks:
       - 10.0.0.103
       - 10.0.0.104
       - 10.0.0.105
-
-meta:
-  environment: ENVIRONMENT
 
 properties:
   domain: YOUR_CF_SYSTEM_DOMAIN

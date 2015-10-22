@@ -1,0 +1,17 @@
+networks:
+- name: riak-cs1
+  type: manual
+  subnets:
+  - name: default_subnet
+    range: ((merge))
+    reserved: ((merge))
+    static: ((merge))
+    gateway: ((merge))
+    dns: ((merge))
+    cloud_properties:
+      security_groups: ((merge))
+      net_id: (( merge ))
+- name: compilation
+  type: dynamic
+  cloud_properties:
+    net_id: (( merge ))

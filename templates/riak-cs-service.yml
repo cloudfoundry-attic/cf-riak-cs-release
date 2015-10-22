@@ -1,4 +1,8 @@
 meta:
+  # override this in your stub to set the environment name,
+  # which is used as a prefix for the deployment name
+  #
+  # e.g. `environment: cf-tabasco` makes a deployment named cf-tabasco-riak-cs
   environment: ~
 
 name: (( meta.environment "-riak-cs" ))

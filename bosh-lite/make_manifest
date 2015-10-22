@@ -25,22 +25,12 @@ cp \
 DIRECTOR_IP=${DIRECTOR_IP:-192.168.50.4}
 API_ADDRESS=${API_ADDRESS:-10.244.0.34}
 
-# If a file exists with an api-address, use that instead
-if [ -f ${WORKSPACE_DIR}/api-address ]; then
-  API_ADDRESS=$( cat ${WORKSPACE_DIR}/api-address )
-  echo -e "WARNING: Found API address file at ${INFO_COLOR}${WORKSPACE_DIR}/api-address${NO_COLOR}
-    - using ${INFO_COLOR}${API_ADDRESS}${NO_COLOR} instead of ${INFO_COLOR}${DIRECTOR_IP}${NO_COLOR} for director IP
-    - and ${INFO_COLOR}${API_ADDRESS}.xip.io${NO_COLOR} instead of ${INFO_COLOR}10.244.0.34.xip.io${NO_COLOR} for API address"
-  DIRECTOR_IP=${API_ADDRESS}
-fi
-
 bosh -n target ${DIRECTOR_IP}
 bosh login admin admin
 DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
 echo $DIRECTOR_UUID
 
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml
-perl -pi -e "s/10.244.0.34.xip.io/${API_ADDRESS}.xip.io/g" bosh-lite/tmp/cf-riak-cs-stub-with-uuid.yml
 
 ${RELEASE_DIR}/generate_deployment_manifest \
   warden \

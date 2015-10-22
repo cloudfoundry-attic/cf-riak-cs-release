@@ -1,17 +1,10 @@
 director_uuid: YOUR_DIRECTOR_GUID
-
-meta:
-  # Used as a prefix for the deployment name
-  #
-  # e.g. `environment: cf-tabasco` makes a deployment named cf-tabasco-riak-cs
-  environment: REPLACE_WITH_YOUR_ENVIRONMENT_NAME
-
 # This example uses a 10.10.126.0/20 subnet.  Adjust to match what you actually have.
 networks:
   - name: riak-cs1
     type: manual
     subnets:
-    - name: default_unused
+    - name: default_subnet
       range: 10.10.128.0/20
       reserved:
         - 10.10.128.2 - 10.10.131.255
@@ -22,16 +15,11 @@ networks:
       dns:
         - 10.10.0.2
       cloud_properties:
-        security_groups:
-        - cf
-        subnet: YOUR_AWS_SERVICES_SUBNET_ID
-resource_pools:
-  - name: riak-pool
+        security_groups: YOUR_OPENSTACK_SECURITY_GROUPS
+        net_id: YOUR_OPENSTACK_SERVICES_NETWORK_ID
+  - name: compilation
     cloud_properties:
-      availability_zone: YOUR_PRIMARY_AZ_NAME
-  - name: broker-pool
-    cloud_properties:
-      availability_zone: YOUR_PRIMARY_AZ_NAME
+      net_id: YOUR_OPENSTACK_COMPILATION_NETWORK_ID
 
 properties:
   domain: YOUR_CF_SYSTEM_DOMAIN
@@ -57,6 +45,6 @@ properties:
     # credentials for Riak CS admin user
     admin_key: ADMIN-KEY
     admin_secret: ADMIN-SECRET
-  template_only:
-    aws:
-      availability_zone: SOME_AZ
+
+meta:
+  environment: ENVIRONMENT
