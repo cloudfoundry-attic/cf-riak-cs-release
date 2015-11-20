@@ -45,6 +45,10 @@ ENV PATH $PATH:/usr/local/go/bin
 RUN wget -O /tmp/spiff.zip https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip
 RUN unzip /tmp/spiff.zip -d /tmp/ && mv /tmp/spiff $GOPATH/bin/
 
+# Install jq 1.5
+RUN wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && \
+  chmod +x /usr/local/bin/jq
+
 # Add workspace directory
 RUN mkdir -p /root/workspace && ln -s /root/workspace /workspace
 
