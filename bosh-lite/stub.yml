@@ -2,7 +2,7 @@
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
-  domain: bosh-lite.com
+  domain: (( merge || "bosh-lite.com" ))
   nats:
     machines:
     - 10.244.0.6
