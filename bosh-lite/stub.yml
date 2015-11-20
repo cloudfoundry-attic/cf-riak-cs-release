@@ -14,7 +14,6 @@ properties:
     <<: (( merge || nil ))
     admin_username: admin
     admin_password: admin
-    api_url: https://api.bosh-lite.com
     skip_ssl_validation: true
   broker:
     name: p-riakcs
