@@ -8,6 +8,6 @@ files:
   - github.com/cloudfoundry-incubator/riakcs_ctrl/os_helper/*.go # gosub
   - github.com/cloudfoundry-incubator/riakcs_ctrl/os_helper/fakes/*.go # gosub
   - github.com/cloudfoundry-incubator/riakcs_ctrl/riakcs_start_manager/*.go # gosub
-  - github.com/fraenkel/candiedyaml/*.go # gosub
   - github.com/imdario/mergo/*.go # gosub
   - github.com/pivotal-cf-experimental/service-config/*.go # gosub
+  - gopkg.in/yaml.v2/*.go # gosub
