@@ -10,6 +10,7 @@ tar xf riak-cs/riak-cs-${RIAK_CS_VERSION}.tar.gz
 
 # Compile riak-cs
 cd riak-cs-${RIAK_CS_VERSION}
+patch -p0 < ../riak-cs-patches/webmachine-no-access-log-rotation.patch
 make rel
 
 # output is in rel/riak-cs

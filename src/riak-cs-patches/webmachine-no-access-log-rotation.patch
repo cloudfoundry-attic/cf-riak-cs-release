@@ -1,0 +1,42 @@
+--- ./deps/webmachine/src/webmachine_log.erl	2016-08-09 20:28:18.000000000 -0700
++++ ./deps/webmachine/src/webmachine_log.erl	2016-08-09 20:28:27.000000000 -0700
+@@ -140,12 +140,12 @@
+     DateHour = datehour(),
+     {log_open(FileName, DateHour), DateHour}.
+ 
+ %% @doc Open a new log file for writing
+ -spec log_open(string(), non_neg_integer()) -> file:io_device().
+-log_open(FileName, DateHour) ->
+-    LogName = FileName ++ suffix(DateHour),
++log_open(FileName, _) ->
++    LogName = FileName,
+     error_logger:info_msg("opening log file: ~p~n", [LogName]),
+     filelib:ensure_dir(LogName),
+     {ok, FD} = file:open(LogName, [read, write, raw]),
+     {ok, Location} = file:position(FD, eof),
+     fix_log(FD, Location),
+@@ -157,20 +157,14 @@
+     file:write(FD, lists:flatten(IoData)).
+ 
+ %% @doc Rotate a log file if the hour it represents
+ %% has passed.
+ -spec maybe_rotate(atom(), erlang:timestamp(), #state{}) -> #state{}.
+-maybe_rotate(Mod, Time, State) ->
+-    ThisHour = datehour(Time),
+-    if ThisHour == State#state.hourstamp ->
+-            State;
+-       true ->
+-            defer_refresh(Mod),
+-            log_close(Mod, State#state.filename, State#state.handle),
+-            Handle = log_open(State#state.filename, ThisHour),
+-            State#state{hourstamp=ThisHour, handle=Handle}
+-    end.
++maybe_rotate(Mod, _, State) ->
++    log_close(Mod, State#state.filename, State#state.handle),
++    Handle = log_open(State#state.filename, 0),
++    State#state{hourstamp=0, handle=Handle}.
+ 
+ %% @doc Convert numeric month value to the abbreviation
+ -spec month(1..12) -> string().
+ month(1) ->
+     "Jan";
