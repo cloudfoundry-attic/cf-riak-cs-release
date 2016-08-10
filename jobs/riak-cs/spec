@@ -29,6 +29,8 @@ templates:
 
   seed_buckets.sh.erb: bin/seed_buckets.sh
 
+  access_log_rotate: bin/access_log_rotate
+
 properties:
 
   stanchion.ip:

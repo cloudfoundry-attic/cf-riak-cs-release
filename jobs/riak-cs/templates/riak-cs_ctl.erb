@@ -46,6 +46,10 @@ case $1 in
     mkdir -p $LOG_DIR
     mkdir -p $STORE
 
+    # Set up "custom" log rotate deletion/gzip
+    cp "${JOB_DIR}/bin/access_log_rotate" /etc/cron.hourly/access_log_rotate
+    chmod +x /etc/cron.hourly/access_log_rotate
+
     # Put the config files in place
     cp $JOB_DIR/config/riak_cs.app.config /var/vcap/packages/riak-cs/rel/etc/app.config
 
