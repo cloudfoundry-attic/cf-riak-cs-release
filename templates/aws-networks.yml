@@ -10,5 +10,5 @@ networks:
     dns: ((merge))
     cloud_properties:
       security_groups:
-      - cf
+      - <<: (( merge ))
       subnet: (( merge ))
