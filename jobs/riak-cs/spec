@@ -36,8 +36,6 @@ properties:
   stanchion.ip:
     description: 'IP of the stanchion node'
 
-  riak.network:
-    description: 'The name of the network that the riak/riak-cs nodes run on (needed for the syslog aggregator)'
   riak.ips:
     description: 'IP addresses of riak nodes'
   riak.seed_node:
