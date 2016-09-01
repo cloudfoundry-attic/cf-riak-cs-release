@@ -1,7 +1,29 @@
+<%
+   def network_config
+     networks = spec.networks.marshal_dump
+     _, network = networks.find do |_name, network_spec|
+       network_spec.default
+     end
+
+     if !network
+       _, network = networks.first
+     end
+
+     if !network
+       raise "Could not determine IP via network spec: #{networks}"
+     end
+     network
+   end
+
+   def discover_external_ip
+     network_config.ip
+   end
+%>
+<% self_ip = discover_external_ip %>
+
 #!/bin/bash
 
-set -x # Print commands and their arguments as they are executed.
-set -e # exit immediately if a simple command exits with a non-zero status
+set -ex
 
 # Control script to start/stop ruby/rack riak-cs job on a BOSH controlled VM
 #
@@ -61,7 +83,7 @@ case $1 in
 
     cd $PACKAGE_DIR
 
-    IP_ADDR=<%= spec.networks.send(p('riak.network')).ip %>
+    IP_ADDR=<%= self_ip %>
 
     tee $CONFIG_FILE <<EOF
 ---

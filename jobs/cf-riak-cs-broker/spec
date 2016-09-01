@@ -24,8 +24,6 @@ properties:
     description: 'Basic Auth username for the service broker'
   broker.password:
     description: 'Basic Auth password for the service broker'
-  broker.network:
-    description: 'Name of the network the broker will get its IP address from'
 
   catalog.services:
     description: 'Services and plans offered by the broker'

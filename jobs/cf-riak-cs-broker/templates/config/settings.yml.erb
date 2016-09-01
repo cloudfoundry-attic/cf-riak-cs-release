@@ -1,3 +1,26 @@
+<%
+   def network_config
+     networks = spec.networks.marshal_dump
+     _, network = networks.find do |_name, network_spec|
+       network_spec.default
+     end
+
+     if !network
+       _, network = networks.first
+     end
+
+     if !network
+       raise "Could not determine IP via network spec: #{networks}"
+     end
+     network
+   end
+
+   def discover_external_ip
+     network_config.ip
+   end
+%>
+<% self_ip = discover_external_ip %>
+
 ---
 username: <%= p('broker.username') %>
 password: <%= p('broker.password') %>
@@ -54,7 +77,7 @@ message_bus_servers:
 - nats://<%= p('nats.user') %>:<%= p('nats.password') %>@<%= ip %>:<%= p('nats.port') %>
 <% end %>
 
-ip: <%= spec.networks.send(p('broker.network')).ip %>
+ip: <%= self_ip %>
 port: <%= p('broker.port') %>
 external_host: <%= p('external_broker_host') %>
 

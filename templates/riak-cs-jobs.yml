@@ -47,7 +47,6 @@ jobs:
     stanchion:
       ip: (( jobs.stanchion.networks.riak-cs1.static_ips.[0] ))
     riak:
-      network: (( jobs.[0].networks.[0].name ))
       ips: (( jobs.[0].networks.[0].static_ips ))
       seed_node: (( jobs.[0].networks.[0].static_ips.[0] ))
       firewall_enabled: (( merge ))
@@ -89,7 +88,6 @@ jobs:
     <<: (( merge || nil ))
     broker:
       port: ~
-      network: (( jobs.cf-riak-cs-broker.networks.riak-cs1.name ))
       name: (( .properties.broker.name ))
       host: (( .properties.external_broker_host ))
       username: (( .properties.broker.username ))
