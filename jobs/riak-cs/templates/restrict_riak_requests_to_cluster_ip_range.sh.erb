@@ -5,7 +5,7 @@ function add_rule_if_not_there() {
   criterion2=$2
   iptables_command=$3
 
-  iptables -L | grep $criterion1 | grep $criterion2 > /dev/null
+  iptables -n -L | grep $criterion1 | grep $criterion2 > /dev/null
   if [ "$?" != "0" ]; then
     `$iptables_command`
   fi
@@ -14,10 +14,15 @@ function add_rule_if_not_there() {
 # external Riak access
 <% (Array(p('riak_cs.ips')) + [p('stanchion.ip')]).each do |ip| %>
   add_rule_if_not_there <%= ip %> 8087 "iptables -A INPUT -p tcp --dport 8087 -s <%= ip %> -j ACCEPT"
-  add_rule_if_not_there <%= ip %> 8098 "iptables -A INPUT -p tcp --dport 8087 -s <%= ip %> -j ACCEPT"
+  add_rule_if_not_there <%= ip %> 8098 "iptables -A INPUT -p tcp --dport 8098 -s <%= ip %> -j ACCEPT"
 <% end %>
+# drop the drops, to handle cluster expansion properly
+iptables -D INPUT -p tcp --dport 8087 -j DROP
+iptables -D INPUT -p tcp --dport 8098 -j DROP
+
+# re-add the drops at the end
 add_rule_if_not_there DROP 8087 "iptables -A INPUT -p tcp --dport 8087 -j DROP"
-add_rule_if_not_there DROP 8098 "iptables -A INPUT -p tcp --dport 8087 -j DROP"
+add_rule_if_not_there DROP 8098 "iptables -A INPUT -p tcp --dport 8098 -j DROP"
 
 # intra-cluster Riak access
 <% (Array(p('riak.ips')) + ['127.0.0.1']).each do |ip| %>
@@ -25,6 +30,12 @@ add_rule_if_not_there DROP 8098 "iptables -A INPUT -p tcp --dport 8087 -j DROP"
   add_rule_if_not_there <%= ip %> 8099 "iptables -A INPUT -p tcp --dport 8099 -s <%= ip %> -j ACCEPT"
   add_rule_if_not_there <%= ip %> 6001:6100 "iptables -A INPUT -p tcp --dport 6001:6100 -s <%= ip %> -j ACCEPT"
 <% end %>
+# drop the drops, to handle cluster expansion properly
+iptables -D INPUT -p tcp --dport 4369 -j DROP
+iptables -D INPUT -p tcp --dport 8099 -j DROP
+iptables -D INPUT -p tcp --dport 6001:6100 -j DROP
+
+# re-add the drops at the end
 add_rule_if_not_there DROP 4369 "iptables -A INPUT -p tcp --dport 4369 -j DROP"
 add_rule_if_not_there DROP 8099 "iptables -A INPUT -p tcp --dport 8099 -j DROP"
 add_rule_if_not_there DROP 6001:6100 "iptables -A INPUT -p tcp --dport 6001:6100 -j DROP"
